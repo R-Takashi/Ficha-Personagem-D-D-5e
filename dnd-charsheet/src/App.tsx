@@ -1,29 +1,24 @@
 import React from 'react';
-import { createGlobalStyle } from 'styled-components';
 import './App.css';
 import Header from './components/Header';
 import TabNav from './components/TabNav';
 import Outlet from './components/Outlet';
+import styled from 'styled-components';
 
-const GlobalStyle = createGlobalStyle`
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Open Sans', sans-serif;
-}
+const AppContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  margin-top: 10px;
 `;
-
 
 function App() {
   return (
-    <div className="App">
-      <GlobalStyle />
+    <AppContainer>
       <Header />
       <TabNav />
       <Outlet />
-    </div>
+    </AppContainer>
   );
 }
 
