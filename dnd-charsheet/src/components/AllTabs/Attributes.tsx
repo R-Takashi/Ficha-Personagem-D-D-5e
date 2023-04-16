@@ -1,15 +1,8 @@
 import React, { useContext } from 'react'
 import AppContext from '../../Context/AppContext'
-import styled from 'styled-components';
+import styled from 'styled-components'
+import { AttributesS } from './Styles/AttributesS'
 
-
-const AtributesTabStyle = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  padding: 0;
-  margin: 0;
-`;
 
 const CardAttributeStyle = styled.div`
   display: flex;
@@ -44,19 +37,6 @@ const CardAttributeStyle = styled.div`
   }
 `;
 
-const ContainerCardsAttribute = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  width: 100%;
-`;
-
-const ContainerStatus = styled.div`
-  display: flex;
-  flex-direction: wrap;
-  justify-content: space-around;
-  width: 100%;
-`;
 
 const CardStatus = styled.div`
   display: flex;
@@ -84,122 +64,12 @@ const CardStatus = styled.div`
   }
 `;
 
-const ContainerSkills = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  width: 100%;
-
-  h3 {
-    font-size: 1.2rem;
-  }
-
-  .strengthSkills {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    width: 120px;
-    height: 100px;
-    border: 1px solid black;
-    border-radius: 5px;
-    margin: 10px;
-
-    div {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      width: 100%;
-      height: 30px;
-      margin: 5px;
-    }
-  }
-
-  .dexteritySkills {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    border: 1px solid black;
-    border-radius: 5px;
-    margin: 10px;
-
-    div {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      width: 100%;
-      height: 30px;
-      margin: 5px;
-    }
-  }
-
-  .intelligenceSkills {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    border: 1px solid black;
-    border-radius: 5px;
-    margin: 10px;
-
-    div {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      width: 100%;
-      height: 30px;
-      margin: 5px;
-    }
-  }
-
-  .wisdomSkills {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    border: 1px solid black;
-    border-radius: 5px;
-    margin: 10px;
-
-    div {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      width: 100%;
-      height: 30px;
-      margin: 5px;
-    }
-
-  }
-
-  .charismaSkills {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    border: 1px solid black;
-    border-radius: 5px;
-    margin: 10px;
-    
-    div {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      width: 100%;
-      height: 30px;
-      margin: 5px;
-    }
-  }
-
-`;
-
-
 type Attribute = {
   name: string,
   value: number,
   mod: number,
 };
+
 
 export default function Attributes() {
   const { 
@@ -255,44 +125,47 @@ export default function Attributes() {
   if (tab !== 'Atributos') return null;
 
   return (
-    <AtributesTabStyle>
-
-      <ContainerStatus>
-
-        <CardStatus>
-          <h3>Iniciativa</h3>
-          <p>{ attributes[1].mod }</p>
-        </CardStatus>
+    <AttributesS>
+      <section className='StatusBase1'>
 
         <CardStatus>
-          <h3>Vida</h3>
-          <p>Vida máxima: { lifePoints.max }</p>
-          <p>Vida atual: </p>
-          <input
-            name="lifePoints"
-            type="number"
-            value={ lifePoints.current }
-            onChange={ (e) => setLifePoints({ ...lifePoints, current: Number(e.target.value) }) }
-          />
-          <>Vida temporária: </>
-          <input
-            name="lifePointsTmp"
-            type="number"
-            value={ lifePoints.temp }
-            onChange={ (e) => setLifePoints({ ...lifePoints, temp: Number(e.target.value) }) }
-          />
-        </CardStatus>
+            <h3>Iniciativa</h3>
+            <p>{ attributes[1].mod }</p>
+          </CardStatus>
 
-        <CardStatus>
-          <h3>Deslocamento</h3>
-          <input
-            name="movement"
-            type="number"
-            value={ movement }
-            onChange={ (e) => setMovement(Number(e.target.value)) }
-          />
-          <p>Metros</p>
-        </CardStatus>
+          <CardStatus>
+            <h3>Vida</h3>
+            <p>Vida máxima: { lifePoints.max }</p>
+            <p>Vida atual: </p>
+            <input
+              name="lifePoints"
+              type="number"
+              value={ lifePoints.current }
+              onChange={ (e) => setLifePoints({ ...lifePoints, current: Number(e.target.value) }) }
+            />
+            <>Vida temporária: </>
+            <input
+              name="lifePointsTmp"
+              type="number"
+              value={ lifePoints.temp }
+              onChange={ (e) => setLifePoints({ ...lifePoints, temp: Number(e.target.value) }) }
+            />
+          </CardStatus>
+
+          <CardStatus>
+            <h3>Deslocamento</h3>
+            <input
+              name="movement"
+              type="number"
+              value={ movement }
+              onChange={ (e) => setMovement(Number(e.target.value)) }
+            />
+            <p>Metros</p>
+          </CardStatus>
+
+      </section>
+
+      <section className='StatusBase2'>
 
         <CardStatus>
           <h3>Bônus de proficiência</h3>
@@ -313,9 +186,14 @@ export default function Attributes() {
             onChange={ (e) => setLifePoints({ ...lifePoints, dice: e.target.value }) }
           />
         </CardStatus>
-      </ContainerStatus>
 
-      <ContainerCardsAttribute>
+        <CardStatus>
+          <h3>Sabedoria (Percepção)</h3>
+          <p>{ skills.wisdom[3].value + 10 }</p>
+        </CardStatus>
+      </section>
+
+      <section className='AttributesSection'>
         { attributes.map((attribute: Attribute) => (
           <CardAttributeStyle key={ attribute.name } >
             <h3>{ attribute.name }</h3>
@@ -328,12 +206,13 @@ export default function Attributes() {
             <p>{ attribute.mod }</p>
           </CardAttributeStyle>
         )) }
-      </ContainerCardsAttribute>
+      </section>
 
-      <ContainerSkills>
-        <h3>Perícias</h3>
+      <h3>Perícias</h3>
+      
+      <section className='SkillsSection'>
 
-        <div className='strengthSkills'>
+        <div className='CardSkill'>
           <h4>Força</h4>
           { skills.strength.map((skill: any) => (
             <div key={ skill.name }>
@@ -350,7 +229,7 @@ export default function Attributes() {
           )) }
         </div>
 
-        <div className='dexteritySkills'>
+        <div className='CardSkill'>
           <h4>Destreza</h4>
           { skills.dexterity.map((skill: any) => (
             <div key={ skill.name }>
@@ -366,7 +245,7 @@ export default function Attributes() {
           )) }
         </div>
 
-        <div className='intelligenceSkills'>
+        <div className='CardSkill'>
           <h4>Inteligência</h4>
           { skills.intelligence.map((skill: any) => (
             <div key={ skill.name }>
@@ -382,7 +261,7 @@ export default function Attributes() {
           )) }
         </div>
 
-        <div className='wisdomSkills'>
+        <div className='CardSkill'>
           <h4>Sabedoria</h4>
           { skills.wisdom.map((skill: any) => (
             <div key={ skill.name }>
@@ -398,7 +277,7 @@ export default function Attributes() {
           )) }
         </div>
         
-        <div className='charismaSkills'>
+        <div className='CardSkill'>
           <h4>Carisma</h4>
           { skills.charisma.map((skill: any) => (
             <div key={ skill.name }>
@@ -414,8 +293,8 @@ export default function Attributes() {
           )) }
         </div>
 
-      </ContainerSkills>
+      </section>
       
-    </AtributesTabStyle>
+    </AttributesS>
   )
 }

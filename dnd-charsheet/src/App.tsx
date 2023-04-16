@@ -10,6 +10,8 @@ const AppContainer = styled.div`
   flex-direction: column;
   padding: 10px;
   margin-top: 10px;
+  width: 100vw;
+  height: 100vh;
 `;
 
 function App() {

@@ -1,16 +1,6 @@
 import React, { useContext } from 'react'
 import AppContext from '../Context/AppContext'
-import styled from 'styled-components'
-
-const HeaderContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-  border-bottom: 1px solid black;
-  padding-bottom: 10px;
-`
+import { HeaderS } from './Styles/HeaderS'
 
 
 export default function Header() {
@@ -19,11 +9,10 @@ export default function Header() {
     race, setRace,
     classChar, setClassChar,
     level, setLevel,
-    experience, setExperience,
   } = useContext(AppContext) as any
 
   return (
-    <HeaderContainer>
+    <HeaderS>
       <div>
         <label htmlFor="name">Nome: </label>
         <input
@@ -54,7 +43,7 @@ export default function Header() {
         />
       </div>
 
-      <div>
+      <div className='Level'>
         <label htmlFor="level">Nível: </label>
         <input
           type="number"
@@ -64,16 +53,6 @@ export default function Header() {
         />
       </div>
 
-      <div>
-        <label htmlFor="experience">Experiência: </label>
-        <input
-          type="number"
-          name="experience"
-          value={experience}
-          onChange={(e) => setExperience(e.target.value)}
-        />
-      </div>
-
-    </HeaderContainer>
+    </HeaderS>
   )
 }

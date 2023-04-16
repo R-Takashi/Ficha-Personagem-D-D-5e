@@ -65,34 +65,19 @@ export default function AppProvider({ children }) {
   useEffect(() => {
     const updateSkills = {
       strength: skills.strength.map((skill) => {
-        if (skill.prof === true) {
-          return { ...skill, value: attributes[0].mod + proficiencyBonus };
-        }
-        return { ...skill, value: attributes[0].mod };
+        return skill.prof ? { ...skill, value: attributes[0].mod + proficiencyBonus } : { ...skill, value: attributes[0].mod };
       }),
       dexterity: skills.dexterity.map((skill) => {
-        if (skill.prof === true) {
-          return { ...skill, value: attributes[1].mod + proficiencyBonus };
-        }
-        return { ...skill, value: attributes[1].mod };
+        return skill.prof ? { ...skill, value: attributes[1].mod + proficiencyBonus } : { ...skill, value: attributes[1].mod };
       }),
       intelligence: skills.intelligence.map((skill) => {
-        if (skill.prof === true) {
-          return { ...skill, value: attributes[3].mod + proficiencyBonus };
-        }
-        return { ...skill, value: attributes[3].mod };
+        return skill.prof ? { ...skill, value: attributes[3].mod + proficiencyBonus } : { ...skill, value: attributes[3].mod };
       }),
       wisdom: skills.wisdom.map((skill) => {
-        if (skill.prof === true) {
-          return { ...skill, value: attributes[4].mod + proficiencyBonus };
-        }
-        return { ...skill, value: attributes[4].mod };
+        return skill.prof ? { ...skill, value: attributes[4].mod + proficiencyBonus } : { ...skill, value: attributes[4].mod };
       }),
       charisma: skills.charisma.map((skill) => {
-        if (skill.prof === true) {
-          return { ...skill, value: attributes[5].mod + proficiencyBonus };
-        }
-        return { ...skill, value: attributes[5].mod };
+        return skill.prof ? { ...skill, value: attributes[5].mod + proficiencyBonus } : { ...skill, value: attributes[5].mod };
       })
     };
 
