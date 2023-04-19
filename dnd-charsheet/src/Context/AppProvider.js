@@ -11,12 +11,12 @@ export default function AppProvider({ children }) {
   const [level, setLevel] = useState(1);
   const [experience, setExperience] = useState(0);
   const [attributes, setAttributes] = useState([
-    { name: 'Força', value: 0, mod: -5 },
-    { name: 'Destreza', value: 0, mod: -5 },
-    { name: 'Constituição', value: 0, mod: -5 },
-    { name: 'Inteligência', value: 0, mod: -5 },
-    { name: 'Sabedoria', value: 0, mod: -5 },
-    { name: 'Carisma', value: 0, mod: -5 },
+    { name: 'Força', value: 0, mod: -5, save: -5, prof: false },
+    { name: 'Destreza', value: 0, mod: -5, save: -5, prof: false },
+    { name: 'Constituição', value: 0, mod: -5, save: -5, prof: false },
+    { name: 'Inteligência', value: 0, mod: -5, save: -5, prof: false },
+    { name: 'Sabedoria', value: 0, mod: -5, save: -5, prof: false },
+    { name: 'Carisma', value: 0, mod: -5, save: -5, prof: false },
   ]);
   const [proficiencyBonus, setProficiencyBonus] = useState(2);
   const [lifePoints, setLifePoints] = useState({
@@ -60,6 +60,10 @@ export default function AppProvider({ children }) {
   useEffect(() => {
     const bonus = Math.floor((level - 1) / 4) + 2;
     setProficiencyBonus(bonus);
+
+    const hitDice = `${level}d?`;
+    setLifePoints({ ...lifePoints, dice: hitDice });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [level]);
 
   useEffect(() => {
