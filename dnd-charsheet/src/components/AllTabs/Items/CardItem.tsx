@@ -95,7 +95,7 @@ export default function CardItem(props: TItemProps) {
         type='button'
         onClick={() => handleEditItem(index)}
       >
-        {toEdit ? 'Save' : 'Edit'}
+        {toEdit ? 'Salvar' : 'Editar'}
       </button>
 
       <button

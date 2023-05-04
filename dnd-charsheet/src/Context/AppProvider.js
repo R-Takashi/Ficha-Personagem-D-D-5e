@@ -64,6 +64,22 @@ export default function AppProvider({ children }) {
     copper: 0,
   });
   const [listItems, setListItems] = useState([]);
+  const [listSpells, setListSpells] = useState({
+    "Truques": [{
+      name: 'aaa',
+    }],
+    "1º": [{
+      name: 'bbb',
+    }],
+    "2º": [],
+    "3º": [],
+    "4º": [],
+    "5º": [],
+    "6º": [],
+    "7º": [],
+    "8º": [],
+    "9º": [],
+  });
 
   useEffect(() => {
     const bonus = Math.floor((level - 1) / 4) + 2;
@@ -113,6 +129,7 @@ export default function AppProvider({ children }) {
     skills, setSkills,
     currency, setCurrency,
     listItems, setListItems,
+    listSpells, setListSpells,
   };
 
 
