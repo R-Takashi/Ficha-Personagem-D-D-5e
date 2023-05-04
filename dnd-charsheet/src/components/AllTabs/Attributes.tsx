@@ -23,8 +23,6 @@ const CardAttributeStyle = styled.div`
     font-size: 1.2rem;
   }
 
-  
-
   div {
     display: flex;
     width: 100%;
@@ -36,10 +34,26 @@ const CardAttributeStyle = styled.div`
       
     }
 
-    .prof {
+    .SaveProf {
       width: 50%;
       display: flex;
       justify-content: space-around;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .CheckSave {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      width: 80%;
+    }
+
+    .Mod {
+      width: 50%;
+      display: flex;
+      justify-content: space-around;
+      flex-direction: column;
       align-items: center;
     }
   }
@@ -361,7 +375,7 @@ export default function Attributes() {
               onChange={ changeAttribute }
             />
             <div>
-              <p>
+              <p className='Mod'>
                 <span>Mod</span>
                 { attribute.mod > 0 ? 
                   <span>{` +${ attribute.mod }`}</span> : 
@@ -369,15 +383,16 @@ export default function Attributes() {
                 }
               </p>
 
-              <p className='prof'>
-                <span>Salvaguarda</span>
-                <label htmlFor={ attribute.name }>
-                  <input
-                    name={ attribute.name }
-                    type="checkbox"
-                    checked={ attribute.prof }
-                    onChange={ (e) => attributeSave(e) }
-                  />
+              <p className='SaveProf'>
+                <label htmlFor={ attribute.name } className='CheckSave'>
+                    <p>Salvaguarda</p>
+                      <input
+                        id={ attribute.name }
+                        name={ attribute.name }
+                        type="checkbox"
+                        checked={ attribute.prof }
+                        onChange={ (e) => attributeSave(e) }
+                      />
                 </label>
                 { attribute.save > 0 ?
                   <span>{` +${ attribute.save }`}</span> :
@@ -389,7 +404,7 @@ export default function Attributes() {
         )) }
       </section>
 
-      <h3>Perícias</h3>
+      <h3 className='TitleSkills'>Perícias</h3>
       
       <section className='SkillsSection'>
 
@@ -400,6 +415,7 @@ export default function Attributes() {
               <p>{ skill.name }</p>
               <p>{ skill.value }</p>
               <input
+                id={ skill.name }
                 name={ skill.name }
                 type="checkbox"
                 checked={ skill.prof }
@@ -417,6 +433,7 @@ export default function Attributes() {
               <p>{ skill.name }</p>
               <p>{ skill.value }</p>
               <input
+                id={ skill.name }
                 name={ skill.name }
                 type="checkbox"
                 checked={ skill.prof }
@@ -433,6 +450,7 @@ export default function Attributes() {
               <p>{ skill.name }</p>
               <p>{ skill.value }</p>
               <input
+                id={ skill.name }
                 name={ skill.name }
                 type="checkbox"
                 checked={ skill.prof }
@@ -449,6 +467,7 @@ export default function Attributes() {
               <p>{ skill.name }</p>
               <p>{ skill.value }</p>
               <input
+                id={ skill.name }
                 name={ skill.name }
                 type="checkbox"
                 checked={ skill.prof }
@@ -465,6 +484,7 @@ export default function Attributes() {
               <p>{ skill.name }</p>
               <p>{ skill.value }</p>
               <input
+                id={ skill.name }
                 name={ skill.name }
                 type="checkbox"
                 checked={ skill.prof }

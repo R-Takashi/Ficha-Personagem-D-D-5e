@@ -56,6 +56,14 @@ export default function AppProvider({ children }) {
       { name: 'Persuasão', value: attributes[5].mod, prof: false },
     ],
   });
+  const [currency, setCurrency] = useState({
+    platinum: 0,
+    gold: 0,
+    electrum: 0,
+    silver: 0,
+    copper: 0,
+  });
+  const [listItems, setListItems] = useState([]);
 
   useEffect(() => {
     const bonus = Math.floor((level - 1) / 4) + 2;
@@ -102,7 +110,9 @@ export default function AppProvider({ children }) {
     proficiencyBonus,
     lifePoints, setLifePoints,
     movement, setMovement,
-    skills, setSkills
+    skills, setSkills,
+    currency, setCurrency,
+    listItems, setListItems,
   };
 
 

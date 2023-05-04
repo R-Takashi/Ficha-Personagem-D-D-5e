@@ -9,6 +9,12 @@ export const AttributesS = styled.div`
   margin-bottom: 20px;
   width: 100vw;
 
+  .TitleSkills {
+    width: 100%;
+    text-align: center;
+    
+  }
+
   .StatusBase1 {
     display: grid;
     grid: "initiative hp speed" 1fr
