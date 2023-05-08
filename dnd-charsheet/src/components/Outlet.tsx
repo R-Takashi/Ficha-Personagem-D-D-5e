@@ -2,7 +2,7 @@ import React from 'react'
 import Attributes from './AllTabs/Attributes'
 import Items from './AllTabs/Items'
 import Spells from './AllTabs/Spells'
-import Skills from './AllTabs/Skills'
+import Traits from './AllTabs/Traits'
 import Notes from './AllTabs/Notes'
 
 export default function Outlet() {
@@ -11,7 +11,7 @@ export default function Outlet() {
       <Attributes />
       <Items />
       <Spells />
-      <Skills />
+      <Traits />
       <Notes />
     </div>
   )

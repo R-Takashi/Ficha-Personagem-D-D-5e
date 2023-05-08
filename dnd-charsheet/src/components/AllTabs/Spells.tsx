@@ -54,8 +54,6 @@ export default function Spells() {
         {spellListLevel.map((level: string) => (
           <SpellListLevel key={level} level={level} />
         ))}
-            
-        
       </section>
     </div>
   )

@@ -1,6 +1,9 @@
 import React, { useContext } from 'react'
 import AppContext from '../../../Context/AppContext'
 import styled from 'styled-components';
+import SpellDetails from './SpellDetails';
+import SpellForm from './SpellForm';
+
 
 const SpellListLevelS = styled.div`
   display: flex;
@@ -68,24 +71,10 @@ const SpellListLevelS = styled.div`
 export default function SpellListLevel(props: any) {
   const { level } = props;
   const { listSpells, setListSpells } = useContext(AppContext);
-  const [spell, setSpell] = React.useState({ 
-    name: '',
-    action: '',
-    duration: '',
-    range: '',
-    components: '',
-    description:'',
-  });
   const [showNewSpell, setShowNewSpell] = React.useState(false);
 
-  const handleNewSpell = () => {
-    if (showNewSpell) {
-      setListSpells({ ...listSpells, [level]: [...listSpells[level], spell] });
-      setSpell({ name: '', action: '', duration: '', range: '', components:'', description: '' });
-      setShowNewSpell(!showNewSpell);
-    }
-
-    setShowNewSpell(!showNewSpell);
+  const handleRemoveSpell = (index: number) => {
+    setListSpells({ ...listSpells, [level]: listSpells[level].filter((_: any, i: number) => i !== index) });
   };
 
   return (
@@ -106,90 +95,31 @@ export default function SpellListLevel(props: any) {
       
       <ul>
         {listSpells[level].map((spell: any, index: number) => (
-          <li key={index}>
-            <div className='Spell'>
-              <span>{spell.name}</span>
-              /
-              <span>{spell.action}</span>
-              /
-              <span>{spell.duration}</span>
-              /
-              <span>{spell.range}</span>
-              /
-              <span>{spell.components}</span>
-              /
-              <span>{spell.description}</span>
-            </div>
-          </li>
+          <SpellDetails
+            key={index}
+            index={index}
+            level={level}
+            removeSpell={() => handleRemoveSpell(index)}
+            {...spell}
+          />
         ))}
 
-        <li>
-
-          
+        <li>     
           <div className='NewSpell'>
           
-          {showNewSpell && (
-              <>
-                <label htmlFor='spellName'>Nome</label>
-                <input
-                  id='spellName'
-                  type='text'
-                  value={spell.name}
-                  onChange={(e) => setSpell({ ...spell, name: e.target.value })}
-                />
-    
-                <label htmlFor='spellAction'>Ação</label>
-                <input
-    
-                  id='spellAction'
-                  type='text'
-                  value={spell.action}
-                  onChange={(e) => setSpell({ ...spell, action: e.target.value })}
-                />
-    
-                <label htmlFor='spellDuration'>Duração</label>
-                <input
-                  id='spellDuration'
-                  type='text'
-                  value={spell.duration}
-                  onChange={(e) => setSpell({ ...spell, duration: e.target.value })}
-                />
-    
-                <label htmlFor='spellRange'>Alcance</label>
-                <input
-                  id='spellRange'
-                  type='text'
-                  value={spell.range}
-                  onChange={(e) => setSpell({ ...spell, range: e.target.value })}
-                />
-    
-                <label htmlFor='spellComponents'>Componentes</label>
-                <input
-                  id='spellComponents'
-                  type='text'
-                  value={spell.components}
-                  onChange={(e) => setSpell({ ...spell, components: e.target.value })}
-                />
-    
-                <label htmlFor='spellDescription'>Descrição</label>
-    
-                <textarea
-                  id='spellDescription'
-                  value={spell.description}
-                  onChange={(e) => setSpell({ ...spell, description: e.target.value })}
-                />
-              </>
+            {showNewSpell ? (
+
+              <SpellForm
+                level={level}
+                newSpell
+                saveSpell={() => setShowNewSpell(false)}
+              />
+
+            ) : (
+
+              <button onClick={() => setShowNewSpell(true)}>Novo</button>
+
             )}
-
-
-
-            <button
-              type='button'
-              onClick={() => handleNewSpell()}
-            >
-              {showNewSpell ? 'Nova Magia': 'Adicionar Magia'}
-            </button>
-
 
           </div>
         </li>
