@@ -80,6 +80,10 @@ export default function AppProvider({ children }) {
     "8º": [],
     "9º": [],
   });
+  const [listTraits, setListTraits] = useState([{ name: 'aaa', description: 'bbb' }]);
+  const [listLanguages, setListLanguages] = useState([]);
+  const [listProficiencies, setListProficiencies] = useState([]);
+
 
   useEffect(() => {
     const bonus = Math.floor((level - 1) / 4) + 2;
@@ -130,6 +134,9 @@ export default function AppProvider({ children }) {
     currency, setCurrency,
     listItems, setListItems,
     listSpells, setListSpells,
+    listTraits, setListTraits,
+    listLanguages, setListLanguages,
+    listProficiencies, setListProficiencies,
   };
 
 

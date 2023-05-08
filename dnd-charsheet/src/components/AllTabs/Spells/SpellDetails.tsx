@@ -18,7 +18,6 @@ export default function SpellDetails(props: any) {
               saveSpell={() => setToEdit(!toEdit)}
               editSpell
             />
-
           ) : (
             <>
               <span>{name}</span>
@@ -33,7 +32,9 @@ export default function SpellDetails(props: any) {
               /
               <span>{description}</span>
 
-              <button type='button' onClick={() => setToEdit(!toEdit)}>Editar</button>
+              <button type='button' onClick={() => setToEdit(!toEdit)}>
+                Editar
+              </button>
             </>
           )
         }
