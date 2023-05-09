@@ -83,6 +83,9 @@ export default function AppProvider({ children }) {
   const [listTraits, setListTraits] = useState([{ name: 'aaa', description: 'bbb' }]);
   const [listLanguages, setListLanguages] = useState([]);
   const [listProficiencies, setListProficiencies] = useState([]);
+  const [listWeapons, setListWeapons] = useState([]);
+  const [listSkills, setListSkills] = useState([]);
+  const [resources, setResources] = useState([]);
 
 
   useEffect(() => {
@@ -137,6 +140,9 @@ export default function AppProvider({ children }) {
     listTraits, setListTraits,
     listLanguages, setListLanguages,
     listProficiencies, setListProficiencies,
+    listWeapons, setListWeapons,
+    listSkills, setListSkills,
+    resources, setResources,
   };
 
 

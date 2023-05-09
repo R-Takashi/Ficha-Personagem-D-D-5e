@@ -22,6 +22,7 @@ export default function Traits() {
           listTrait={listLanguages}
           setListTrait={setListLanguages}
           title='Idiomas'
+          type='languages'
         />
       </div>
 
@@ -29,7 +30,8 @@ export default function Traits() {
         <ListTrait
           listTrait={listProficiencies}
           setListTrait={setListProficiencies}
-          title='Outras Proficiências' 
+          title='Outras Proficiências'
+          type='proficiencies' 
         />
       </div>
         

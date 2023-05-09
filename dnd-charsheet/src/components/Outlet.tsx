@@ -4,6 +4,8 @@ import Items from './AllTabs/Items'
 import Spells from './AllTabs/Spells'
 import Traits from './AllTabs/Traits'
 import Notes from './AllTabs/Notes'
+import Weapons from './AllTabs/Weapons'
+
 
 export default function Outlet() {
   return (
@@ -13,6 +15,7 @@ export default function Outlet() {
       <Spells />
       <Traits />
       <Notes />
+      <Weapons />
     </div>
   )
 }

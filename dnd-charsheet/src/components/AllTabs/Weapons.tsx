@@ -1,0 +1,52 @@
+import React, { useContext } from 'react'
+import AppContext from '../../Context/AppContext'
+import WeaponForm from './Weapons/WeaponForm'
+import CardWeapon from './Weapons/CardWeapon'
+
+
+export default function Notes() {
+  const { tab, listWeapons, setListWeapons } = useContext(AppContext);
+  const [newWeapon, setNewWeapon] = React.useState(false);
+  
+  const handleRemoveWeapon = (index: number) => {
+    const updatedList = [...listWeapons];
+    updatedList.splice(index, 1);
+    setListWeapons(updatedList);
+  }
+
+
+  if (tab !== 'Armas') return null;
+
+  return (
+    <div>
+      <h1>Armas & combate</h1>
+
+      <div>
+        <h2>Armas</h2>
+        
+        <ul>
+          {listWeapons.map((weapon: any, index: number) => (
+            <CardWeapon
+              key={index}
+              index={index}
+              {...weapon}
+              removeWeapon={handleRemoveWeapon}
+            />
+          ))}
+        </ul>
+
+        <button onClick={() => setNewWeapon(!newWeapon)}>
+          {newWeapon ? 'Cancelar' : 'Nova arma'}
+        </button>
+
+        {newWeapon && (
+          <WeaponForm
+            newWeapon
+            saveWeapon={() => setNewWeapon(false)}
+          />
+        )}
+      </div>
+
+    </div>
+  )
+}

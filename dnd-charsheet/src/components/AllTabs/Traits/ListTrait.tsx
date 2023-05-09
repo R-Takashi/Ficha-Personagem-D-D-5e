@@ -1,36 +1,16 @@
 import React from 'react'
+import CardTrait from './CardTrait'
+import TraitForm from './TraitForm';
 
 
 export default function ListTrait(props: any) {
-  const { title, listTrait, setListTrait } = props;
-  const [ toEdit, setToEdit ] = React.useState(false);
-  const [ editTrait, setEditTrait ] = React.useState('');
-  const [ trait, setTrait ] = React.useState('');
+  const { title, type, listTrait, setListTrait } = props;
+  const [ newTrait, setNewTrait ] = React.useState(false);
 
-  const addTrait = () => {
-    setListTrait([...listTrait, trait]);
-    setTrait('');
-  }
-
-  const removeTrait = (index: number) => {
-    setListTrait(listTrait.filter((_: any, i: number) => i !== index));
-  }
-
-  const handleEditTrait = (index: number) => {
-    if (toEdit) {
-      const updatedList = [...listTrait];
-      updatedList[index] = trait;
-
-      setListTrait(updatedList);
-
-      setEditTrait('');
-
-      return setToEdit(!toEdit);
-    }
-
-    setEditTrait(listTrait[index]);
-
-    return setToEdit(!toEdit);
+  const handleRemoveTrait = (index: number) => {
+    const updatedList = [...listTrait];
+    updatedList.splice(index, 1);
+    setListTrait(updatedList);
   }
 
 
@@ -38,41 +18,34 @@ export default function ListTrait(props: any) {
     <div>
       <h2>{title}</h2>
 
-      <div>
-        <ul>
-          {
-            listTrait?.map((trait: any, index: number) => (
-              <li key={index}>
-                <div>
-                  { toEdit ? (
-                    <input
-                      type='text'
-                      value={trait}
-                      onChange={(e) => setEditTrait(e.target.value)}
-                    />
-                  ) : (
-                    trait
-                  )}
-                </div>
-                  <button type='button' onClick={() => handleEditTrait(index)}>Editar</button>
-                  <button type='button' onClick={() => removeTrait(index)}>X</button>
-              </li>
-            ))
-          }
+      <ul>
+        {listTrait.map((trait: any, index: number) => (
+          <CardTrait
+            key={index}
+            index={index}
+            name={trait.name}
+            type={type}
+            removeTrait={() => handleRemoveTrait(index)}
+          />
+        ))}
 
-          <li>
-            <div>
-              <input
-                type='text'
-                value={trait}
-                onChange={(e) => setTrait(e.target.value)}
+        {
+          newTrait ? (
+            <li>
+              <TraitForm
+                type={type}
+                newTrait
+                saveTrait={() => setNewTrait(!newTrait)}
               />
-              <button type='button' onClick={addTrait}>Adicionar</button>
-            </div>
-          </li>
-        </ul>
-      </div>
+            </li>
+          ) : (
+            
+            <button type='button' onClick={() => setNewTrait(!newTrait)}>Adicionar</button>
+          )
 
+        }
+
+      </ul>
     </div>
   )
 }

@@ -11,6 +11,7 @@ const tabs = [
     'Atributos',
     'Itens',
     'Magias',
+    'Armas',
     'Características',
     'Notas',
 ]

@@ -2,9 +2,11 @@ import React from 'react'
 import TraitForm from './TraitForm';
 
 
-export default function CardTrait(props: any) {
-  const { name, removeTrait, type, index } = props;
+export default function CardGeneralTrait(props: any) {
+  const { name, description, removeTrait } = props;
+  const [showDescription, setShowDescription] = React.useState(false);
   const [toEdit, setToEdit] = React.useState(false);
+
 
   return (
     <li>
@@ -12,14 +14,21 @@ export default function CardTrait(props: any) {
         {
           toEdit ? (
             <TraitForm
-              type={type}
-              index={index}
-              editTrait
+              type='general'
+              index={props.index}
               saveTrait={() => setToEdit(!toEdit)}
+              editTrait
             />
           ) : (
             <>
               <span>{name}</span>
+              <button type='button' onClick={() => setShowDescription(!showDescription)}>+</button>
+                {
+                  showDescription && (
+                    <>
+                      <span>{description}</span>
+                    </>
+                )}
               <button type='button' onClick={() => setToEdit(!toEdit)}>Editar</button>
               <button type='button' onClick={removeTrait}>X</button>
             </>
