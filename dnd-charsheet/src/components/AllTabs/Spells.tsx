@@ -10,6 +10,7 @@ export default function Spells() {
   const [attributeSkill, setAttributeSkill] = React.useState('');
   const [spellDC, setSpellDC] = React.useState(0);
   const [spellBonus, setSpellBonus] = React.useState(0);
+  
 
   if (tab !== 'Magias') return null;
 
@@ -25,8 +26,8 @@ export default function Spells() {
           onChange={(e) => setAttributeSkill(e.target.value)}
         >
           <option value=''>Selecione</option>
-          {attributes.map((attribute:any, index: number) => (
-            <option key={attribute.name} value={index}>
+          {attributes.map((attribute:any) => (
+            <option key={attribute.name} value={attribute.mod}>
               {attribute.name}
             </option>
           ))}

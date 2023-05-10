@@ -1,8 +1,11 @@
 import React from 'react'
 import WeaponForm from './WeaponForm';
+import AppContext from '../../../Context/AppContext'
+
 
 export default function CardWeapon(props: any) {
-  const { index, name, damage, damageType, range, prof, removeWeapon } = props;
+  const { index, name, attackBonus, damage, damageType, range, prof, removeWeapon } = props;
+  const { proficiencyBonus, attributes } = React.useContext(AppContext);
   const [toEdit, setToEdit] = React.useState(false);
   const [showMoreInfo, setShowMoreInfo] = React.useState(false);
 
@@ -20,23 +23,51 @@ export default function CardWeapon(props: any) {
         ) : (
 
           <>
-            <span>{name}</span>
+            <p>
+              Arma: <span>{name}</span>
+            </p>
 
-            <label htmlFor='damage'>Dano</label>
-            <span>{damage}</span>
+            <p>
+              Bônus de ataque: {
+                  prof ? (
+                    <span>{attributes[attackBonus].mod + proficiencyBonus}</span>
+                  ) : (
+                    <span>{attributes[attackBonus].mod}</span>
+                  )
+                }
+            </p>
+
+            <p>
+              Dano: {
+                attributes[attackBonus].mod > 0 ? (
+                  <span>{damage} + {attributes[attackBonus].mod}</span>
+                ) : (
+                  <span>{damage} {attributes[attackBonus].mod}</span>
+                )
+              } 
+            </p>
+
+            <p>
+              Alcance: {
+                range === '' ? (
+                  <span>Corpo a corpo</span>
+                ) : (
+                  <span>{range}</span>
+                )
+              }
+            </p>
             
             <button type='button' onClick={() => setShowMoreInfo(!showMoreInfo)}>+</button>
             {
               showMoreInfo && (
                 <>
-                  <label htmlFor='damageType'>Tipo de dano</label>
-                  <span>{damageType}</span>
+                  <p>
+                    Tipo de dano: <span>{damageType}</span>
+                  </p>
 
-                  <label htmlFor='range'>Alcance</label>
-                  <span>{range}</span>
-
-                  <label htmlFor='prof'>Proficiente</label>
-                  <input type='checkbox' checked={prof} readOnly />
+                  <p>
+                    Proficiente: <span>{prof ? 'Sim' : 'Não'}</span>
+                  </p>
                 </>
               )
             }

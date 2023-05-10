@@ -5,11 +5,12 @@ import AppContext from '../../../Context/AppContext'
 export default function WeaponForm(props: any) {
   const { index=0, newWeapon=false, editWeapon=false, saveWeapon } = props;
 
-  const { listWeapons, setListWeapons } = useContext(AppContext);
+  const { listWeapons, setListWeapons, attributes } = useContext(AppContext);
 
   const [weapon, setWeapon] = React.useState({ 
-    name: '', 
-    damage: '', 
+    name: '',
+    attackBonus: 0,
+    damage: '',
     damageType: '', 
     range: '',
     prof: false,
@@ -25,7 +26,14 @@ export default function WeaponForm(props: any) {
   const handleSaveWeapon = () => {
     if (newWeapon) {
       setListWeapons([...listWeapons, weapon]);
-      setWeapon({ name: '', damage: '', damageType: '', range: '', prof: false });
+      setWeapon({ 
+        name: '',
+        attackBonus: 0,
+        damage: '',
+        damageType: '', 
+        range: '', 
+        prof: false,
+      });
 
       return saveWeapon();
     }
@@ -41,6 +49,9 @@ export default function WeaponForm(props: any) {
 
     return saveWeapon();
   };
+
+  console.log(weapon);
+  
 
 
   return (
@@ -61,6 +72,24 @@ export default function WeaponForm(props: any) {
         value={weapon.damage}
         onChange={(e) => setWeapon({ ...weapon, damage: e.target.value })}
       />
+
+      <label htmlFor='weaponAttackBonus'>Atributo</label>
+
+      <select
+        id='weaponAttackBonus'
+        value={weapon.attackBonus}
+        onChange={(e) => setWeapon({ ...weapon, attackBonus: Number(e.target.value) })}
+      >
+        <option value={0}>Selecione</option>
+        {
+          attributes.map((attribute: any, index: number) => (
+            <option key={attribute.name} value={index}>
+              {attribute.name}
+            </option>
+          ))
+        }
+
+      </select>
 
       <label htmlFor='weaponDamageType'>Tipo de dano</label>
       <input
