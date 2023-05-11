@@ -1,5 +1,18 @@
 import React from 'react'
 import AppContext from '../../../Context/AppContext';
+import styled from 'styled-components';
+
+const CardSkillS = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  margin: 1rem 0;
+  padding: 1rem;
+  border: 1px solid black;
+  border-radius: 5px;
+`;
 
 
 export default function CardSkill(props: any) {
@@ -7,16 +20,43 @@ export default function CardSkill(props: any) {
   const { listSkills, setListSkills, listResources, setListResources } = React.useContext(AppContext);
   const [showDescription, setShowDescription] = React.useState(false);
   const [toEdit, setToEdit] = React.useState(false);
+  const [editedSkill, setEditedSkill] = React.useState({
+    name: '',
+    description: '',
+    resourceDrain: '',
+  });
+
   const resource = listResources.findIndex((res: any) => res.name === listSkills[index].resource);
 
   const handleEdit = () => {
+    setEditedSkill({
+      name: listSkills[index].name,
+      description: listSkills[index].description,
+      resourceDrain: listSkills[index]?.resourceDrain,
+    });
     setToEdit(!toEdit);
     setShowDescription(!showDescription);
   }
 
+  const handleSave = () => {
+    const newList = [...listSkills];
+    const edited = listSkills[index].resource ? {
+      ...newList[index],
+      ...editedSkill
+    } : {
+      ...newList[index],
+      name: editedSkill.name,
+      description: editedSkill.description,
+    }
+
+    newList[index] = edited;
+    setListSkills(newList);
+    setToEdit(!toEdit);
+  }
+
 
   return (
-    <div>
+    <CardSkillS>
       <p>{listSkills[index].name}</p>
 
       {
@@ -38,11 +78,9 @@ export default function CardSkill(props: any) {
               <input
                 type='text'
                 id='name'
-                value={listSkills[index].name}
+                value={editedSkill.name}
                 onChange={(e) => {
-                  const newList = [...listSkills];
-                  newList[index].name = e.target.value;
-                  setListSkills(newList);
+                  setEditedSkill({ ...editedSkill, name: e.target.value });
                 }}
               />
             </label>
@@ -52,11 +90,9 @@ export default function CardSkill(props: any) {
               <input
                 type='text'
                 id='description'
-                value={listSkills[index].description}
+                value={editedSkill.description}
                 onChange={(e) => {
-                  const newList = [...listSkills];
-                  newList[index].description = e.target.value;
-                  setListSkills(newList);
+                  setEditedSkill({ ...editedSkill, description: e.target.value });
                 }}
               />
             </label>
@@ -69,20 +105,17 @@ export default function CardSkill(props: any) {
                     <input
                       type='number'
                       id='resourceDrain'
-                      value={listSkills[index].resourceDrain}
+                      value={editedSkill.resourceDrain}
                       onChange={(e) => {
-                        const newList = [...listSkills];
-                        newList[index].resourceDrain = Number(e.target.value);
-                        setListSkills(newList);
+                        setEditedSkill({ ...editedSkill, resourceDrain: e.target.value });
                       }}
                     />
                   </label>
-
                 </div>
               )
             }
 
-            <button type='button' onClick={handleEdit}>Salvar</button>
+            <button type='button' onClick={handleSave}>Salvar</button>
           </div>
         )
       }
@@ -111,6 +144,6 @@ export default function CardSkill(props: any) {
         )
       }
       
-    </div>
+    </CardSkillS>
   )
 }
