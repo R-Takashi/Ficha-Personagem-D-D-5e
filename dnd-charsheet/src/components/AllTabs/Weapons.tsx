@@ -1,7 +1,9 @@
 import React, { useContext } from 'react'
 import AppContext from '../../Context/AppContext'
-import WeaponForm from './Weapons/WeaponForm'
-import CardWeapon from './Weapons/CardWeapon'
+import WeaponForm from './Weapons&Combat/WeaponForm'
+import CardWeapon from './Weapons&Combat/CardWeapon'
+import ResourceSkill from './Weapons&Combat/ResourceSkill'
+import SkillList from './Weapons&Combat/SkillList'
 
 
 export default function Notes() {
@@ -20,6 +22,12 @@ export default function Notes() {
   return (
     <div>
       <h1>Armas & combate</h1>
+
+      <div>
+        <h2>Recursos</h2>
+
+        <ResourceSkill />
+      </div>
 
       <div>
         <h2>Armas</h2>
@@ -46,6 +54,15 @@ export default function Notes() {
           />
         )}
       </div>
+
+      <div>
+        <h2>Habilidades</h2>
+
+        <SkillList />
+
+      </div>
+
+      
 
     </div>
   )

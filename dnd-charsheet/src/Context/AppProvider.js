@@ -85,12 +85,18 @@ export default function AppProvider({ children }) {
   const [listProficiencies, setListProficiencies] = useState([]);
   const [listWeapons, setListWeapons] = useState([]);
   const [listSkills, setListSkills] = useState([]);
-  const [resources, setResources] = useState([]);
+  const [listResources, setListResources] = useState([
+    { name: 'Proficiencia Bonus', current: proficiencyBonus, max: proficiencyBonus },
+  ]);
 
 
   useEffect(() => {
     const bonus = Math.floor((level - 1) / 4) + 2;
     setProficiencyBonus(bonus);
+    const updateResources = listResources.map((resource) => {
+      return resource.name === 'Proficiencia Bonus' ? { ...resource, current: bonus, max: bonus } : resource;
+    });
+    setListResources(updateResources);
 
     const hitDice = `${level}d?`;
     setLifePoints({ ...lifePoints, dice: hitDice });
@@ -120,6 +126,11 @@ export default function AppProvider({ children }) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [attributes, proficiencyBonus]);
 
+  const resetResources = () => {
+    const updateResources = listResources.map((resource) => resource.current !== resource.max ? { ...resource, current: resource.max } : resource);
+    setListResources(updateResources);
+  };
+
 
   const contextValue = {
     tab, setTab,
@@ -142,7 +153,8 @@ export default function AppProvider({ children }) {
     listProficiencies, setListProficiencies,
     listWeapons, setListWeapons,
     listSkills, setListSkills,
-    resources, setResources,
+    listResources, setListResources,
+    resetResources,
   };
 
 
