@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import AppContext from '../../Context/AppContext'
 import WeaponForm from './Weapons&Combat/WeaponForm'
 import CardWeapon from './Weapons&Combat/CardWeapon'
-import ResourceSkill from './Weapons&Combat/ResourceSkill'
+import ResourceSkill from './Weapons&Combat/ResourceList'
 import SkillList from './Weapons&Combat/SkillList'
 
 

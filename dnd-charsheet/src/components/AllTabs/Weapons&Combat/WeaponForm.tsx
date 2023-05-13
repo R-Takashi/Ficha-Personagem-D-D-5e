@@ -49,10 +49,7 @@ export default function WeaponForm(props: any) {
 
     return saveWeapon();
   };
-
-  console.log(weapon);
   
-
 
   return (
     <div>

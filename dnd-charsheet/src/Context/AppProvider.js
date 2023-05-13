@@ -86,7 +86,7 @@ export default function AppProvider({ children }) {
   const [listWeapons, setListWeapons] = useState([]);
   const [listSkills, setListSkills] = useState([]);
   const [listResources, setListResources] = useState([
-    { name: 'Proficiencia Bonus', current: proficiencyBonus, max: proficiencyBonus },
+    { name: 'Proficiência Bonus', current: proficiencyBonus, max: proficiencyBonus },
   ]);
 
 
@@ -94,7 +94,7 @@ export default function AppProvider({ children }) {
     const bonus = Math.floor((level - 1) / 4) + 2;
     setProficiencyBonus(bonus);
     const updateResources = listResources.map((resource) => {
-      return resource.name === 'Proficiencia Bonus' ? { ...resource, current: bonus, max: bonus } : resource;
+      return resource.name === 'Proficiência Bonus' ? { ...resource, current: bonus, max: bonus } : resource;
     });
     setListResources(updateResources);
 

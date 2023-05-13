@@ -1,6 +1,8 @@
 import React from 'react'
 import AppContext from '../../../Context/AppContext';
 import styled from 'styled-components';
+import SkillForm from './SkillForm';
+
 
 const CardSkillS = styled.div`
   display: flex;
@@ -17,41 +19,51 @@ const CardSkillS = styled.div`
 
 export default function CardSkill(props: any) {
   const { index } = props;
-  const { listSkills, setListSkills, listResources, setListResources } = React.useContext(AppContext);
+  const { listSkills, listResources, setListResources } = React.useContext(AppContext);
+  const resource = listResources.findIndex((resource: any) => resource.name === listSkills[index].resource);
   const [showDescription, setShowDescription] = React.useState(false);
   const [toEdit, setToEdit] = React.useState(false);
-  const [editedSkill, setEditedSkill] = React.useState({
-    name: '',
-    description: '',
-    resourceDrain: '',
+  const [proficiencyResource, setProficiencyResource] = React.useState({
+    current: 0,
+    max: 0,
   });
 
-  const resource = listResources.findIndex((res: any) => res.name === listSkills[index].resource);
+  React.useEffect(() => {
+    const typeResource = listResources[resource].name;
+
+    if (typeResource === 'Proficiência Bonus') {
+      setProficiencyResource({
+        current: listResources[resource].current,
+        max: listResources[resource].max,
+      });
+    }
+  }, [listResources, resource]);
+
 
   const handleEdit = () => {
-    setEditedSkill({
-      name: listSkills[index].name,
-      description: listSkills[index].description,
-      resourceDrain: listSkills[index]?.resourceDrain,
-    });
-    setToEdit(!toEdit);
-    setShowDescription(!showDescription);
+    setToEdit(true);
+    setShowDescription(false);
   }
 
-  const handleSave = () => {
-    const newList = [...listSkills];
-    const edited = listSkills[index].resource ? {
-      ...newList[index],
-      ...editedSkill
-    } : {
-      ...newList[index],
-      name: editedSkill.name,
-      description: editedSkill.description,
+  const checkDisabled = () => {
+    if (listResources[resource].name === 'Proficiência Bonus') {
+      return Math.floor(proficiencyResource.current / listSkills[index].resourceDrain) === 0;
     }
 
-    newList[index] = edited;
-    setListSkills(newList);
-    setToEdit(!toEdit);
+    return Math.floor(listResources[resource].current / listSkills[index].resourceDrain) === 0;
+  }
+
+  const handleUseResource = () => {
+    if (listResources[resource].name === 'Proficiência Bonus') {
+      setProficiencyResource({
+        current: proficiencyResource.current -= listSkills[index].resourceDrain,
+        max: proficiencyResource.max,
+      });
+    } else {
+      const newList = [...listResources];
+      newList[resource].current -= listSkills[index].resourceDrain;
+      setListResources(newList);
+    }
   }
 
 
@@ -72,51 +84,11 @@ export default function CardSkill(props: any) {
 
       {
         toEdit && (
-          <div>
-            <label htmlFor='name'>
-              Nome
-              <input
-                type='text'
-                id='name'
-                value={editedSkill.name}
-                onChange={(e) => {
-                  setEditedSkill({ ...editedSkill, name: e.target.value });
-                }}
-              />
-            </label>
-
-            <label htmlFor='description'>
-              Descrição
-              <input
-                type='text'
-                id='description'
-                value={editedSkill.description}
-                onChange={(e) => {
-                  setEditedSkill({ ...editedSkill, description: e.target.value });
-                }}
-              />
-            </label>
-
-            {
-              listSkills[index].resource && (
-                <div>
-                  <label htmlFor='resourceDrain'>
-                    Dreno de Recurso
-                    <input
-                      type='number'
-                      id='resourceDrain'
-                      value={editedSkill.resourceDrain}
-                      onChange={(e) => {
-                        setEditedSkill({ ...editedSkill, resourceDrain: e.target.value });
-                      }}
-                    />
-                  </label>
-                </div>
-              )
-            }
-
-            <button type='button' onClick={handleSave}>Salvar</button>
-          </div>
+          <SkillForm
+            index={index}
+            editSkill
+            saveSkill={() => setToEdit(false)}
+          />
         )
       }
 
@@ -126,16 +98,19 @@ export default function CardSkill(props: any) {
         listSkills[index].resource && (
           <div>
             <span>Recurso: {listResources[resource].name}</span>
-            <p>Usos restantes: { Math.floor(listResources[resource].current / listSkills[index].resourceDrain) }</p>
+            <p>Usos restantes: { 
+              listResources[resource].name === 'Proficiência Bonus' ? (
+                proficiencyResource.current
+              ) : (
+                Math.floor(listResources[resource].current / listSkills[index].resourceDrain)
+              )
+            }
+             </p>
 
             <button
               type='button'
-              disabled={Math.floor(listResources[resource].current / listSkills[index].resourceDrain) === 0}
-              onClick={() => {
-                const newList = [...listResources];
-                newList[resource].current -= listSkills[index].resourceDrain;
-                setListResources(newList);
-              }
+              disabled={checkDisabled()}
+              onClick={() => handleUseResource()
             }
             >
               Usar
