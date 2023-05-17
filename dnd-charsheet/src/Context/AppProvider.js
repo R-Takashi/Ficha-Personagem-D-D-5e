@@ -89,6 +89,7 @@ export default function AppProvider({ children }) {
     { name: 'Proficiência Bonus', current: proficiencyBonus, max: proficiencyBonus },
   ]);
   const [bio, setBio] = useState({});
+  const [notes, setNotes] = useState({});
 
 
   useEffect(() => {
@@ -157,6 +158,7 @@ export default function AppProvider({ children }) {
     listResources, setListResources,
     resetResources,
     bio, setBio,
+    notes, setNotes,
   };
 
 
