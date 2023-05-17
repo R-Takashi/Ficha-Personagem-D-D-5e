@@ -5,6 +5,7 @@ import Spells from './AllTabs/Spells'
 import Traits from './AllTabs/Traits'
 import Notes from './AllTabs/Notes'
 import Weapons from './AllTabs/Weapons'
+import Biography from './AllTabs/Biography'
 
 
 export default function Outlet() {
@@ -16,6 +17,7 @@ export default function Outlet() {
       <Traits />
       <Notes />
       <Weapons />
+      <Biography />
     </div>
   )
 }

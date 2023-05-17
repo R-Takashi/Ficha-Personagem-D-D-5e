@@ -88,6 +88,7 @@ export default function AppProvider({ children }) {
   const [listResources, setListResources] = useState([
     { name: 'Proficiência Bonus', current: proficiencyBonus, max: proficiencyBonus },
   ]);
+  const [bio, setBio] = useState({});
 
 
   useEffect(() => {
@@ -155,6 +156,7 @@ export default function AppProvider({ children }) {
     listSkills, setListSkills,
     listResources, setListResources,
     resetResources,
+    bio, setBio,
   };
 
 

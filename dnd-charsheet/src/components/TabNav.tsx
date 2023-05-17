@@ -13,7 +13,8 @@ const tabs = [
     'Magias',
     'Armas',
     'Características',
-    'Notas',
+    'Biografia',
+    'Diário',
 ]
 
 export default function TabNav() {
