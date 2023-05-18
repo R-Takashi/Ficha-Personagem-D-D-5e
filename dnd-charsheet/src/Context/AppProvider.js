@@ -7,7 +7,7 @@ export default function AppProvider({ children }) {
   const [contentTab, setContentTab] = useState({});
   const [name, setName] = useState('');
   const [race, setRace] = useState('');
-  const [classChar, setClassChar] = useState('');
+  const [charClass, setCharClass] = useState([]);
   const [level, setLevel] = useState(1);
   const [experience, setExperience] = useState(0);
   const [attributes, setAttributes] = useState([
@@ -139,7 +139,7 @@ export default function AppProvider({ children }) {
     contentTab, setContentTab,
     name, setName,
     race, setRace,
-    classChar, setClassChar,
+    charClass, setCharClass,
     level, setLevel,
     experience, setExperience,
     attributes, setAttributes,

@@ -3,8 +3,8 @@ import AppContext from '../Context/AppContext'
 import { TabNavS } from './Styles/TabNavS'
 
 const selected = {
-  color: '#fff',
-  backgroundColor: 'black',
+  color: '#fdfef9',
+  border: '2px solid #c53131',
 }
 
 const tabs = [

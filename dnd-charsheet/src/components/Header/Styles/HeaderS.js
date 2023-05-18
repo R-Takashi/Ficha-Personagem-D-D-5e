@@ -12,6 +12,7 @@ export const HeaderS = styled.div`
   div {
     display: flex;
     align-items: center;
+    justify-content: space-around;
 
     label {
       margin-right: 10px;

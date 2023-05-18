@@ -16,6 +16,14 @@ const GlobalStyle = createGlobalStyle`
   width: auto;
   height: auto;
 }
+
+body {
+  background-color: #1f2024;
+  color: #fff;
+  width: 100%;
+  height: 100%;
+}
+
 `;
 
 const root = ReactDOM.createRoot(

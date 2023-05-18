@@ -1,57 +1,50 @@
 import React, { useContext } from 'react'
 import AppContext from '../Context/AppContext'
-import { HeaderS } from './Styles/HeaderS'
+import { HeaderS } from './Header/Styles/HeaderS'
+import HeaderForm from './Header/HeaderForm';
 
 
 export default function Header() {
   const {
-    name, setName,
-    race, setRace,
-    classChar, setClassChar,
-    level, setLevel,
-  } = useContext(AppContext) as any
+    name,
+    race,
+    charClass,
+    level
+  } = useContext(AppContext)
+
+  const [toEdit, setToEdit] = React.useState(false);
 
   return (
     <HeaderS>
-      <div>
-        <label htmlFor="name">Nome: </label>
-        <input
-          type="text"
-          name="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-      </div>
+      {
+        toEdit ? (
+          <HeaderForm
+            saveChar={() => setToEdit(!toEdit)}
+          />
+        ) : (
+          <div>
+            <h1>{name}</h1>
+            <p>{race}</p>
+            {
+              charClass.map((cClass: any) => (
+                <div key={cClass.name}>
+                  <p>{cClass.name}</p>
+                  <p>{cClass.level}</p>
+                </div>
+              ))
+            }
+            <p>{level}</p>
 
-      <div>
-        <label htmlFor="race">Raça: </label>
-        <input
-          type="text"
-          name="race"
-          value={race}
-          onChange={(e) => setRace(e.target.value)}
-        />
-      </div>
+            <button
+              type='button'
+              onClick={() => setToEdit(!toEdit)}
+            >
+              Editar
+            </button>
+          </div>
+        )
 
-      <div>
-        <label htmlFor="class">Classe: </label>
-        <input
-          type="text"
-          name="class"
-          value={classChar}
-          onChange={(e) => setClassChar(e.target.value)}
-        />
-      </div>
-
-      <div className='Level'>
-        <label htmlFor="level">Nível: </label>
-        <input
-          type="number"
-          name="level"
-          value={level}
-          onChange={(e) => setLevel(e.target.value)}
-        />
-      </div>
+      }
 
     </HeaderS>
   )

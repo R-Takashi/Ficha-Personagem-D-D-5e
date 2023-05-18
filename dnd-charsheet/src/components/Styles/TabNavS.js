@@ -25,7 +25,8 @@ export const TabNavS = styled.nav`
       border: 1px solid black;
       border-radius: 5px;
       padding: 5px 10px;
-      background-color: #f5f5f5;
+      background-color: #151618;
+      color: #979aa1;
     }
 
   }
