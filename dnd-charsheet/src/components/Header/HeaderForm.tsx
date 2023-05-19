@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import AppContext from '../../Context/AppContext'
 import CharClassForm from './CharClassForm';
+import { HeaderFormS } from './Styles/HeaderFormS'
 
 export default function HeaderForm(props: any) {
   const { saveChar } = props;
@@ -19,7 +20,6 @@ export default function HeaderForm(props: any) {
     level: 1,
   });
 
-
   const handleSave = () => {
     setName(char.name);
     setRace(char.race);
@@ -37,58 +37,68 @@ export default function HeaderForm(props: any) {
   }, []);
 
   return (
-    <>
-      <label htmlFor="name">Nome: </label>
-      <input
-        type="text"
-        name="name"
-        value={char.name}
-        onChange={(e) => setChar({ ...char, name: e.target.value })}
-      />
+    <HeaderFormS  >
 
-      <label htmlFor='race'>Raça: </label>
-      <input
-        type='text'
-        name='race'
-        value={char.race}
-        onChange={(e) => setChar({ ...char, race: e.target.value })}
-      />
+      <div className='InputHeader'>
+        <label htmlFor="name">Nome: </label>
+        <input
+          type="text"
+          name="name"
+          value={char.name}
+          onChange={(e) => setChar({ ...char, name: e.target.value })}
+        />
+      </div>
 
+      <div className='InputHeader'>
+        <label htmlFor='race'>Raça: </label>
+        <input
+          type='text'
+          name='race'
+          value={char.race}
+          onChange={(e) => setChar({ ...char, race: e.target.value })}
+        />
+      </div>
 
-      <label htmlFor='level'>Nível: </label>
-      <input
-        type='number'
-        name='level'
-        value={char.level}
-        onChange={(e) => setChar({ ...char, level: +e.target.value })}
-      />
+      <div className='InputHeader'>
+        <label htmlFor='level'>Nível: </label>
+        <input
+          type='number'
+          name='level'
+          value={char.level}
+          onChange={(e) => setChar({ ...char, level: +e.target.value })}
+        />
+      </div>
 
-      <button
-        type='button'
-        onClick={() => {
-          setEditClass(!editClass);
-        }}
-      >
-          Editar Classes
-      </button>
+      <div className='InputHeader'>
+        <label htmlFor='class'>Classes: </label>
+        <div className='ButtonClass'>
+          <button
+            type='button'
+            onClick={() => {
+              setNewClass(!newClass);
+            }}
+          >
+              {
+                newClass ? 'Cancelar' : charClass.length > 0 ? 'Nova Classe' : 'Adicionar Classe'
+              }
+          </button>
 
-      <button
-        type='button'
-        onClick={() => {
-          setNewClass(!newClass);
-        }}
-      >
-          Nova Classe
-      </button>
-
-      {
-        newClass && (
-          <CharClassForm
-            newClass
-            saveClass={() => setEditClass(!editClass)}
-          />
-        )
-      }
+          {
+            charClass.length > 0 && (
+              <button
+                type='button'
+                onClick={() => {
+                  setEditClass(!editClass);
+                }}
+              >
+                {
+                  editClass ? 'Cancelar Edição' : 'Editar Classe'
+                }
+              </button>
+            )
+          }
+        </div>
+      </div>
 
       {
         editClass ? (
@@ -112,6 +122,18 @@ export default function HeaderForm(props: any) {
       }
 
 
+
+      {
+        newClass && (
+          <CharClassForm
+            newClass
+            saveClass={() => setNewClass(!newClass)}
+          />
+        )
+      }
+
+
+
       <button
         type='button'
         onClick={() => {
@@ -123,6 +145,6 @@ export default function HeaderForm(props: any) {
           
 
 
-    </>
+    </HeaderFormS>
   )
 }

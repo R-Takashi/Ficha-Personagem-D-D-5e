@@ -17,6 +17,16 @@ const GlobalStyle = createGlobalStyle`
   height: auto;
 }
 
+:root {
+  --primary-color: #1f2024;
+  --secondary-color: #c53131;
+  --white: #fdfef9;
+  --font-size-small: 0.5rem;
+  --font-size-medium: 1.2rem;
+  --font-size-large: 1.5rem;
+}
+
+
 body {
   background-color: #1f2024;
   color: #fff;

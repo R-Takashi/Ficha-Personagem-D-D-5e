@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import AppContext from '../Context/AppContext'
-import { HeaderS } from './Header/Styles/HeaderS'
+// import { HeaderS } from './Header/Styles/HeaderS'
 import HeaderForm from './Header/HeaderForm';
 
 
@@ -15,9 +15,9 @@ export default function Header() {
   const [toEdit, setToEdit] = React.useState(false);
 
   return (
-    <HeaderS>
+    <>
       {
-        toEdit ? (
+        toEdit || name.length < 1 ? (
           <HeaderForm
             saveChar={() => setToEdit(!toEdit)}
           />
@@ -46,6 +46,6 @@ export default function Header() {
 
       }
 
-    </HeaderS>
+    </>
   )
 }

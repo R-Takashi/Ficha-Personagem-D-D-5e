@@ -1,5 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import AppContext from '../../Context/AppContext'
+import { CharClassFormS } from './Styles/CharClassFormS';
+
 
 export default function CharClassForm(props: any) {
   const { index=0, newClass=false, editClass=false, saveClass } = props;
@@ -40,7 +42,7 @@ export default function CharClassForm(props: any) {
 
 
   return (
-    <div>
+    <CharClassFormS>
       <label htmlFor='name'>Nome da classe: </label>
       <input
         type='text'
@@ -71,8 +73,14 @@ export default function CharClassForm(props: any) {
         )
       }
 
-      <button type='button' onClick={handleSave}>Salvar</button>
+      <button 
+        type='button' 
+        onClick={handleSave}
+        disabled={!charClassForm.name || !charClassForm.diceLife}
+      >
+        {newClass ? 'Adicionar Classe' : 'Salvar Classe'}
+      </button>
 
-    </div>
+    </CharClassFormS>
   )
 }
