@@ -87,13 +87,12 @@ export default function HeaderForm(props: any) {
             charClass.length > 0 && (
               <button
                 type='button'
+                className={`EditClass ${editClass && 'activeEdit'}`}
                 onClick={() => {
                   setEditClass(!editClass);
                 }}
               >
-                {
-                  editClass ? 'Cancelar Edição' : 'Editar Classe'
-                }
+                <img src='https://super.so/icon/light/settings.svg' alt='edit' />
               </button>
             )
           }
@@ -111,17 +110,34 @@ export default function HeaderForm(props: any) {
             />
           ))
         ) : (
-          charClass.map((charClass: any, index: number) => (
-            <div key={index}>
-              <p>{charClass.name}</p>
-              <p>{charClass.diceLife}</p>
-              <p>{charClass.level}</p>
-            </div>
-          ))
+          <>
+            { charClass.length > 0 && (
+              <div className='DisplayClass'>
+                <p>Classe: </p>
+                <p>Dado de Vida: </p>
+                <p>Nível: </p>
+              </div>
+            )
+
+            }
+
+            {
+              charClass.map((charClass: any, index: number) => (
+                <div 
+                  key={index}
+                  className='DisplayClass'
+                >
+                  <p>{charClass.name}</p>
+
+                  <p>{charClass.diceLife}</p>
+
+                  <p>{charClass.level}</p>
+                </div>
+              ))
+            }
+          </>
         )  
       }
-
-
 
       {
         newClass && (
@@ -131,8 +147,6 @@ export default function HeaderForm(props: any) {
           />
         )
       }
-
-
 
       <button
         type='button'

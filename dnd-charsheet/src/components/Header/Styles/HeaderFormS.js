@@ -6,7 +6,7 @@ export const HeaderFormS = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid var(--white);
   padding-bottom: 20px;
   margin-bottom: 20px;
   width: auto;
@@ -47,8 +47,35 @@ export const HeaderFormS = styled.div`
       align-items: center;
       justify-content: space-around;
       margin: 5px;
+
+      .EditClass {
+        border: none;
+        background-color: transparent;
+        width: 20%;
+        transition: 0.3s;
+      }
+
+      .activeEdit {
+        rotate: 75deg;
+        transition: 0.3s;
+      }
+
     }
     
+  }
+
+  .DisplayClass {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 5px;
+    flex-wrap: wrap;
+
+    p {
+      width: 30%;
+    }
+
   }
 
   button {
