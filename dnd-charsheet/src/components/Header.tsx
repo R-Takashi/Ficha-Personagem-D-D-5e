@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import AppContext from '../Context/AppContext'
-// import { HeaderS } from './Header/Styles/HeaderS'
+import { HeaderS } from './Header/Styles/HeaderS'
 import HeaderForm from './Header/HeaderForm';
 
 
@@ -22,26 +22,38 @@ export default function Header() {
             saveChar={() => setToEdit(!toEdit)}
           />
         ) : (
-          <div>
-            <h1>{name}</h1>
-            <p>{race}</p>
-            {
-              charClass.map((cClass: any) => (
-                <div key={cClass.name}>
-                  <p>{cClass.name}</p>
-                  <p>{cClass.level}</p>
-                </div>
-              ))
-            }
-            <p>{level}</p>
+          <HeaderS>
+            <div className='NameRace'>
+              <h1>{name}</h1>
+              <p>{race}</p>
+            </div>
+
+            <div className='ClassLevel'>
+              {
+                charClass.map((cClass: any, index: number) => (
+                  <div 
+                    key={cClass.name}
+                    className={index === 0 ? 'MainClass' : ''}
+                  >
+                    <p>{cClass.name} {cClass.level}</p>
+                  </div>
+                ))
+              }
+            </div>
+
+
+            <div className='Level'>
+              <p>Nível</p>
+              <p>{level}</p>
+            </div>
 
             <button
               type='button'
               onClick={() => setToEdit(!toEdit)}
             >
-              Editar
+              <img src='https://super.so/icon/light/settings.svg' alt='edit' />
             </button>
-          </div>
+          </HeaderS>
         )
 
       }

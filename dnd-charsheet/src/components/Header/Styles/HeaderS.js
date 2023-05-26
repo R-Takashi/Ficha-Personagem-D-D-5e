@@ -2,39 +2,57 @@ import styled from 'styled-components';
 
 export const HeaderS = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid black;
-  padding-bottom: 20px;
-  margin-bottom: 20px;
-  width: auto;
+  width: 100%;
+  height: 100px;
+  padding: 10px;
 
-  div {
+  .NameRace {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-around;
-
-    label {
-      margin-right: 10px;
+    justify-content: center;
+    
+    p {
+      color: #7a7d83
     }
+  }
 
-    input {
-      width: 200px;
-      height: 40px;
-      border: none;
-      border-bottom: 1px solid black;
-      text-align: center;
-      font-size: 1.2rem;
+  .ClassLevel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #7a7d83;
+
+    .MainClass {
+      color: var(--white)
     }
   }
 
   .Level {
-    input {
-      width: 50px;
-    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
 
-    input[type=number]::-webkit-inner-spin-button {
-      -webkit-appearance: none;
+  button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    position: relative;
+
+    img {
+      filter: invert(50%) sepia(9%) saturate(210%) hue-rotate(182deg) brightness(95%) contrast(91%);
+      transform: scale(0.8);
+      position: absolute;
+      bottom: 10px;
+      right: 2px;
+
     }
   }
+
+
 `;
