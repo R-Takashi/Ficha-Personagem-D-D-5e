@@ -57,7 +57,7 @@ export const TabNavS = styled.nav`
     position: absolute;
     top: 0;
     bottom: 0;
-    right: -10px;
+    right: -6px;
     width: 25px; /* Largura do gradiente de continuação */
     pointer-events: none;
     background: linear-gradient(to left, #1f2024, rgba(31, 32, 36, 0.9), rgba(31, 32, 36, 0.8), rgba(31, 32, 36, 0.7), transparent); /* Gradiente de continuação */
