@@ -7,6 +7,9 @@ export const HeaderS = styled.div`
   width: 100%;
   height: 100px;
   padding: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #7a7d83;
+  border-radius: 10px;
 
   .NameRace {
     display: flex;

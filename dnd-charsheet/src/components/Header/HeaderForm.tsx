@@ -20,12 +20,25 @@ export default function HeaderForm(props: any) {
     level: 1,
   });
 
+  const [isDisabled, setIsDisabled] = React.useState(true);
+
   const handleSave = () => {
     setName(char.name);
     setRace(char.race);
     setLevel(char.level);
-    saveChar();
+    return saveChar();
   }
+
+  useEffect(() => {
+    const checkForm = [
+      char.name.length > 0,
+      char.race.length > 0,
+      char.level > 0,
+      charClass.length > 0
+    ]
+
+    setIsDisabled(checkForm.includes(false));
+  }, [char, charClass]);
 
   useEffect(() => {
     setChar({
@@ -150,9 +163,8 @@ export default function HeaderForm(props: any) {
 
       <button
         type='button'
-        onClick={() => {
-          handleSave();
-        }}
+        disabled={isDisabled}
+        onClick={handleSave}
       >
         Salvar
       </button>

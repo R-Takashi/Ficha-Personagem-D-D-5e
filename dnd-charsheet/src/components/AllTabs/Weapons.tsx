@@ -17,7 +17,7 @@ export default function Notes() {
   }
 
 
-  if (tab !== 'Armas') return null;
+  if (tab !== 'Combate') return null;
 
   return (
     <div>

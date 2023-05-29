@@ -7,6 +7,7 @@ export const HeaderFormS = styled.div`
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid var(--white);
+  border-radius: 10px;
   padding-bottom: 20px;
   margin-bottom: 20px;
   width: auto;

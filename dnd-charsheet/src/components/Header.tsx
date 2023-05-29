@@ -41,7 +41,6 @@ export default function Header() {
               }
             </div>
 
-
             <div className='Level'>
               <p>Nível</p>
               <p>{level}</p>
