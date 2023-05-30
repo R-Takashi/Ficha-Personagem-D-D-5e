@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
-import AppContext from '../../Context/AppContext'
-import SpellListLevel from './Spells/SpellListLevel';
+import AppContext from '../../../Context/AppContext'
+import SpellListLevel from './SpellListLevel';
 
 const spellListLevel = ["Truques", "1º", "2º", "3º", "4º", "5º", "6º", "7º", "8º", "9º"];
 

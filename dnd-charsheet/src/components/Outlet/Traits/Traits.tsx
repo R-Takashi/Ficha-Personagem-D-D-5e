@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
-import AppContext from '../../Context/AppContext'
-import GeneralTraits from './Traits/GeneralTraits';
-import ListTrait from './Traits/ListTrait';
+import AppContext from '../../../Context/AppContext'
+import GeneralTraits from './GeneralTraits';
+import ListTrait from './ListTrait';
 
 
 export default function Traits() {

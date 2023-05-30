@@ -1,7 +1,8 @@
 import React, { useContext } from 'react'
-import AppContext from '../../Context/AppContext'
+import AppContext from '../../../Context/AppContext'
 import styled from 'styled-components'
-import { AttributesS } from './Styles/AttributesS'
+import { AttributesS } from '../Styles/AttributesS'
+import { StatusBase1 } from './Styles/StatusBase1'
 
 
 const CardAttributeStyle = styled.div`
@@ -214,12 +215,23 @@ export default function Attributes() {
     return setLifePoints(newLifePoints);
   };
 
+  const clearInputZero = (e: any, setValue: any) => {
+    for (let i = 0; i < e.target.value.length; i += 1) {
+      if (e.target.value[i] !== '0') {
+        e.target.value = e.target.value.slice(i);
+        break;
+      }
+    }
+
+    return setValue(Number(e.target.value));
+  }
+
 
   if (tab !== 'Atributos') return null;
 
   return (
     <AttributesS>
-      <section className='StatusBase1'>
+      <StatusBase1>
 
         <div className='Initiative'>
           <h3>Iniciativa</h3>
@@ -265,43 +277,78 @@ export default function Attributes() {
               </label>
             </>
           ) : (
-            <>
+            <div className='DisplayHP'>
               <span className='CurrentHP'>
                 { `${lifePoints.current} ` }
                 { lifePoints.temporary > 0 && `( + ${lifePoints.temporary}) ` }
                 / { lifePoints.max }
               </span>
 
-              <input
-                type="number"
-                value={ hpCurrent }
-                onChange={ (e) => setHpCurrent(Number(e.target.value)) }
-              />
+              <section className='InputHP'>
+                
+                <button
+                  type='button'
+                  onClick={ () => setHpCurrent(hpCurrent - 1) }
+                >
+                  -
+                </button>
 
-              <label>
+                <input
+                  type="number"
+                  value={ hpCurrent }
+                  onChange={ (e) => {
+                    clearInputZero(e, setHpCurrent)
+                  }}
+                />
+
+                <button
+                  type='button'
+                  onClick={ () => setHpCurrent(hpCurrent + 1) }
+                >
+                  +
+                </button>
+
+              </section>
+
+              <label 
+                htmlFor='DamageHP' 
+                className={
+                  `DmgHP ${ hpCurrentType === 'damage' ? 'Active' : '' }`
+                } >
                 <span>Dano</span>
                 <input
                   type="radio"
+                  id='DamageHP'
                   value="damage"
                   checked={ hpCurrentType === 'damage'}
                   onChange={ (e) => setHpCurrentType(e.target.value)}
-                />
+                  />
               </label>
 
-              <label>
+              <label 
+                htmlFor='HealHP' 
+                className={
+                  `HealHP ${ hpCurrentType === 'heal' ? 'Active' : '' }`
+                } >
                 <span>Cura</span>
                 <input
                   type="radio"
+                  id='HealHP'
                   value="heal"
                   checked={ hpCurrentType === 'heal'}
                   onChange={ (e) => setHpCurrentType(e.target.value)}
                 />
               </label>
 
-              <label>
+              <label 
+                htmlFor='TempHP' 
+                className={
+                  `TempHP ${ hpCurrentType === 'tempHP' ? 'Active' : '' }`
+                } >
                 <span>Temp HP</span>
               <input
                 type="radio"
+                id='TempHP'
                 value="tempHP"
                 checked={ hpCurrentType === 'tempHP'}
                 onChange={ (e) => setHpCurrentType(e.target.value)}
@@ -309,12 +356,13 @@ export default function Attributes() {
               </label>
 
               <button
+                className='SaveHP'
                 type="button"
                 onClick={ handleCurrentChange }
               >
                 Aplicar
               </button>
-            </>
+            </div>
           )}
         </div>
 
@@ -329,7 +377,7 @@ export default function Attributes() {
           <p>Metros</p>
         </div>
 
-      </section>
+      </StatusBase1>
 
       <section className='StatusBase2'>
 

@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
-import AppContext from '../../Context/AppContext'
-import WeaponForm from './Weapons&Combat/WeaponForm'
-import CardWeapon from './Weapons&Combat/CardWeapon'
-import ResourceSkill from './Weapons&Combat/ResourceList'
-import SkillList from './Weapons&Combat/SkillList'
+import AppContext from '../../../Context/AppContext'
+import WeaponForm from './WeaponForm'
+import CardWeapon from './CardWeapon'
+import ResourceSkill from './ResourceList'
+import SkillList from './SkillList'
 
 
 export default function Notes() {

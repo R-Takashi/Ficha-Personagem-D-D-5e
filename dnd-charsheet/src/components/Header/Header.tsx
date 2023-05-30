@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
-import AppContext from '../Context/AppContext'
-import { HeaderS } from './Header/Styles/HeaderS'
-import HeaderForm from './Header/HeaderForm';
+import AppContext from '../../Context/AppContext'
+import { HeaderS } from './Styles/HeaderS'
+import HeaderForm from './HeaderForm';
 
 
 export default function Header() {

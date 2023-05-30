@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
-import Header from './components/Header';
-import TabNav from './components/TabNav';
-import Outlet from './components/Outlet';
+import Header from './components/Header/Header';
+import TabNav from './components/Tabs/TabNav';
+import Outlet from './components/Outlet/Outlet';
 
 
 function App() {

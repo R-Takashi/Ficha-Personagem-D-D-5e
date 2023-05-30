@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
-import AppContext from '../../Context/AppContext'
+import AppContext from '../../../Context/AppContext'
 import styled from 'styled-components'
-import CardItem from './Items/CardItem';
+import CardItem from './CardItem';
 
 const ItemsS = styled.div`
   display: flex;

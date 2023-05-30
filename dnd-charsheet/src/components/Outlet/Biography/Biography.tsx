@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react'
-import AppContext from '../../Context/AppContext'
-import Appearence from './Biography/Appearence';
-import Personality from './Biography/Personality';
+import AppContext from '../../../Context/AppContext'
+import Appearence from './Appearence';
+import Personality from './Personality';
 
 
 export default function Biography() {

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
-import AppContext from '../../Context/AppContext'
-import BasicList from './Notes/BasicList';
+import AppContext from '../../../Context/AppContext'
+import BasicList from './BasicList';
 
 
 export default function Notes() {
