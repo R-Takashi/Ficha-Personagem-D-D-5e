@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import AppContext from '../../../Context/AppContext'
 import styled from 'styled-components'
 import { AttributesS } from '../Styles/AttributesS'
@@ -121,6 +121,8 @@ export default function Attributes() {
   const [hpCurrent, setHpCurrent] = React.useState(0);
   const [hpCurrentType, setHpCurrentType] = React.useState('damage');
   const [armorClass, setArmorClass] = React.useState(attributes[1].mod + 10);
+  const [lifeStatus, setLifeStatus] = React.useState({});
+  const [isDead, setIsDead] = React.useState(false);
 
 
   const changeAttribute = (e: any) => {
@@ -226,6 +228,35 @@ export default function Attributes() {
     return setValue(Number(e.target.value));
   }
 
+  useEffect(() => {
+    let color;
+
+    const percentage = Math.round((lifePoints.current / lifePoints.max) * 100);
+  
+    if (percentage >= 50) {
+      // Escala de amarelo a verde neon
+      color = `rgb(${Math.round(255 - (percentage - 50) * 5.1)}, 255, 0)`;
+    } else {
+      // Escala de vermelho a amarelo
+      color = `rgb(255, ${Math.round(percentage * 5.1)}, 0)`;
+    }
+
+    const style = { color, 'borderColor': color };
+
+    setLifeStatus(style);
+  }, [lifePoints]);
+
+  useEffect(() => {
+    const checkLife = Math.abs(lifePoints.current) >= lifePoints.max;
+
+    if (checkLife && lifePoints.current < 0) {
+      setIsDead(true);
+    } else {
+      setIsDead(false);
+    }
+
+  }, [lifePoints]);
+
 
   if (tab !== 'Atributos') return null;
 
@@ -278,10 +309,27 @@ export default function Attributes() {
             </>
           ) : (
             <div className='DisplayHP'>
-              <span className='CurrentHP'>
-                { `${lifePoints.current} ` }
-                { lifePoints.temporary > 0 && `( + ${lifePoints.temporary}) ` }
-                / { lifePoints.max }
+              <span 
+                className='CurrentHP'
+                style={ lifeStatus }
+              >
+                {
+                  isDead ? (
+                    <img src="https://img.icons8.com/emoji/48/000000/skull-emoji.png" alt="dead" />
+                  ) : (
+                    <>
+                    <span className='DispĺayCurrentHP'>
+                      { `${lifePoints.current} ` }
+                      / { lifePoints.max }
+                    </span>
+                    { lifePoints.temporary > 0 && (
+                      <span className='DisplayTempHP'>
+                        { `(+ ${lifePoints.temporary}) ` }
+                      </span>
+                    ) }
+                    </>
+                  )
+                }
               </span>
 
               <section className='InputHP'>

@@ -12,6 +12,8 @@ export const StatusBase1 = styled.div`
   
   h3 {
     text-align: center;
+    color: var(--white);
+    font-size: 2rem;
   }
   
   .HP {
@@ -32,13 +34,38 @@ export const StatusBase1 = styled.div`
       grid-gap: 0.5rem;
       margin: 0.5rem 0;
       padding: 0.5rem;
-
+      
       .CurrentHP {
         grid-area: current;
-        display: flex;
+        display: grid;
+        grid: 'HP TempHP' 1fr
+              / 3fr 1fr;
         align-items: center;
-        justify-content: center;
-        font-size: 1.5rem;
+        font-size: 2rem;
+        background-color: #151618;
+        border-left: 2px solid #7a7d83;
+        border-right: 2px solid #7a7d83;
+        border-radius: 10px;
+
+        img {
+          grid-area: HP;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-left: 60%;
+        }
+
+        .DispĺayCurrentHP {
+          grid-area: HP;
+          display: flex;
+          justify-content: center;
+          margin-left: 35%;
+        }
+
+        .DisplayTempHP {
+          grid-area: TempHP;
+          color: lightblue !important;
+        }
       }
       
       .InputHP {
@@ -47,11 +74,11 @@ export const StatusBase1 = styled.div`
         align-self: center;
         align-items: center;
         justify-content: center;
-
+        
         * {
-          background-color: transparent;
+        background-color: #151618;
         }
-
+        
         input {
           font-size: 1.5rem;
           text-align: center;
@@ -102,6 +129,7 @@ export const StatusBase1 = styled.div`
       .DmgHP.Active {
         border-color: var(--secondary-color);
         border-width: 2px;
+        background-color: #151618;
       }
       
       .HealHP {
@@ -119,6 +147,7 @@ export const StatusBase1 = styled.div`
       .HealHP.Active {
         border-color: lightgreen;
         border-width: 2px;
+        background-color: #151618;
       }
 
       .TempHP {
@@ -136,21 +165,20 @@ export const StatusBase1 = styled.div`
       .TempHP.Active {
         border-color: lightblue;
         border-width: 2px;
+        background-color: #151618;
       }
 
       .SaveHP {
         grid-area: save;
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
         font-size: 1.5rem;
         color: var(--white);
         border: none;
         border-radius: 10px;
-        height: 40px;
-        border-left: 1px solid #7a7d83;
-        border-right: 1px solid #7a7d83;
-        background-color: transparent;
+        border-left: 2px solid var(--secondary-color);
+        border-right: 2px solid var(--secondary-color);
+        background-color: #151618;
+        padding: 10px;
+        margin-top: 10px;
       }
     }
   }
