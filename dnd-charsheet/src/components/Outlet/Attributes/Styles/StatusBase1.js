@@ -15,25 +15,50 @@ export const StatusBase1 = styled.div`
     color: var(--white);
     font-size: 2rem;
   }
+
+  .TitleHP {
+    display: flex;
+    justify-content: space-between;
+    
+    h3 {
+      margin-left: auto;
+      width: 10%;
+    }
+    
+    button {
+      margin-left: auto;
+      border: none;
+      background-color: transparent;
+      transition: 0.3s;
+    }
+    
+  }
   
   .HP {
     grid-area: hp;
     border: 1px solid #7a7d83;
     border-radius: 10px;
     padding: 0.5rem;
-
-    .DisplayHP {
+    margin: 0.5rem;
+    
+    .DisplayHP{
+      display: grid;
       display: grid;
       grid: 'current current' 1fr
-            'input dmg' 1fr
-            'input heal' 1fr
-            'input temp' 1fr
-            'save save' 1fr
-            / 1fr 1fr;
-
+      / 1fr 1fr;
+      
       grid-gap: 0.5rem;
       margin: 0.5rem 0;
       padding: 0.5rem;
+      
+      &.EditHP {
+        grid: 'current current' 1fr
+        'input dmg' 1fr
+        'input heal' 1fr
+        'input temp' 1fr
+        'save save' 1fr
+        / 1fr 1fr;
+      }
       
       .CurrentHP {
         grid-area: current;
@@ -46,6 +71,7 @@ export const StatusBase1 = styled.div`
         border-left: 2px solid #7a7d83;
         border-right: 2px solid #7a7d83;
         border-radius: 10px;
+        padding: 0.8rem;
 
         img {
           grid-area: HP;
@@ -60,6 +86,18 @@ export const StatusBase1 = styled.div`
           display: flex;
           justify-content: center;
           margin-left: 35%;
+
+          input {
+            font-size: 2rem;
+            text-align: center;
+            width: 70px;
+            background-color: transparent;
+            border: none;
+
+            &:focus {
+              outline: none;
+            }
+          }
         }
 
         .DisplayTempHP {
@@ -181,6 +219,7 @@ export const StatusBase1 = styled.div`
         margin-top: 10px;
       }
     }
+
   }
 
   .Initiative {

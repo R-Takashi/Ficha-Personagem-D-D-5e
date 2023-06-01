@@ -217,7 +217,7 @@ export default function Attributes() {
     return setLifePoints(newLifePoints);
   };
 
-  const clearInputZero = (e: any, setValue: any) => {
+  const clearInputZero = (e: any, setValue: Function, isBase=false) => {
     for (let i = 0; i < e.target.value.length; i += 1) {
       if (e.target.value[i] !== '0') {
         e.target.value = e.target.value.slice(i);
@@ -225,8 +225,25 @@ export default function Attributes() {
       }
     }
 
+    if(isBase) return e.target.value
+
     return setValue(Number(e.target.value));
   }
+
+  const inputBaseHP = (e: any) => {
+    const { name } = e.target;
+    const newLifePoints = { ...lifePoints };
+
+    if (name === 'current') {
+      newLifePoints.current = clearInputZero(e, setHpCurrent, true);
+    } else if (name === 'max') {
+      newLifePoints.max = clearInputZero(e, setHpCurrent, true);
+    }
+
+    return setLifePoints(newLifePoints);
+  }
+
+
 
   useEffect(() => {
     let color;
@@ -270,148 +287,142 @@ export default function Attributes() {
         </div>
 
         <div className='HP'>
+
+          <div className='TitleHP'>
           
-          <h3 onClick={ () => setHpEdit(!hpEdit) }>
-            Vida
-          </h3>
+            <h3>
+              Vida
+            </h3>
 
-          { hpEdit ? (
-            <>
-              <label htmlFor="max">
-                <span>Vida máxima: </span>
-                <input
-                  name="max"
-                  type="number"
-                  value={ lifePoints.max }
-                  onChange={ (e) => setLifePoints({ ...lifePoints, max: Number(e.target.value) }) }
-                />
-              </label>
+            <button
+              className='EditHP'
+              type="button"
+              onClick={ () => setHpEdit(!hpEdit) }
+            >
+              <img src='https://super.so/icon/light/settings.svg' alt='editHP' />
+            </button>
 
-              <label htmlFor="current">
-                <span>Vida atual: </span>
-                <input
-                  name="current"
-                  type="number"
-                  value={ lifePoints.current }
-                  onChange={ (e) => setLifePoints({ ...lifePoints, current: Number(e.target.value) }) }
-                />
-              </label>
+          </div>
 
-              <label htmlFor="temp">
-                <span>Vida temporária: </span>
-                <input
-                  name="temp"
-                  type="number"
-                  value={ lifePoints.temporary }
-                  onChange={ (e) => setLifePoints({ ...lifePoints, temporary: Number(e.target.value) }) }
-                />
-              </label>
-            </>
-          ) : (
-            <div className='DisplayHP'>
-              <span 
-                className='CurrentHP'
-                style={ lifeStatus }
-              >
-                {
-                  isDead ? (
-                    <img src="https://img.icons8.com/emoji/48/000000/skull-emoji.png" alt="dead" />
-                  ) : (
-                    <>
+          
+          <div className={`DisplayHP ${hpEdit ? 'EditHP': '' }`}>
+            <span 
+              className='CurrentHP'
+              style={ lifeStatus }
+            >
+              {
+                isDead ? (
+                  <img src="https://img.icons8.com/emoji/48/000000/skull-emoji.png" alt="dead" />
+                ) : (
+                  <>
                     <span className='DispĺayCurrentHP'>
-                      { `${lifePoints.current} ` }
-                      / { lifePoints.max }
+                      <input
+                          name="current"
+                          type="number"
+                          style={ lifeStatus }
+                          value={ lifePoints.current }
+                          onChange={ (e) => inputBaseHP(e) }
+                        />
+                        /
+                      <input
+                        name="max"
+                        type="number"
+                        style={ lifeStatus }
+                        value={ lifePoints.max }
+                        onChange={ (e) => inputBaseHP(e) }
+                      />
                     </span>
                     { lifePoints.temporary > 0 && (
                       <span className='DisplayTempHP'>
                         { `(+ ${lifePoints.temporary}) ` }
                       </span>
                     ) }
-                    </>
-                  )
-                }
-              </span>
+                  </>
+                )
+              }
+            </span>
 
-              <section className='InputHP'>
-                
-                <button
-                  type='button'
-                  onClick={ () => setHpCurrent(hpCurrent - 1) }
-                >
-                  -
-                </button>
+            { hpEdit && (
+              <>
+                <section className='InputHP'>
+                  <button
+                    type='button'
+                    onClick={ () => setHpCurrent(hpCurrent - 1) }
+                  >
+                    -
+                  </button>
 
-                <input
-                  type="number"
-                  value={ hpCurrent }
-                  onChange={ (e) => {
-                    clearInputZero(e, setHpCurrent)
-                  }}
-                />
-
-                <button
-                  type='button'
-                  onClick={ () => setHpCurrent(hpCurrent + 1) }
-                >
-                  +
-                </button>
-
-              </section>
-
-              <label 
-                htmlFor='DamageHP' 
-                className={
-                  `DmgHP ${ hpCurrentType === 'damage' ? 'Active' : '' }`
-                } >
-                <span>Dano</span>
-                <input
-                  type="radio"
-                  id='DamageHP'
-                  value="damage"
-                  checked={ hpCurrentType === 'damage'}
-                  onChange={ (e) => setHpCurrentType(e.target.value)}
+                  <input
+                    type="number"
+                    value={ hpCurrent }
+                    onChange={ (e) => {
+                      clearInputZero(e, setHpCurrent)
+                    }}
                   />
-              </label>
 
-              <label 
-                htmlFor='HealHP' 
-                className={
-                  `HealHP ${ hpCurrentType === 'heal' ? 'Active' : '' }`
-                } >
-                <span>Cura</span>
-                <input
-                  type="radio"
-                  id='HealHP'
-                  value="heal"
-                  checked={ hpCurrentType === 'heal'}
-                  onChange={ (e) => setHpCurrentType(e.target.value)}
-                />
-              </label>
+                  <button
+                    type='button'
+                    onClick={ () => setHpCurrent(hpCurrent + 1) }
+                  >
+                    +
+                  </button>
+                </section>
 
-              <label 
-                htmlFor='TempHP' 
-                className={
-                  `TempHP ${ hpCurrentType === 'tempHP' ? 'Active' : '' }`
-                } >
-                <span>Temp HP</span>
-              <input
-                type="radio"
-                id='TempHP'
-                value="tempHP"
-                checked={ hpCurrentType === 'tempHP'}
-                onChange={ (e) => setHpCurrentType(e.target.value)}
-              />
-              </label>
+                <label 
+                  htmlFor='DamageHP' 
+                  className={
+                    `DmgHP ${ hpCurrentType === 'damage' ? 'Active' : '' }`
+                  } >
+                  <span>Dano</span>
+                  <input
+                    type="radio"
+                    id='DamageHP'
+                    value="damage"
+                    checked={ hpCurrentType === 'damage'}
+                    onChange={ (e) => setHpCurrentType(e.target.value)}
+                    />
+                </label>
 
-              <button
-                className='SaveHP'
-                type="button"
-                onClick={ handleCurrentChange }
-              >
-                Aplicar
-              </button>
-            </div>
-          )}
+                <label 
+                  htmlFor='HealHP' 
+                  className={
+                    `HealHP ${ hpCurrentType === 'heal' ? 'Active' : '' }`
+                  } >
+                  <span>Cura</span>
+                  <input
+                    type="radio"
+                    id='HealHP'
+                    value="heal"
+                    checked={ hpCurrentType === 'heal'}
+                    onChange={ (e) => setHpCurrentType(e.target.value)}
+                  />
+                </label>
+
+                <label 
+                  htmlFor='TempHP' 
+                  className={
+                    `TempHP ${ hpCurrentType === 'tempHP' ? 'Active' : '' }`
+                  } >
+                  <span>Temp HP</span>
+                  <input
+                    type="radio"
+                    id='TempHP'
+                    value="tempHP"
+                    checked={ hpCurrentType === 'tempHP'}
+                    onChange={ (e) => setHpCurrentType(e.target.value)}
+                  />
+                </label>
+
+                <button
+                  className='SaveHP'
+                  type="button"
+                  onClick={ handleCurrentChange }
+                >
+                  Aplicar
+                </button>
+              </>
+            )}
+          </div>
         </div>
 
         <div className='Speed'>
