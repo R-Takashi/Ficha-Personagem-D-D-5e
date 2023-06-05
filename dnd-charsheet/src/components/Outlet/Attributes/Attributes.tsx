@@ -1,104 +1,79 @@
 import React, { useContext, useEffect } from 'react'
 import AppContext from '../../../Context/AppContext'
-import styled from 'styled-components'
-import { AttributesS } from '../Styles/AttributesS'
-import { StatusBase1 } from './Styles/StatusBase1'
+import { AttributesS } from './Styles/AttributesS'
+import { StatusBase } from './Styles/StatusBase'
+import { CardStatus } from './Styles/CardStatus'
+import { CardAttr } from './Styles/CardAttr'
+import { AttributesSection } from './Styles/AttributesSection'
 
 
-const CardAttributeStyle = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: center;
-  border: 1px solid black;
-  border-radius: 5px;
-  width: 35%;
-  margin: 10px;
+// const CardAttributeStyle = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   flex-wrap: wrap;
+//   justify-content: space-around;
+//   align-items: center;
+//   border: 1px solid black;
+//   border-radius: 5px;
+//   width: 35%;
+//   margin: 10px;
 
-  @media (max-width: 768px) {
-    width: 100%;
-  }
+//   @media (max-width: 768px) {
+//     width: 100%;
+//   }
 
-  h3 {
-    font-size: 1.2rem;
-  }
+//   h3 {
+//     font-size: 1.2rem;
+//   }
 
-  div {
-    display: flex;
-    width: 100%;
-    justify-content: space-around;
-    align-items: center;
+//   div {
+//     display: flex;
+//     width: 100%;
+//     justify-content: space-around;
+//     align-items: center;
 
-    input[type=checkbox] {
-      width: 20px;
+//     input[type=checkbox] {
+//       width: 20px;
       
-    }
+//     }
 
-    .SaveProf {
-      width: 50%;
-      display: flex;
-      justify-content: space-around;
-      flex-direction: column;
-      align-items: center;
-    }
+//     .SaveProf {
+//       width: 50%;
+//       display: flex;
+//       justify-content: space-around;
+//       flex-direction: column;
+//       align-items: center;
+//     }
 
-    .CheckSave {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      width: 80%;
-    }
+//     .CheckSave {
+//       display: flex;
+//       justify-content: space-around;
+//       align-items: center;
+//       width: 80%;
+//     }
 
-    .Mod {
-      width: 50%;
-      display: flex;
-      justify-content: space-around;
-      flex-direction: column;
-      align-items: center;
-    }
-  }
+//     .Mod {
+//       width: 50%;
+//       display: flex;
+//       justify-content: space-around;
+//       flex-direction: column;
+//       align-items: center;
+//     }
+//   }
 
-  input {
-    width: 50px;
-    height: 40px;
-    border: 1px solid black;
-    border-radius: 5px;
-    text-align: center;
-    font-size: 1.2rem;
-  }
+//   input {
+//     width: 50px;
+//     height: 40px;
+//     border: 1px solid black;
+//     border-radius: 5px;
+//     text-align: center;
+//     font-size: 1.2rem;
+//   }
 
-  input[type=number]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-  }
-`;
-
-
-const CardStatus = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  text-align: center;
-  width: 120px;
-  height: 100px;
-  border: 1px solid black;
-  border-radius: 5px;
-  margin: 10px;
-
-  input {
-    width: 50px;
-    height: 40px;
-    border: 1px solid black;
-    border-radius: 5px;
-    text-align: center;
-    font-size: 1.2rem;
-  }
-
-  input[type=number]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-  }
-`;
+//   input[type=number]::-webkit-inner-spin-button {
+//     -webkit-appearance: none;
+//   }
+// `;
 
 type Attribute = {
   name: string,
@@ -127,11 +102,14 @@ export default function Attributes() {
 
   const changeAttribute = (e: any) => {
     const { name, value } = e.target;
+
+    const attributeValue = clearInputZero(e, setAttributes, true);
+
     const newAttributes = attributes.map((attribute: Attribute) => {
       if (attribute.name === name ) {
         return {
           ...attribute,
-          value: Number(value),
+          value: Number(attributeValue),
           mod: Math.floor((Number(value) - 10) / 2),
           save: Math.floor((Number(value) - 10) / 2),
         }
@@ -243,8 +221,6 @@ export default function Attributes() {
     return setLifePoints(newLifePoints);
   }
 
-
-
   useEffect(() => {
     let color;
 
@@ -279,13 +255,7 @@ export default function Attributes() {
 
   return (
     <AttributesS>
-      <StatusBase1>
-
-        <div className='Initiative'>
-          <h3>Iniciativa</h3>
-          <span>{ attributes[1].mod }</span>
-        </div>
-
+      <StatusBase>
         <div className='HP'>
 
           <div className='TitleHP'>
@@ -342,9 +312,11 @@ export default function Attributes() {
               }
             </span>
 
-            { hpEdit && (
-              <>
-                <section className='InputHP'>
+              {
+                hpEdit && (
+                  <>
+                <section className='InputHP'
+                  style={{opacity: `${ hpEdit ? '1' : '0'}`,}}>
                   <button
                     type='button'
                     onClick={ () => setHpCurrent(hpCurrent - 1) }
@@ -372,7 +344,12 @@ export default function Attributes() {
                   htmlFor='DamageHP' 
                   className={
                     `DmgHP ${ hpCurrentType === 'damage' ? 'Active' : '' }`
-                  } >
+                  }
+                  style={{
+                    opacity: `${ hpEdit ? '1' : '0'}`,
+                    
+                  }}
+                >
                   <span>Dano</span>
                   <input
                     type="radio"
@@ -387,7 +364,9 @@ export default function Attributes() {
                   htmlFor='HealHP' 
                   className={
                     `HealHP ${ hpCurrentType === 'heal' ? 'Active' : '' }`
-                  } >
+                  }
+                  style={{opacity: `${ hpEdit ? '1' : '0'}`}} 
+                >
                   <span>Cura</span>
                   <input
                     type="radio"
@@ -402,7 +381,9 @@ export default function Attributes() {
                   htmlFor='TempHP' 
                   className={
                     `TempHP ${ hpCurrentType === 'tempHP' ? 'Active' : '' }`
-                  } >
+                  }
+                  style={{opacity: `${ hpEdit ? '1' : '0'}`}}
+                >
                   <span>Temp HP</span>
                   <input
                     type="radio"
@@ -417,36 +398,19 @@ export default function Attributes() {
                   className='SaveHP'
                   type="button"
                   onClick={ handleCurrentChange }
+                  style={{opacity: `${ hpEdit ? '1' : '0'}`}}
                 >
                   Aplicar
                 </button>
-              </>
-            )}
+                  </>
+                )
+              }
+              
           </div>
         </div>
 
-        <div className='Speed'>
-          <h3>Movimento</h3>
-          <input
-            name="movement"
-            type="number"
-            value={ movement }
-            onChange={ (e) => setMovement(Number(e.target.value)) }
-          />
-          <p>Metros</p>
-        </div>
-
-      </StatusBase1>
-
-      <section className='StatusBase2'>
-
-        <CardStatus>
-          <h3>Bônus de proficiência</h3>
-          <p>{` + ${ proficiencyBonus } `}</p>
-        </CardStatus>
-
-        <CardStatus>
-          <h3>Classe de armadura</h3>
+        <CardStatus className='ArmorClass'>
+          <h3>Classe de Armadura</h3>
           <input
             name="armorClass"
             type="text"
@@ -455,7 +419,28 @@ export default function Attributes() {
           />
         </CardStatus>
 
-        <CardStatus>
+        <CardStatus className='Initiative'>
+          <h3>Iniciativa</h3>
+          <span>{ attributes[1].mod }</span>
+        </CardStatus>
+
+
+        <CardStatus className='Speed'>
+          <h3>Movimento</h3>
+          <input
+            name="movement"
+            type="number"
+            value={ movement }
+            onChange={ (e) => setMovement(Number(e.target.value)) }
+          />
+        </CardStatus>
+
+        <CardStatus className='BonusProficiency'>
+          <h3>Bônus de proficiência</h3>
+          <span>{` + ${ proficiencyBonus } `}</span>
+        </CardStatus>
+
+        <CardStatus className='DiceLife'>
           <h3>Dado de Vida</h3>
           <input
             name="lifeDice"
@@ -465,51 +450,56 @@ export default function Attributes() {
           />
         </CardStatus>
 
-        <CardStatus>
+        <CardStatus className='PassivePerception'>
           <h3>Percepção passiva</h3>
-          <p>{ skills.wisdom[3].value + 10 }</p>
+          <span>{ skills.wisdom[3].value + 10 }</span>
         </CardStatus>
-      </section>
+      </StatusBase>
 
-      <section className='AttributesSection'>
+      <AttributesSection>
         { attributes.map((attribute: Attribute) => (
-          <CardAttributeStyle key={ attribute.name } >
+          <CardAttr key={ attribute.name } >
             <h3>{ attribute.name }</h3>
             <input
               name={ attribute.name }
-              type="number" 
+              className={`${ attribute.value === 20 ? 'Maxed': ''} ${ attribute.mod < 0 ? 'Negative': ''}`}
+              type="number"
               value={ attribute.value }
-              onChange={ changeAttribute }
+              onChange={ (e) => changeAttribute(e) }
             />
-            <div>
-              <p className='Mod'>
-                <span>Mod</span>
+            
+            <div className='ModAttr'>
+              <span>Mod</span>
+              <div className='ValueDisplay'>
                 { attribute.mod > 0 ? 
                   <span>{` +${ attribute.mod }`}</span> : 
                   <span> { attribute.mod } </span>
                 }
-              </p>
+              </div>
+            </div>
 
-              <p className='SaveProf'>
-                <label htmlFor={ attribute.name } className='CheckSave'>
-                    <p>Salvaguarda</p>
-                      <input
-                        id={ attribute.name }
-                        name={ attribute.name }
-                        type="checkbox"
-                        checked={ attribute.prof }
-                        onChange={ (e) => attributeSave(e) }
-                      />
-                </label>
+            <div className='SaveAttr'>
+              <label htmlFor={ attribute.name } className={`CheckSave ${attribute.prof ? 'BonusProf': ''}`}>
+                  <span>Teste</span>
+                    <input
+                      id={ attribute.name }
+                      name={ attribute.name }
+                      type="checkbox"
+                      checked={ attribute.prof }
+                      onChange={ (e) => attributeSave(e) }
+                    />
+              </label>
+
+              <div className='ValueDisplay'>
                 { attribute.save > 0 ?
                   <span>{` +${ attribute.save }`}</span> :
                   <span> { attribute.save } </span>
                 }
-              </p>
+              </div>
             </div>
-          </CardAttributeStyle>
+          </CardAttr>
         )) }
-      </section>
+      </AttributesSection>
 
       <h3 className='TitleSkills'>Perícias</h3>
       

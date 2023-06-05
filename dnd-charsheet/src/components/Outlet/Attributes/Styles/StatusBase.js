@@ -1,11 +1,12 @@
 import styled from "styled-components";
 
-export const StatusBase1 = styled.div`
+export const StatusBase = styled.section`
   display: grid;
   grid: 'hp hp hp' 1fr
-        'ini ac speed' 1fr
+        'ac ini speed' 120px
+        'bprof dicel ppercep' 120px
         / 1fr 1fr 1fr;
-
+  align-items: center;
   grid-gap: 0.5rem;
   margin: 0.5rem 0;
   padding: 0.5rem;
@@ -39,25 +40,31 @@ export const StatusBase1 = styled.div`
     border: 1px solid #7a7d83;
     border-radius: 10px;
     padding: 0.5rem;
-    margin: 0.5rem;
-    
+
     .DisplayHP{
-      display: grid;
       display: grid;
       grid: 'current current' 1fr
       / 1fr 1fr;
-      
+      transition: 1s;
+      height:auto;
       grid-gap: 0.5rem;
       margin: 0.5rem 0;
       padding: 0.5rem;
+
+      transition: 1s;
       
       &.EditHP {
         grid: 'current current' 1fr
-        'input dmg' 1fr
-        'input heal' 1fr
-        'input temp' 1fr
-        'save save' 1fr
-        / 1fr 1fr;
+              'input dmg' 1fr
+              'input heal' 1fr
+              'input temp' 1fr
+              'save save' 1fr
+              / 1fr 1fr;
+
+        height: auto;
+
+        transition: 1s;
+
       }
       
       .CurrentHP {
@@ -72,6 +79,7 @@ export const StatusBase1 = styled.div`
         border-right: 2px solid #7a7d83;
         border-radius: 10px;
         padding: 0.8rem;
+        transition: 1s;
 
         img {
           grid-area: HP;
@@ -86,6 +94,7 @@ export const StatusBase1 = styled.div`
           display: flex;
           justify-content: center;
           margin-left: 35%;
+          color: #7a7d83;
 
           input {
             font-size: 2rem;
@@ -93,6 +102,7 @@ export const StatusBase1 = styled.div`
             width: 70px;
             background-color: transparent;
             border: none;
+            color: #7a7d83;
 
             &:focus {
               outline: none;
@@ -112,9 +122,11 @@ export const StatusBase1 = styled.div`
         align-self: center;
         align-items: center;
         justify-content: center;
+        transition: 1s;
         
         * {
         background-color: #151618;
+        transition: 1s;
         }
         
         input {
@@ -228,6 +240,22 @@ export const StatusBase1 = styled.div`
 
   .Speed {
     grid-area: speed;
+  }
+
+  .ArmorClass {
+    grid-area: ac;
+  }
+
+  .BonusProficiency {
+    grid-area: bprof;
+  }
+
+  .DiceLife {
+    grid-area: dicel;
+  }
+
+  .PassivePerception {
+    grid-area: ppercep;
   }
 
 `;
