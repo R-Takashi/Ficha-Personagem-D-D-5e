@@ -6,11 +6,8 @@ export const AttributesSection = styled.section`
   flex-wrap: wrap;
   justify-content: space-evenly;
   align-items: center;
-
   border-top: 1px solid #7a7d83;
   border-bottom: 1px solid #7a7d83;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 5px;
-
+  border-radius: 10px;
+  padding: 0.5rem 0;
 `;

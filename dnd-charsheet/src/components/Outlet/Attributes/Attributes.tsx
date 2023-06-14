@@ -1,79 +1,12 @@
 import React, { useContext, useEffect } from 'react'
 import AppContext from '../../../Context/AppContext'
+import SkillSection from './SkillSection'
 import { AttributesS } from './Styles/AttributesS'
 import { StatusBase } from './Styles/StatusBase'
 import { CardStatus } from './Styles/CardStatus'
 import { CardAttr } from './Styles/CardAttr'
 import { AttributesSection } from './Styles/AttributesSection'
 
-
-// const CardAttributeStyle = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   flex-wrap: wrap;
-//   justify-content: space-around;
-//   align-items: center;
-//   border: 1px solid black;
-//   border-radius: 5px;
-//   width: 35%;
-//   margin: 10px;
-
-//   @media (max-width: 768px) {
-//     width: 100%;
-//   }
-
-//   h3 {
-//     font-size: 1.2rem;
-//   }
-
-//   div {
-//     display: flex;
-//     width: 100%;
-//     justify-content: space-around;
-//     align-items: center;
-
-//     input[type=checkbox] {
-//       width: 20px;
-      
-//     }
-
-//     .SaveProf {
-//       width: 50%;
-//       display: flex;
-//       justify-content: space-around;
-//       flex-direction: column;
-//       align-items: center;
-//     }
-
-//     .CheckSave {
-//       display: flex;
-//       justify-content: space-around;
-//       align-items: center;
-//       width: 80%;
-//     }
-
-//     .Mod {
-//       width: 50%;
-//       display: flex;
-//       justify-content: space-around;
-//       flex-direction: column;
-//       align-items: center;
-//     }
-//   }
-
-//   input {
-//     width: 50px;
-//     height: 40px;
-//     border: 1px solid black;
-//     border-radius: 5px;
-//     text-align: center;
-//     font-size: 1.2rem;
-//   }
-
-//   input[type=number]::-webkit-inner-spin-button {
-//     -webkit-appearance: none;
-//   }
-// `;
 
 type Attribute = {
   name: string,
@@ -90,16 +23,27 @@ export default function Attributes() {
     tab, proficiencyBonus,
     lifePoints, setLifePoints,
     movement, setMovement,
-    skills, setSkills
-  } = useContext(AppContext);
+    skills } = useContext(AppContext);
   const [hpEdit, setHpEdit] = React.useState(false);
   const [hpCurrent, setHpCurrent] = React.useState(0);
   const [hpCurrentType, setHpCurrentType] = React.useState('damage');
   const [armorClass, setArmorClass] = React.useState(attributes[1].mod + 10);
   const [lifeStatus, setLifeStatus] = React.useState({});
   const [isDead, setIsDead] = React.useState(false);
-
-
+  
+  const clearInputZero = (e: any, setValue: Function, isBase=false) => {
+    for (let i = 0; i < e.target.value.length; i += 1) {
+      if (e.target.value[i] !== '0') {
+        e.target.value = e.target.value.slice(i);
+        break;
+      }
+    }
+  
+    if(isBase) return e.target.value
+  
+    return setValue(Number(e.target.value));
+  }
+  
   const changeAttribute = (e: any) => {
     const { name, value } = e.target;
 
@@ -147,31 +91,6 @@ export default function Attributes() {
 
     return setAttributes(newAttributes);
   }
-
-  const changeSkill = (e: any, listSkill: any, type: string) => {
-    const { name, checked } = e.target;
-    const newSkills = listSkill.map((skill: any) => {
-      if (skill.name === name && checked) {
-        return {
-          ...skill,
-          prof: true,
-          value: skill.value + proficiencyBonus,
-        }
-      }
-
-      if (skill.name === name && !checked) {
-        return {
-          ...skill,
-          prof: false,
-          value: skill.value - proficiencyBonus,
-        }
-      }
-
-      return skill;
-    });
-
-    return setSkills({ ...skills, [type]: newSkills });
-  }
   
   const handleCurrentChange = () => {
     const newLifePoints = { ...lifePoints };
@@ -194,19 +113,6 @@ export default function Attributes() {
 
     return setLifePoints(newLifePoints);
   };
-
-  const clearInputZero = (e: any, setValue: Function, isBase=false) => {
-    for (let i = 0; i < e.target.value.length; i += 1) {
-      if (e.target.value[i] !== '0') {
-        e.target.value = e.target.value.slice(i);
-        break;
-      }
-    }
-
-    if(isBase) return e.target.value
-
-    return setValue(Number(e.target.value));
-  }
 
   const inputBaseHP = (e: any) => {
     const { name } = e.target;
@@ -501,95 +407,20 @@ export default function Attributes() {
         )) }
       </AttributesSection>
 
-      <h3 className='TitleSkills'>Perícias</h3>
       
       <section className='SkillsSection'>
 
-        <div className='CardSkill'>
-          <h4>Força</h4>
-          { skills.strength.map((skill: any) => (
-            <div key={ skill.name }>
-              <p>{ skill.name }</p>
-              <p>{ skill.value }</p>
-              <input
-                id={ skill.name }
-                name={ skill.name }
-                type="checkbox"
-                checked={ skill.prof }
-                onChange={ (e) => changeSkill(e, skills.strength, 'strength') }
-              />
+        <h3 className='TitleSkills'>Perícias</h3>
 
-            </div>
-          )) }
-        </div>
+        <SkillSection title='Força' listSkill={ skills.strength } attr='strength' />
 
-        <div className='CardSkill'>
-          <h4>Destreza</h4>
-          { skills.dexterity.map((skill: any) => (
-            <div key={ skill.name }>
-              <p>{ skill.name }</p>
-              <p>{ skill.value }</p>
-              <input
-                id={ skill.name }
-                name={ skill.name }
-                type="checkbox"
-                checked={ skill.prof }
-                onChange={ (e) => changeSkill(e, skills.dexterity, 'dexterity') }
-              />
-            </div>
-          )) }
-        </div>
+        <SkillSection title='Destreza' listSkill={ skills.dexterity } attr='dexterity' />
 
-        <div className='CardSkill'>
-          <h4>Inteligência</h4>
-          { skills.intelligence.map((skill: any) => (
-            <div key={ skill.name }>
-              <p>{ skill.name }</p>
-              <p>{ skill.value }</p>
-              <input
-                id={ skill.name }
-                name={ skill.name }
-                type="checkbox"
-                checked={ skill.prof }
-                onChange={ (e) => changeSkill(e, skills.intelligence, 'intelligence') }
-              />
-            </div>
-          )) }
-        </div>
+        <SkillSection title='Sabedoria' listSkill={ skills.wisdom } attr='wisdom' />
 
-        <div className='CardSkill'>
-          <h4>Sabedoria</h4>
-          { skills.wisdom.map((skill: any) => (
-            <div key={ skill.name }>
-              <p>{ skill.name }</p>
-              <p>{ skill.value }</p>
-              <input
-                id={ skill.name }
-                name={ skill.name }
-                type="checkbox"
-                checked={ skill.prof }
-                onChange={ (e) => changeSkill(e, skills.wisdom, 'wisdom') }
-              />
-            </div>
-          )) }
-        </div>
-        
-        <div className='CardSkill'>
-          <h4>Carisma</h4>
-          { skills.charisma.map((skill: any) => (
-            <div key={ skill.name }>
-              <p>{ skill.name }</p>
-              <p>{ skill.value }</p>
-              <input
-                id={ skill.name }
-                name={ skill.name }
-                type="checkbox"
-                checked={ skill.prof }
-                onChange={ (e) => changeSkill(e, skills.charisma, 'charisma') }
-              />
-            </div>
-          )) }
-        </div>
+        <SkillSection title='Inteligência' listSkill={ skills.intelligence } attr='intelligence' />
+
+        <SkillSection title='Carisma' listSkill={ skills.charisma } attr='charisma' />
 
       </section>
       

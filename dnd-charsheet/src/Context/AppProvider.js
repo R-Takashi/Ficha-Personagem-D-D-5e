@@ -11,12 +11,12 @@ export default function AppProvider({ children }) {
   const [level, setLevel] = useState(1);
   const [experience, setExperience] = useState(0);
   const [attributes, setAttributes] = useState([
-    { name: 'Força', value: 0, mod: -5, save: -5, prof: false },
-    { name: 'Destreza', value: 0, mod: -5, save: -5, prof: false },
-    { name: 'Constituição', value: 0, mod: -5, save: -5, prof: false },
-    { name: 'Inteligência', value: 0, mod: -5, save: -5, prof: false },
-    { name: 'Sabedoria', value: 0, mod: -5, save: -5, prof: false },
-    { name: 'Carisma', value: 0, mod: -5, save: -5, prof: false },
+    { name: 'Força', value: 0, mod: -5, save: -5, prof: false, attr: 'strength' },
+    { name: 'Destreza', value: 0, mod: -5, save: -5, prof: false, attr: 'dexterity' },
+    { name: 'Constituição', value: 0, mod: -5, save: -5, prof: false, attr: 'constitution' },
+    { name: 'Inteligência', value: 0, mod: -5, save: -5, prof: false, attr: 'intelligence' },
+    { name: 'Sabedoria', value: 0, mod: -5, save: -5, prof: false, attr: 'wisdom' },
+    { name: 'Carisma', value: 0, mod: -5, save: -5, prof: false, attr: 'charisma' },
   ]);
   const [proficiencyBonus, setProficiencyBonus] = useState(2);
   const [lifePoints, setLifePoints] = useState({
@@ -28,32 +28,32 @@ export default function AppProvider({ children }) {
   const [movement, setMovement] = useState(0);
   const [skills, setSkills] = useState({
     strength: [
-      { name: 'Atletismo', value: attributes[0].mod, prof: false },
+      { name: 'Atletismo', value: attributes[0].mod, baseMod: attributes[0].mod, prof: 'notProf' },
     ],
     dexterity: [
-      { name: 'Acrobacia', value: attributes[1].mod, prof: false },
-      { name: 'Furtividade', value: attributes[1].mod, prof: false },
-      { name: 'Prestidigitação', value: attributes[1].mod, prof: false },
+      { name: 'Acrobacia', value: attributes[1].mod, baseMod: attributes[1].mod, prof: 'notProf' },
+      { name: 'Furtividade', value: attributes[1].mod, baseMod: attributes[1].mod, prof: 'notProf' },
+      { name: 'Prestidigitação', value: attributes[1].mod, baseMod: attributes[1].mod, prof: 'notProf' },
     ],
     intelligence: [
-      { name: 'Arcanismo', value: attributes[3].mod, prof: false },
-      { name: 'História', value: attributes[3].mod, prof: false },
-      { name: 'Investigação', value: attributes[3].mod, prof: false },
-      { name: 'Natureza', value: attributes[3].mod, prof: false },
-      { name: 'Religião', value: attributes[3].mod, prof: false },
+      { name: 'Arcanismo', value: attributes[3].mod, baseMod: attributes[3].mod, prof: 'notProf' },
+      { name: 'História', value: attributes[3].mod, baseMod: attributes[3].mod, prof: 'notProf' },
+      { name: 'Investigação', value: attributes[3].mod, baseMod: attributes[3].mod, prof: 'notProf' },
+      { name: 'Natureza', value: attributes[3].mod, baseMod: attributes[3].mod, prof: 'notProf' },
+      { name: 'Religião', value: attributes[3].mod, baseMod: attributes[3].mod, prof: 'notProf' },
     ],
     wisdom: [
-      { name: 'Lidar com Animais', value: attributes[4].mod, prof: false },
-      { name: 'Intuição', value: attributes[4].mod, prof: false },
-      { name: 'Medicina', value: attributes[4].mod, prof: false },
-      { name: 'Percepção', value: attributes[4].mod, prof: false },
-      { name: 'Sobrevivência', value: attributes[4].mod, prof: false },
+      { name: 'Lidar com Animais', value: attributes[4].mod, baseMod: attributes[4].mod, prof: 'notProf' },
+      { name: 'Intuição', value: attributes[4].mod, baseMod: attributes[4].mod, prof: 'notProf' },
+      { name: 'Medicina', value: attributes[4].mod, baseMod: attributes[4].mod, prof: 'notProf' },
+      { name: 'Percepção', value: attributes[4].mod, baseMod: attributes[4].mod, prof: 'notProf' },
+      { name: 'Sobrevivência', value: attributes[4].mod, baseMod: attributes[4].mod, prof: 'notProf' },
     ],
     charisma: [
-      { name: 'Atuação', value: attributes[5].mod, prof: false },
-      { name: 'Enganação', value: attributes[5].mod, prof: false },
-      { name: 'Intimidação', value: attributes[5].mod, prof: false },
-      { name: 'Persuasão', value: attributes[5].mod, prof: false },
+      { name: 'Atuação', value: attributes[5].mod, baseMod: attributes[5].mod, prof: 'notProf' },
+      { name: 'Enganação', value: attributes[5].mod, baseMod: attributes[5].mod, prof: 'notProf' },
+      { name: 'Intimidação', value: attributes[5].mod, baseMod: attributes[5].mod, prof: 'notProf' },
+      { name: 'Persuasão', value: attributes[5].mod, baseMod: attributes[5].mod, prof: 'notProf' },
     ],
   });
   const [currency, setCurrency] = useState({
@@ -106,27 +106,71 @@ export default function AppProvider({ children }) {
   }, [level]);
 
   useEffect(() => {
-    const updateSkills = {
-      strength: skills.strength.map((skill) => {
-        return skill.prof ? { ...skill, value: attributes[0].mod + proficiencyBonus } : { ...skill, value: attributes[0].mod };
-      }),
-      dexterity: skills.dexterity.map((skill) => {
-        return skill.prof ? { ...skill, value: attributes[1].mod + proficiencyBonus } : { ...skill, value: attributes[1].mod };
-      }),
-      intelligence: skills.intelligence.map((skill) => {
-        return skill.prof ? { ...skill, value: attributes[3].mod + proficiencyBonus } : { ...skill, value: attributes[3].mod };
-      }),
-      wisdom: skills.wisdom.map((skill) => {
-        return skill.prof ? { ...skill, value: attributes[4].mod + proficiencyBonus } : { ...skill, value: attributes[4].mod };
-      }),
-      charisma: skills.charisma.map((skill) => {
-        return skill.prof ? { ...skill, value: attributes[5].mod + proficiencyBonus } : { ...skill, value: attributes[5].mod };
-      })
+    
+    const proficiencyValue = (skill, attr) => {
+      const proficiencyLevel = ['notProf', 'halfProf','prof', 'expert'];
+      const profIndex = proficiencyLevel.indexOf(skill.prof);
+      const proficiencyValue = [
+        attr.mod,
+        (attr.mod + Math.floor(proficiencyBonus / 2)), 
+        (attr.mod + proficiencyBonus), 
+        (attr.mod + (proficiencyBonus * 2))
+      ]
+      return proficiencyValue[profIndex];
     };
+      
 
-    setSkills(updateSkills);
+    const strengthSkills = skills.strength.map((skill) => {
+      return { 
+        ...skill, 
+        baseMod: attributes[0].mod,
+        value: proficiencyValue(skill, attributes[0]),
+      };
+    });
+
+    const dexteritySkills = skills.dexterity.map((skill) => {
+      return { 
+        ...skill, 
+        baseMod: attributes[1].mod,
+        value: proficiencyValue(skill, attributes[1]),
+      };
+    });
+
+    const intelligenceSkills = skills.intelligence.map((skill) => {
+      return { 
+        ...skill, 
+        baseMod: attributes[3].mod,
+        value: proficiencyValue(skill, attributes[3]),
+      };
+    });
+
+    const wisdomSkills = skills.wisdom.map((skill) => {
+      return {
+        ...skill,
+        baseMod: attributes[4].mod,
+        value: proficiencyValue(skill, attributes[4]),
+      };
+    });
+
+    const charismaSkills = skills.charisma.map((skill) => {
+      return {
+        ...skill,
+        baseMod: attributes[5].mod,
+        value: proficiencyValue(skill, attributes[5]),
+      };
+    });
+
+    setSkills({
+      strength: strengthSkills,
+      dexterity: dexteritySkills,
+      intelligence: intelligenceSkills,
+      wisdom: wisdomSkills,
+      charisma: charismaSkills,
+    });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [attributes, proficiencyBonus]);
+    
+
 
   const resetResources = () => {
     const updateResources = listResources.map((resource) => resource.current !== resource.max ? { ...resource, current: resource.max } : resource);

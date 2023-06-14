@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const CardAttr = styled.div`
   display: grid;
   width: 30%;
-  height: 140px;
   grid: 'title title' 1fr
         'value value' 2fr
         'modAttr saveAttr' 1fr
@@ -33,6 +32,8 @@ export const CardAttr = styled.div`
     border-radius: 10px;
     border-left: 2px solid #7a7d83;
     border-right: 2px solid #7a7d83;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+
 
     &:focus {
       outline: none;
@@ -45,6 +46,10 @@ export const CardAttr = styled.div`
     &.Negative {
       border-color: #ff0000;
     }
+  }
+
+  input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
   }
 
   .ModAttr {
