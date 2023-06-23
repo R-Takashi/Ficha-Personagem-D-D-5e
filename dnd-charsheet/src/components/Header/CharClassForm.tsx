@@ -11,7 +11,7 @@ export default function CharClassForm(props: any) {
   const [charClassForm, setCharClassForm] = React.useState({
     name: '',
     level: 1,
-    diceLife: '',
+    diceLife: 'D6',
   });
 
   const handleSave = () => {
@@ -20,7 +20,7 @@ export default function CharClassForm(props: any) {
       setCharClassForm({
         name: '',
         level: 1,
-        diceLife: '',
+        diceLife: 'D6',
       });
       return saveClass();
     }
@@ -40,7 +40,6 @@ export default function CharClassForm(props: any) {
   }, [editClass, index, charClass]);
 
 
-
   return (
     <CharClassFormS>
       <label htmlFor='name'>Nome da classe: </label>
@@ -52,24 +51,29 @@ export default function CharClassForm(props: any) {
       />
 
       <label htmlFor='dice'>Dado de vida: </label>
-      <input
-        type='text'
+   
+      <select
         name='dice'
         value={charClassForm.diceLife}
         onChange={(e) => setCharClassForm({ ...charClassForm, diceLife: e.target.value })}
-      />
+      >
+        <option value='D6'>D6</option>
+        <option value='D8'>D8</option>
+        <option value='D10'>D10</option>
+        <option value='D12'>D12</option>
+      </select>
 
       {
         editClass && (
-          <>
-            <label htmlFor='level'>Nível: </label>
-            <input
-              type='number'
-              name='level'
-              value={charClassForm.level}
-              onChange={(e) => setCharClassForm({ ...charClassForm, level: +e.target.value })}
-            />
-          </>
+          <button
+            type='button'
+            onClick={() => {
+              const updatedList = [...charClass];
+              updatedList.splice(index, 1);
+              setCharClass(updatedList);
+              saveClass();
+            }}
+          >Excluir Classe</button>
         )
       }
 

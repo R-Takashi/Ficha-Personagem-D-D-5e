@@ -8,26 +8,22 @@ export default function HeaderForm(props: any) {
   const {
     name, setName,
     race, setRace,
-    charClass,
+    charClass,setCharClass,
     level, setLevel,
   } = useContext(AppContext)
   const [editClass, setEditClass] = React.useState(false);
   const [newClass, setNewClass] = React.useState(false);
+  const [levelUp, setLevelUp] = React.useState(false);
 
   const [char, setChar] = React.useState({
     name: '',
     race: '',
-    level: 1,
+    level: 0,
   });
 
   const [isDisabled, setIsDisabled] = React.useState(true);
 
-  const handleSave = () => {
-    setName(char.name);
-    setRace(char.race);
-    setLevel(char.level);
-    return saveChar();
-  }
+
 
   useEffect(() => {
     const checkForm = [
@@ -35,10 +31,18 @@ export default function HeaderForm(props: any) {
       char.race.length > 0,
       char.level > 0,
       charClass.length > 0
-    ]
+    ];
 
     setIsDisabled(checkForm.includes(false));
+    
   }, [char, charClass]);
+
+  useEffect(() => {
+      const trueLevel = charClass.reduce((acc: number, cur: any) => acc + cur.level, 0);
+      setChar({ ...char, level: trueLevel });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [charClass]);
+
 
   useEffect(() => {
     setChar({
@@ -48,6 +52,50 @@ export default function HeaderForm(props: any) {
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const handleSave = () => {
+    setName(char.name);
+    setRace(char.race);
+    setLevel(char.level);
+    return saveChar();
+  }
+  
+  const levelUpChar = () => {
+    return charClass.length > 0 ? (
+      <div>
+        <p>Escolha uma classe para subir de nível</p>
+        <div>
+          {
+            charClass?.map((classOption: any, index: number) => (
+              <button
+                key={classOption.name + index}
+                type='button'
+                onClick={() => {
+                  const levelUpClass = classOption;
+                  levelUpClass.level += 1;
+                  
+                  const updatedList = [...charClass];
+                  updatedList[index] = levelUpClass;
+                  
+                  setCharClass(updatedList);
+                  setChar({ ...char, level: char.level + 1 });
+                  setLevelUp(!levelUp);
+                }}
+              >
+                {classOption.name}
+              </button>
+            ))
+          }
+        </div>
+      </div>
+    ) : (
+      <div>
+        <p>Adicione uma classe para subir de nível</p>
+      </div>
+    )
+
+  }
+
 
   return (
     <HeaderFormS  >
@@ -74,13 +122,19 @@ export default function HeaderForm(props: any) {
 
       <div className='InputHeader'>
         <label htmlFor='level'>Nível: </label>
-        <input
-          type='number'
+        <button
+          type='button'
           name='level'
-          value={char.level}
-          onChange={(e) => setChar({ ...char, level: +e.target.value })}
-        />
+          className='LevelUp'
+          onClick={() => setLevelUp(!levelUp)}
+        >
+          {char.level}
+        </button>
       </div>
+
+      {
+        levelUp && levelUpChar()
+      }
 
       <div className='InputHeader'>
         <label htmlFor='class'>Classes: </label>

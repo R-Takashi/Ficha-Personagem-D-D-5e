@@ -28,7 +28,7 @@ export const HeaderFormS = styled.div`
       font-size: var(--font-size-medium);
     }
 
-    input {
+    input, .LevelUp {
       width: 70%;
       height: 40px;
       border: none;

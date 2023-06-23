@@ -19,7 +19,7 @@ type Attribute = {
 
 export default function Attributes() {
   const { 
-    attributes, setAttributes, 
+    attributes, setAttributes, charClass,
     tab, proficiencyBonus,
     lifePoints, setLifePoints,
     movement, setMovement,
@@ -126,6 +126,26 @@ export default function Attributes() {
 
     return setLifePoints(newLifePoints);
   }
+
+  const diceClass = (charClass: any) => {
+    const dices = charClass.reduce((acc: any, curr: any) => {
+      if (acc[curr.diceLife]) {
+        acc[curr.diceLife] += curr.level;
+      } else {
+        acc[curr.diceLife] = curr.level;
+      }
+
+      return acc;
+    }, {});
+
+    const result = Object.entries(dices).map((dice: any) => {
+      return `${dice[1]}${dice[0]} `;
+    }
+    ).join('/ ');
+
+    return <span>{ result }</span>
+  }
+
 
   useEffect(() => {
     let color;
@@ -346,14 +366,11 @@ export default function Attributes() {
           <span>{` + ${ proficiencyBonus } `}</span>
         </CardStatus>
 
-        <CardStatus className='DiceLife'>
+        <CardStatus className='DiceLife' id='DiceLife'>
           <h3>Dado de Vida</h3>
-          <input
-            name="lifeDice"
-            type="text"
-            value={ lifePoints.dice }
-            onChange={ (e) => setLifePoints({ ...lifePoints, dice: e.target.value }) }
-          />
+          {
+            charClass.length > 0 ? (diceClass(charClass) ) : <span> 1D? </span>
+          }
         </CardStatus>
 
         <CardStatus className='PassivePerception'>

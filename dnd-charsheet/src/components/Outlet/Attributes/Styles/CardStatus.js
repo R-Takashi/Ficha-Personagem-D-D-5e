@@ -19,12 +19,12 @@ export const CardStatus = styled.div`
   }
 
   span {
+    width: 80%;
     font-size: 2rem;
     border: none;
     border-radius: 10px;
     border-left: 2px solid #7a7d83;
     border-right: 2px solid #7a7d83;
-    width: 80%;
     color: var(--white);
   }
 
@@ -52,10 +52,12 @@ export const CardStatus = styled.div`
   &.DiceLife {
     width: 100%;
 
-    input {
+    span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       width: 80%;
-      height: 80%;
-      font-size: 5vw;
+      font-size: 4.5vw;
       word-break: break-word;
     }
   }

@@ -32,7 +32,7 @@ export default function Header() {
               {
                 charClass.map((cClass: any, index: number) => (
                   <div 
-                    key={cClass.name}
+                    key={cClass.name + cClass.level}
                     className={index === 0 ? 'MainClass' : ''}
                   >
                     <p>{cClass.name} {cClass.level}</p>
