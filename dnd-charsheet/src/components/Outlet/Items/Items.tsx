@@ -2,6 +2,9 @@ import React, { useContext } from 'react'
 import AppContext from '../../../Context/AppContext'
 import styled from 'styled-components'
 import CardItem from './CardItem';
+import { Wallet } from './Styles/Wallet';
+import { ListItems } from './Styles/ListItems';
+import Coin from './Images/crown-coin.svg'
 
 const ItemsS = styled.div`
   display: flex;
@@ -9,6 +12,10 @@ const ItemsS = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
+
+  .chest {
+    width: 50px;
+  }
   
   .ItemContainer {
     display: flex;
@@ -32,43 +39,6 @@ const ItemsS = styled.div`
 
 `;
 
-const CurrencyS = styled.section`
-  display: flex;
-  flex-direction: column;
-
-  .Currency-Container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-  }
-
-  .Currency-Container-Item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 20%;
-  }
-
-  input {
-    width: 100%;
-    text-align: center;
-    height: 50px;
-    font-size: 1.5rem;
-  }
-
-  label {
-    font-size: 1.2rem;
-  }
-
-  h2 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    text-align: center;
-  }
-`;
 
 type TItem = {
   name: string;
@@ -79,6 +49,7 @@ type TItem = {
 export default function Items() {
   const { tab, listItems, setListItems, currency, setCurrency } = useContext(AppContext);
   const [item, setItem] = React.useState<TItem>({ name: '', quantity: '', toEdit: false });
+  const [treasure, setTreasure] = React.useState(false)
 
   if (tab !== 'Itens') return null;
 
@@ -87,36 +58,57 @@ export default function Items() {
     return setItem({ name: '', quantity: '', toEdit: false });
   }
 
+  const clearZeroWallet = (e: any) => {
+    for (let i = 0; i < e.target.value.length; i += 1) {
+      if (e.target.value[i] !== '0') {
+        e.target.value = e.target.value.slice(i);
+        break;
+      }
+    }
+  
+    return e.target.value
+  }
+
   return (
     <ItemsS>
 
-      <CurrencyS>
-        <h2>Carteira</h2>
-        <div className='Currency-Container'>
-          <div className='Currency-Container-Item'>
+      <Wallet>
+
+        <button
+          type='button'
+          className={`Coin ${treasure ? 'Open' : 'Close'}`}
+          onClick={() => setTreasure(!treasure)}
+        >
+          <img src={Coin} alt='Coin' />
+        </button>
+
+        
+        <div className={`Wallet-Container ${treasure ? 'Open' : ''}`}>
+          <div>
             <label htmlFor='pp'>Platina</label>
-            <input type='number' id='pp' value={currency.platinum} onChange={(e) => setCurrency({ ...currency, platinum: Number(e.target.value) })} />
+            <input type='number' id='pp' value={currency.platinum} onChange={(e) => setCurrency({ ...currency, platinum: clearZeroWallet(e) })} />
           </div>
-          <div className='Currency-Container-Item'>
+          <div>
             <label htmlFor='gp'>Ouro</label>
-            <input type='number' id='gp' value={currency.gold} onChange={(e) => setCurrency({ ...currency, gold: Number(e.target.value) })} />
+            <input type='number' id='gp' value={currency.gold} onChange={(e) => setCurrency({ ...currency, gold: clearZeroWallet(e) })} />
           </div>
-          <div className='Currency-Container-Item'>
+          <div>
             <label htmlFor='ep'>Electro</label>
-            <input type='number' id='ep' value={currency.electrum} onChange={(e) => setCurrency({ ...currency, electrum: Number(e.target.value) })} />
+            <input type='number' id='ep' value={currency.electrum} onChange={(e) => setCurrency({ ...currency, electrum: clearZeroWallet(e) })} />
           </div>
-          <div className='Currency-Container-Item'>
+          <div>
             <label htmlFor='sp'>Prata</label>
-            <input type='number' id='sp' value={currency.silver} onChange={(e) => setCurrency({ ...currency, silver: Number(e.target.value) })} />
+            <input type='number' id='sp' value={currency.silver} onChange={(e) => setCurrency({ ...currency, silver: clearZeroWallet(e) })} />
           </div>
-          <div className='Currency-Container-Item'>
+          <div>
             <label htmlFor='cp'>Cobre</label>
-            <input type='number' id='cp' value={currency.copper} onChange={(e) => setCurrency({ ...currency, copper: Number(e.target.value) })} />
+            <input type='number' id='cp' value={currency.copper} onChange={(e) => setCurrency({ ...currency, copper: clearZeroWallet(e) })} />
           </div>
         </div>
-      </CurrencyS>
 
-      <div className='ItemContainer'>
+      </Wallet>
+
+      <ListItems>
         <h2>Itens</h2>
         
           <div>
@@ -143,7 +135,7 @@ export default function Items() {
             ))}
           </ul>
         
-      </div>
+      </ListItems>
     </ItemsS>
   )
 }
