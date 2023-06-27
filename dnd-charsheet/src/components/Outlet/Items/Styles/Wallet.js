@@ -62,6 +62,7 @@ export const Wallet = styled.div`
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     transition: transform 0.5s ease-in;
     transform: translateX(200%);
+    background-color: #1f2024;
     
     &.Open {
       transform: translateX(0%);

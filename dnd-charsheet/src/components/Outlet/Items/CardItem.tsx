@@ -17,20 +17,20 @@ const CardItemS = styled.li`
 type TItemProps = {
   index: number;
   name: string;
-  quantity: string;
+  quantity: number;
   toEdit?: boolean;
 }
 
 type TItemEdit = {
   name: string;
-  quantity: string;
+  quantity: number;
 }
 
 
 export default function CardItem(props: TItemProps) {
   const { index, name, quantity, toEdit} = props;
   const { listItems, setListItems } = useContext(AppContext);
-  const [editItem, setEditItem] = React.useState<TItemEdit>({ name: '', quantity: '' });
+  const [editItem, setEditItem] = React.useState<TItemEdit>({ name: '', quantity: 1 });
 
   const handleRemoveItem = (index: number) => {
     setListItems(listItems.filter((_: any, i: number) => i !== index))
@@ -78,9 +78,9 @@ export default function CardItem(props: TItemProps) {
               onChange={(e) => setEditItem({ ...editItem, name: e.target.value })}
             />
             <input
-              type="text"
+              type="number"
               value={editItem.quantity}
-              onChange={(e) => setEditItem({ ...editItem, quantity: e.target.value })}
+              onChange={(e) => setEditItem({ ...editItem, quantity: +e.target.value })}
             />
           </div>
         ) : (

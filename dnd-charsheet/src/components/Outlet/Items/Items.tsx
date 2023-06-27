@@ -25,16 +25,7 @@ const ItemsS = styled.div`
     width: 80%;
   }
     
-  ul {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    width: 100%;
-    margin: 1rem 0;
-    padding: 1rem;
-    gap: 5%;
-  }
+  
 
 
 `;
@@ -42,20 +33,22 @@ const ItemsS = styled.div`
 
 type TItem = {
   name: string;
-  quantity: string;
+  description?: string;
+  quantity: number;
   toEdit: boolean;
 }
 
 export default function Items() {
   const { tab, listItems, setListItems, currency, setCurrency } = useContext(AppContext);
-  const [item, setItem] = React.useState<TItem>({ name: '', quantity: '', toEdit: false });
-  const [treasure, setTreasure] = React.useState(false)
+  const [item, setItem] = React.useState<TItem>({ name: '', description: '', quantity: 1, toEdit: false });
+  const [treasure, setTreasure] = React.useState(false);
+  const [newItem, setNewItem] = React.useState(false)
 
   if (tab !== 'Itens') return null;
 
   const addItem = () => {
     setListItems([...listItems, item]);
-    return setItem({ name: '', quantity: '', toEdit: false });
+    return setItem({ name: '', quantity: 1, toEdit: false });
   }
 
   const clearZeroWallet = (e: any) => {
@@ -109,31 +102,59 @@ export default function Items() {
       </Wallet>
 
       <ListItems>
+
         <h2>Itens</h2>
-        
-          <div>
+
+        <button
+          type='button'
+          className={`${newItem ? 'DisplayOff' : ''}`}
+          onClick={() => setNewItem(!newItem)}
+        >
+          Novo Item
+        </button>
+
+        <form
+          className={`${newItem ? 'DisplayOn' : 'DisplayOff'}`}
+        >
+
           <div>
             <label htmlFor='item'>Item</label>
             <input type='text' id='item' value={item.name} onChange={(e) => setItem({ ...item, name: e.target.value })} />
           </div>
+
+          <div>
+            <label htmlFor='description'>Descrição</label>
+            <textarea id='description' value={item.description} onChange={(e) => setItem({ ...item, description: e.target.value })} />
+          </div>
+
           <div>
             <label htmlFor='quantity'>Quantidade</label>
-            <input type='text' id='quantity' value={item.quantity} onChange={(e) => setItem({ ...item, quantity: e.target.value })} />
+            <input type='number' id='quantity' value={item.quantity} onChange={(e) => setItem({ ...item, quantity: +e.target.value })} />
           </div>
-            <button
-              type='button'
-              onClick={() => addItem()}
-            >Adicionar</button>
-          </div>
-          <ul>
-            {listItems.map((item: TItem, index: number) => (
-              <CardItem
-                key={index}
-                index={index}
-                {...item}
-              />
-            ))}
-          </ul>
+
+          <button
+            type='button'
+            onClick={() => {
+              addItem();
+              setNewItem(!newItem);
+            }}
+          >
+            Adicionar
+          </button>
+
+        </form>
+
+        <ul>
+          {listItems.map((item: TItem, index: number) => (
+            <CardItem
+              key={index}
+              index={index}
+              {...item}
+            />
+          ))}
+
+          
+        </ul>
         
       </ListItems>
     </ItemsS>
