@@ -83,6 +83,35 @@ export const ListItems = styled.section`
       }
     }
 
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 80%;
+      transition: all 0.5s ease-in-out;
+
+      span {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: 0px;
+        opacity: 0;
+        transition: all 0.5s ease-in-out;
+
+      }
+
+      .Disabled {
+        opacity: 1;
+        max-width: 300px;
+      }
+
+      .SaveItem {
+        opacity: 1;
+        max-width: 300px;
+      }
+
+    }
+
   }
 
   button {

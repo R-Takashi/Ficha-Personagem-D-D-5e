@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import CardItem from './CardItem';
 import { Wallet } from './Styles/Wallet';
 import { ListItems } from './Styles/ListItems';
-import Coin from './Images/crown-coin.svg'
+import Coin from './Icon/crown-coin.svg'
 
 const ItemsS = styled.div`
   display: flex;
@@ -12,21 +12,7 @@ const ItemsS = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-
-  .chest {
-    width: 50px;
-  }
   
-  .ItemContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 80%;
-  }
-    
-  
-
 
 `;
 
@@ -48,7 +34,7 @@ export default function Items() {
 
   const addItem = () => {
     setListItems([...listItems, item]);
-    return setItem({ name: '', quantity: 1, toEdit: false });
+    return setItem({ name: '', description: '', quantity: 1, toEdit: false });
   }
 
   const clearZeroWallet = (e: any) => {
@@ -135,11 +121,17 @@ export default function Items() {
           <button
             type='button'
             onClick={() => {
+              if (item.name === '') return setNewItem(!newItem);
               addItem();
               setNewItem(!newItem);
             }}
           >
-            Adicionar
+            <span className={`${item.name === '' && 'Disabled'}`}>
+              Cancelar
+            </span>
+            <span className={`${item.name !== '' && 'SaveItem'}`}>
+              Adicionar
+            </span>
           </button>
 
         </form>

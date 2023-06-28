@@ -1,28 +1,19 @@
 import React, { useContext } from 'react'
 import AppContext from '../../../Context/AppContext'
-import styled from 'styled-components'
+import { CardItemS } from './Styles/CardItem';
 
-const CardItemS = styled.li`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-  width: 50%;
-  margin: 1rem 0;
-  padding: 1rem;
-  border: 1px solid black;
-  border-radius: 5px;
-`;
 
 type TItemProps = {
   index: number;
   name: string;
+  description?: string;
   quantity: number;
   toEdit?: boolean;
 }
 
 type TItemEdit = {
   name: string;
+  description?: string;
   quantity: number;
 }
 
@@ -30,7 +21,9 @@ type TItemEdit = {
 export default function CardItem(props: TItemProps) {
   const { index, name, quantity, toEdit} = props;
   const { listItems, setListItems } = useContext(AppContext);
-  const [editItem, setEditItem] = React.useState<TItemEdit>({ name: '', quantity: 1 });
+  const [editItem, setEditItem] = React.useState<TItemEdit>({ name: '', description: '', quantity: 1 });
+  const [showInfo, setShowInfo] = React.useState(false);
+
 
   const handleRemoveItem = (index: number) => {
     setListItems(listItems.filter((_: any, i: number) => i !== index))
@@ -40,6 +33,7 @@ export default function CardItem(props: TItemProps) {
     if (toEdit) {
       const newItem = {
         name: editItem.name,
+        description: editItem.description || '',
         quantity: editItem.quantity,
         toEdit: false
       }
@@ -51,6 +45,7 @@ export default function CardItem(props: TItemProps) {
 
     setEditItem({
       name,
+      description: props.description,
       quantity
     })
 
@@ -71,39 +66,87 @@ export default function CardItem(props: TItemProps) {
     <CardItemS>
       {
         toEdit ? (
-          <div>
+          <>
             <input
+              className='ItemName'
               type="text"
               value={editItem.name}
               onChange={(e) => setEditItem({ ...editItem, name: e.target.value })}
             />
             <input
+              className='ItemQuantity'
               type="number"
               value={editItem.quantity}
               onChange={(e) => setEditItem({ ...editItem, quantity: +e.target.value })}
             />
-          </div>
+          </>
         ) : (
-          <div>
-            <h3>{name}</h3>
-            <h3>{quantity}</h3>
-          </div>
+          <>
+            <h3 className='ItemName'>{name}</h3>
+            <h4 className='ItemQuantity'>{quantity} x</h4>
+          </>
         )
       }
 
       <button
         type='button'
-        onClick={() => handleEditItem(index)}
+        className='ShowInfo'
+        onClick={() => setShowInfo(!showInfo)}
       >
-        {toEdit ? 'Salvar' : 'Editar'}
+        { 
+          showInfo ? (
+            <img src='https://super.so/icon/light/minus-square.svg' alt="show info" />
+            ) : (
+            <img src='https://super.so/icon/light/plus-square.svg' alt="show info" />
+          )
+        }
       </button>
 
-      <button
-        type='button'
-        onClick={() => handleRemoveItem(index)}
-      >
-        Delete
-      </button>
+      <span className={`Description ${showInfo ? 'Show' : ''}`}>
+        {
+          toEdit ? (
+            <textarea
+              className='ItemDescription'
+              value={editItem.description}
+              onChange={(e) => setEditItem({ ...editItem, description: e.target.value })}
+            />
+          ) : (
+            <pre>{props.description}</pre>
+          )
+        }
+
+        <div className='ItemButtons'>
+
+          {
+            toEdit && (
+              <>
+                <button
+                  type='button'
+                  onClick={() => handleRemoveItem(index)}
+                  >
+                  <img src='https://super.so/icon/light/trash.svg' alt="trash" />
+                </button>
+
+                |
+              </>
+            )
+          }
+
+          <button
+            type='button'
+            onClick={() => handleEditItem(index)}
+          >
+            {
+              toEdit ? (
+                <img src='https://super.so/icon/light/save.svg' alt="save" />
+              ) : (
+                <img src='https://super.so/icon/light/edit.svg' alt="edit" />
+              )
+            }
+          </button>
+        
+        </div>
+      </span>
 
     </CardItemS>
   )
