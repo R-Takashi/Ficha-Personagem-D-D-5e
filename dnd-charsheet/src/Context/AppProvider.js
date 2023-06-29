@@ -5,10 +5,10 @@ import AppContext from './AppContext';
 export default function AppProvider({ children }) {
   const [tab, setTab] = useState('Personagem');
   const [contentTab, setContentTab] = useState({});
-  const [name, setName] = useState('');
-  const [race, setRace] = useState('');
+  const [name, setName] = useState('teste');
+  const [race, setRace] = useState('teste');
   const [charClass, setCharClass] = useState([]);
-  const [level, setLevel] = useState(1);
+  const [level, setLevel] = useState(0);
   const [experience, setExperience] = useState(0);
   const [attributes, setAttributes] = useState([
     { name: 'Força', value: 0, mod: -5, save: -5, prof: false, attr: 'strength' },
@@ -68,9 +68,7 @@ export default function AppProvider({ children }) {
     "Truques": [{
       name: 'aaa',
     }],
-    "1º": [{
-      name: 'bbb',
-    }],
+    "1º": [],
     "2º": [],
     "3º": [],
     "4º": [],
@@ -79,6 +77,12 @@ export default function AppProvider({ children }) {
     "7º": [],
     "8º": [],
     "9º": [],
+  });
+  const [attributeSpell, setAttributeSpell] = useState({
+    attr: '',
+    mod: 0,
+    CD: 0,
+    bonus: 0,
   });
   const [listTraits, setListTraits] = useState([{ name: 'aaa', description: 'bbb' }]);
   const [listLanguages, setListLanguages] = useState([]);
@@ -169,6 +173,17 @@ export default function AppProvider({ children }) {
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [attributes, proficiencyBonus]);
+
+  useEffect(() => {
+    if (attributeSpell.attr) {
+      const attr = attributes.find((attribute) => attribute.attr === attributeSpell.attr);
+      const mod = attr.mod;
+      const CD = 8 + mod + proficiencyBonus;
+      const bonus = proficiencyBonus + mod;
+      setAttributeSpell({ ...attributeSpell, mod, CD, bonus });
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [attributeSpell.attr, attributes, proficiencyBonus]);
     
 
 
@@ -194,6 +209,7 @@ export default function AppProvider({ children }) {
     currency, setCurrency,
     listItems, setListItems,
     listSpells, setListSpells,
+    attributeSpell, setAttributeSpell,
     listTraits, setListTraits,
     listLanguages, setListLanguages,
     listProficiencies, setListProficiencies,

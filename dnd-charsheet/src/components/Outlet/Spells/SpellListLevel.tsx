@@ -1,71 +1,8 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import AppContext from '../../../Context/AppContext'
-import styled from 'styled-components';
 import SpellDetails from './SpellDetails';
 import SpellForm from './SpellForm';
-
-
-const SpellListLevelS = styled.div`
-  display: flex;
-  flex-direction: column;
-  border: 1px solid black;
-  border-radius: 5px;
-  padding: 5px;
-  margin: 5px;
-  width: 100%;
-
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 5px;
-  }
-
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 5px;
-    border-bottom: 1px solid black;
-  }
-
-  div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .Spell {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-  }
-
-  .NewSpell {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-
-    input {
-      width: 100%;
-    }
-
-    textarea {
-      width: 100%;
-      height: 100px;
-    }
-  }
-
-`;
+import { SpellList } from './Styles/SpellList';
 
 
 export default function SpellListLevel(props: any) {
@@ -77,16 +14,50 @@ export default function SpellListLevel(props: any) {
     setListSpells({ ...listSpells, [level]: listSpells[level].filter((_: any, i: number) => i !== index) });
   };
 
+  useEffect(() => {
+    if (listSpells[level].length === 0) {
+      const SpellSlots = {
+        max: 0,
+        used: 0,
+      };
+
+      setListSpells({ ...listSpells, [level]: [SpellSlots] });
+    }
+  }, [level, listSpells, setListSpells]);
+
+
+  const changeSpellSlots = (e: any) => {
+    const updatedList = [...listSpells[level]];
+    updatedList[0] = { ...updatedList[0], [e.target.name]: e.target.value };
+
+    setListSpells({ ...listSpells, [level]: updatedList });
+  }
+  
+  
+
   return (
-    <SpellListLevelS>
+    <SpellList>
       <header>
-        <h2>{level}</h2>
+        <h2 className={`${level === 'Truques' && 'Cantrip'}`}>{level}</h2>
         {level !== 'Truques' && (
           <div>
             <label htmlFor='spellSlotsTotal'>Total</label>
-            <input id='spellSlotsTotal' type='number' />
+            <input 
+              id='spellSlotsTotal' 
+              type='number'
+              name='max'
+              value={listSpells[level][0]?.max}
+              onChange={(e) => changeSpellSlots(e)}
+            />
             <label htmlFor='spellSlotsUsed'>Usado</label>
-            <input id='spellSlotsUsed' type='number' />
+            <input 
+              id='spellSlotsUsed' 
+              type='number'
+              name='used'
+              max={listSpells[level][0]?.max}
+              value={listSpells[level][0]?.used}
+              onChange={(e) => changeSpellSlots(e)}
+            />
           </div>
         )
         }
@@ -94,7 +65,7 @@ export default function SpellListLevel(props: any) {
 
       
       <ul>
-        {listSpells[level].map((spell: any, index: number) => (
+        {listSpells[level].slice(1).map((spell: any, index: number) => (
           <SpellDetails
             key={index}
             index={index}
@@ -124,6 +95,6 @@ export default function SpellListLevel(props: any) {
           </div>
         </li>
       </ul>
-    </SpellListLevelS>
+    </SpellList>
   )
 }

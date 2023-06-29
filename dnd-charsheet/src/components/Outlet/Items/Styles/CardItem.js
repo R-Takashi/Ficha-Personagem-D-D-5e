@@ -76,7 +76,7 @@ export const CardItemS = styled.li`
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 100%;
+      width: 80%;
     }
 
 
