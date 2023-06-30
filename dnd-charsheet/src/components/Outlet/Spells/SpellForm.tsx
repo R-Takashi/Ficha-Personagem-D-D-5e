@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import AppContext from '../../../Context/AppContext'
+import { SpellFormS } from './Styles/SpellForm'
 
 
 type FormProps = {
@@ -55,17 +56,20 @@ export default function SpellForm(props: FormProps) {
 
 
   return (
-    <div>
+    <SpellFormS>
 
-      <label htmlFor='spellName'>Nome</label>
+      <div>
+        <label htmlFor='spellName'>Nome</label>
         <input
           id='spellName'
           type='text'
           value={spell.name}
           onChange={(e) => setSpell({ ...spell, name: e.target.value })}
         />
+      </div>
 
-      <label htmlFor='spellAction'>Ação</label>
+      <div>
+        <label htmlFor='spellAction'>Ação</label>
         <input
 
           id='spellAction'
@@ -73,40 +77,49 @@ export default function SpellForm(props: FormProps) {
           value={spell.action}
           onChange={(e) => setSpell({ ...spell, action: e.target.value })}
         />
+      </div>
 
-      <label htmlFor='spellDuration'>Duração</label>
+      <div>
+        <label htmlFor='spellDuration'>Duração</label>
         <input
           id='spellDuration'
           type='text'
           value={spell.duration}
           onChange={(e) => setSpell({ ...spell, duration: e.target.value })}
         />
+      </div>
 
-      <label htmlFor='spellRange'>Alcance</label>
+      <div>
+        <label htmlFor='spellRange'>Alcance</label>
         <input
           id='spellRange'
           type='text'
           value={spell.range}
           onChange={(e) => setSpell({ ...spell, range: e.target.value })}
         />
+      </div>
 
-      <label htmlFor='spellComponents'>Componentes</label>
+      <div>
+        <label htmlFor='spellComponents'>Componentes</label>
         <input
           id='spellComponents'
           type='text'
           value={spell.components}
           onChange={(e) => setSpell({ ...spell, components: e.target.value })}
         />
+      </div>
 
-      <label htmlFor='spellDescription'>Descrição</label>
+      <div>
+        <label htmlFor='spellDescription'>Descrição</label>
         <textarea
           id='spellDescription'
           value={spell.description}
           onChange={(e) => setSpell({ ...spell, description: e.target.value })}
         />
+      </div>
 
       <button type='button' onClick={handleSaveSpell}>Salvar</button>
 
-    </div>
+    </SpellFormS>
   )
 }

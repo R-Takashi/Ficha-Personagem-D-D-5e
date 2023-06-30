@@ -9,6 +9,7 @@ export default function SpellListLevel(props: any) {
   const { level } = props;
   const { listSpells, setListSpells } = useContext(AppContext);
   const [showNewSpell, setShowNewSpell] = React.useState(false);
+  const [showList, setShowList] = React.useState(false);
 
   const handleRemoveSpell = (index: number) => {
     setListSpells({ ...listSpells, [level]: listSpells[level].filter((_: any, i: number) => i !== index) });
@@ -18,7 +19,7 @@ export default function SpellListLevel(props: any) {
     if (listSpells[level].length === 0) {
       const SpellSlots = {
         max: 0,
-        used: 0,
+        uses: 0,
       };
 
       setListSpells({ ...listSpells, [level]: [SpellSlots] });
@@ -38,6 +39,19 @@ export default function SpellListLevel(props: any) {
   return (
     <SpellList>
       <header>
+        <button
+          type='button'
+          className='ShowList'
+          onClick={() => setShowList(!showList)}
+        >
+          {
+            showList ? (
+              <img src='https://super.so/icon/light/book-open.svg' alt="show list" />
+            ) : (
+              <img src='https://super.so/icon/light/book.svg' alt="show list" />
+            )
+          }
+        </button>
         <h2 className={`${level === 'Truques' && 'Cantrip'}`}>{level}</h2>
         {level !== 'Truques' && (
           <div>
@@ -49,13 +63,14 @@ export default function SpellListLevel(props: any) {
               value={listSpells[level][0]?.max}
               onChange={(e) => changeSpellSlots(e)}
             />
-            <label htmlFor='spellSlotsUsed'>Usado</label>
+            <label htmlFor='spellSlotsUsed'>Usos</label>
             <input 
               id='spellSlotsUsed' 
               type='number'
-              name='used'
+              name='uses'
               max={listSpells[level][0]?.max}
-              value={listSpells[level][0]?.used}
+              min={0}
+              value={listSpells[level][0]?.uses}
               onChange={(e) => changeSpellSlots(e)}
             />
           </div>
@@ -64,13 +79,13 @@ export default function SpellListLevel(props: any) {
       </header>
 
       
-      <ul>
+      <ul style={ showList ? {} : { display: 'none'}}>
         {listSpells[level].slice(1).map((spell: any, index: number) => (
           <SpellDetails
             key={index}
             index={index}
             level={level}
-            removeSpell={() => handleRemoveSpell(index)}
+            removeSpell={() => handleRemoveSpell(index+1)}
             {...spell}
           />
         ))}

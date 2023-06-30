@@ -8,10 +8,12 @@ export const SpellS = styled.div`
   align-items: center;
   
 
-  h1 {
-    font-size: 1.5rem;
+  .Title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
     width: 90%;
-    text-align: center;
     margin: 10px 0; 
     border: none;
     border-radius: 10px;
@@ -19,6 +21,64 @@ export const SpellS = styled.div`
     border-right: 2px solid #7a7d83;
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
     padding: 10px 50px;
+
+    h1 {
+      margin-left: auto;
+      width: 90%;
+      text-align: center;
+    }
+
+    button {
+      margin-left: auto;
+      border: none;
+      background-color: transparent;
+    }
+
+    div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: column;
+      width: 100%;
+      margin: 10px 0;
+      gap: 10px;
+ 
+      section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        width: 300px;
+        gap: 10px;
+        /* outline: 2px solid #7a7d83; */
+
+
+        div {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 50px;
+          height: 50px;
+
+          label {
+            text-align: center;
+            margin-top: 10px;
+          }
+
+          input[type="checkbox"] {
+            margin: 0;
+            padding: 0;
+            border: none;
+            background-color: transparent;
+            outline: none;
+            scale: 3;
+
+          }
+
+        }
+      }
+    }
+
   }
 
   .AttrKey {

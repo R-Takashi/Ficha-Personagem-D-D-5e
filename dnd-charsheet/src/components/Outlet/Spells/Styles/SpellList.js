@@ -8,7 +8,7 @@ export const SpellList = styled.div`
   width: 100%;
 
   header {
-    width: 90%;
+    width: 370px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -20,9 +20,19 @@ export const SpellList = styled.div`
     border-right: 2px solid #7a7d83;
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
     padding: 10px 0px;
+    position: relative;
 
     h2 {
       width: 30%;
+    }
+
+    .ShowList {
+      width: 30px;
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      border: none;
+      background-color: transparent;
     }
 
     .Cantrip {
@@ -68,6 +78,44 @@ export const SpellList = styled.div`
     flex-wrap: wrap;
     gap: 10px;
     list-style: none;
+
+    li {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      margin: 10px 0;
+      padding: 10px 0;
+    }
+
   }
+
+  .NewSpell {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-wrap: wrap;
+
+
+    button {
+      width: 80%;
+      height: 40px;
+      border: none;
+      border-radius: 5px;
+      font-size: var(--font-size-medium);
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.5s ease-in-out;
+      color: #000;
+      margin: 10px 0;
+    }
+      
+  }
+  
+
 
 `;

@@ -3,20 +3,72 @@ import AppContext from '../../../Context/AppContext'
 import SpellListLevel from './SpellListLevel';
 import { SpellS } from './Styles/SpellS'; 
 
-const spellListLevel = ["Truques", "1º"];
+const spellListLevel = ["Truques", "1º", "2º", "3º", "4º", "5º", "6º", "7º", "8º", "9º"];
 
 //  "2º", "3º", "4º", "5º", "6º", "7º", "8º", "9º"
 
 
 export default function Spells() {
   const { tab, attributes, attributeSpell, setAttributeSpell, } = useContext(AppContext);
+  const [spellCircle, setSpellCircle] = React.useState([] as string[]);
+  const [spellSettings, setSpellSettings] = React.useState(false);
   
+  const enabledSpellCircle = (e : any) => {
+    if(e.target.checked){
+      const updateSpellCircle = [...spellCircle, e.target.value];
+      
+      const orderSpellCircle = updateSpellCircle.sort((a: string, b: string) => {
+        return spellListLevel.indexOf(a) - spellListLevel.indexOf(b);
+      });
+
+
+      setSpellCircle([...orderSpellCircle]);
+    }
+    else{
+      setSpellCircle(spellCircle.filter((circle: string) => circle !== e.target.value));
+    }
+
+  }
 
   if (tab !== 'Magias') return null;
 
   return (
     <SpellS>
-      <h1>Magias</h1>
+      <div className='Title'>
+        <h1>Magias</h1>
+        <button
+          type='button'
+          className='SpellSettings'
+          onClick={() => setSpellSettings(!spellSettings)}
+        >
+          <img src='https://super.so/icon/light/settings.svg' alt="Settings" />
+        </button>
+
+        <div
+          style={{ display: spellSettings ? 'flex' : 'none' }}
+        >
+          <h2>Círculos</h2>
+
+          <section>
+            {
+              spellListLevel.map((level: string) => (
+                <div>
+                  <input
+                      key={level}
+                      type='checkbox'
+                      name='spellCircle'
+                      value={level}
+                      onChange={(e) => enabledSpellCircle(e)} />
+                  <label key={level} htmlFor='spellCircle'>
+                    {level}
+                  </label>
+                </div>
+              ))
+            }
+          </section>
+        </div>
+
+      </div>
 
       <form className='AttrKey'>
         <div>
@@ -63,12 +115,8 @@ export default function Spells() {
         
       </form>
 
-
-      
-
-
       <section>
-        {spellListLevel.map((level: string) => (
+        {spellCircle.length !== 0 && spellCircle.map((level: string) => (
           <SpellListLevel key={level} level={level} />
         ))}
       </section>
