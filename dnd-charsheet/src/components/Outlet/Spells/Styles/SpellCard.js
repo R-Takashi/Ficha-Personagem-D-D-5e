@@ -21,7 +21,7 @@ export const SpellCard = styled.li`
     width: 80%;
     height: 40px;
   }
-
+  
   .ShowInfo {
     background: transparent;
     width: 20%;
@@ -44,19 +44,7 @@ export const SpellCard = styled.li`
     transition: max-height .1s linear;
 
     .InfoSpell {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      align-items: center;
-      width: 100%;
-      padding: 10px 0;
-
-      div {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 5px;
-      }
+      display: none;
     }
 
     .SpellButtons {
@@ -100,6 +88,32 @@ export const SpellCard = styled.li`
         background: transparent;
         width: 50%;
         margin-top: 20px;
+      }
+
+      .InfoSpell {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        align-items: center;
+        width: 100%;
+
+        .School {
+          height: 40px;
+          width: 100%;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          gap: 10px;
+          opacity: 0.7;
+        }
+
+        div {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 5px;
+          padding: 5px;
+        }
       }
     }
   }

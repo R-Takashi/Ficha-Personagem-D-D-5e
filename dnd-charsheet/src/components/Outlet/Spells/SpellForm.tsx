@@ -13,12 +13,41 @@ type FormProps = {
 
 const SPELL = {
   name: '',
+  school: '',
   action: '',
   duration: '',
   range: '',
   components: '',
   description:'',
 }
+
+const SCHOOL = [
+  'Abjuração',
+  'Adivinhação',
+  'Conjuração',
+  'Encantamento',
+  'Evocação',
+  'Ilusão',
+  'Necromancia',
+  'Transmutação',
+]
+
+const ACTIONS = [
+  'Ação',
+  'Ação bônus',
+  'Reação',
+  '1 minuto',
+  '10 minutos',
+  'Especial',
+]
+
+const COMPONENTS = [
+  'Verbal',
+  'Somática',
+  'Material',
+  'Concentração',
+  'Ritual',
+]
 
 
 export default function SpellForm(props: FormProps) {
@@ -54,6 +83,34 @@ export default function SpellForm(props: FormProps) {
     return saveSpell();
   };
 
+  const handleComponentChange = (e: any) => {
+    const { checked, value } = e.target;
+
+    if (checked) {
+      const components = spell.components.split(' ');
+
+      
+      
+      components.push(value);
+
+      const orderComponents = components.sort((a: string, b: string) => {
+        const indexA = COMPONENTS.findIndex((component) => component.charAt(0) === a);
+        const indexB = COMPONENTS.findIndex((component) => component.charAt(0) === b);
+
+        return indexA - indexB;
+      });
+
+      const newComponents = orderComponents.join(' ');
+      
+
+      setSpell({ ...spell, components: newComponents });
+    } else {
+      setSpell({ ...spell, components: spell.components.replace(value, '') });
+    }
+    
+  }
+    
+
 
   return (
     <SpellFormS>
@@ -69,14 +126,35 @@ export default function SpellForm(props: FormProps) {
       </div>
 
       <div>
-        <label htmlFor='spellAction'>Ação</label>
-        <input
+        <label htmlFor='spellSchool'>Escola</label>
+        <select
+          id='spellSchool'
+          value={spell.school}
+          onChange={(e) => setSpell({ ...spell, school: e.target.value })}
+        >
+          <option value=''>Selecione</option>
+          {
+            SCHOOL.map((school) => (
+              <option key={`${school}-spell`} value={school}>{school}</option>
+            ))
+          }
+        </select>
+      </div>
 
+      <div>
+        <label htmlFor='spellAction'>Ação</label>
+        <select
           id='spellAction'
-          type='text'
           value={spell.action}
           onChange={(e) => setSpell({ ...spell, action: e.target.value })}
-        />
+        >
+          <option value=''>Selecione</option>
+          {
+            ACTIONS.map((action) => (
+              <option key={`${action}-spell`} value={action}>{action}</option>
+            ))
+          }
+        </select>
       </div>
 
       <div>
@@ -99,14 +177,25 @@ export default function SpellForm(props: FormProps) {
         />
       </div>
 
-      <div>
+      <div className='ComponentContainer'>
         <label htmlFor='spellComponents'>Componentes</label>
-        <input
-          id='spellComponents'
-          type='text'
-          value={spell.components}
-          onChange={(e) => setSpell({ ...spell, components: e.target.value })}
-        />
+        {
+          COMPONENTS.map((component) => (
+            <div 
+              key={`${component}-spell`}
+              className='ComponentCheckbox'  
+            >
+              <label htmlFor={`${component}-spell`}>{component}</label>
+              <input
+                id={`${component}-spell`}
+                type='checkbox'
+                checked={spell.components.includes(component.charAt(0))}
+                value={component.charAt(0)}
+                onChange={(e) => handleComponentChange(e)}
+              />
+            </div>
+          ))
+        }
       </div>
 
       <div>

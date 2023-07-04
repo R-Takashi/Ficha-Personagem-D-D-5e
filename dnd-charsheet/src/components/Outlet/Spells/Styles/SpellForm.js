@@ -29,7 +29,7 @@ export const SpellFormS = styled.form`
         text-align: center;
       }
       
-      input, textarea {
+      input, textarea, select {
         width: 60%;
         height: 40px;
         border: none;
@@ -37,6 +37,11 @@ export const SpellFormS = styled.form`
         text-align: center;
         font-size: var(--font-size-large);
         margin-right: 10px;
+      }
+
+      select {
+        text-align-last: center;
+        font-size: var(--font-size-medium);
       }
 
       textarea {
@@ -49,6 +54,54 @@ export const SpellFormS = styled.form`
       input:focus {
         outline: none;
       }
+
+    }
+    
+    .ComponentContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px 0;
+      border: none;
+      border-radius: 5px;
+      font-size: var(--font-size-medium);
+      cursor: pointer;
+      scale: 1;
+      
+      label {
+        width: 100%;
+      }
+      
+      .ComponentCheckbox {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        width: 80%;
+        border: none;
+        border-radius: 20px;
+        border-left: 2px solid #7a7d83;
+        border-right: 2px solid #7a7d83;
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+
+        input {
+          width: 40%;
+          height: 20px;
+          border: none;
+          border-radius: 5px;
+          text-align: center;
+          font-size: var(--font-size-large);
+          margin-right: 10px;
+        }
+
+        label {
+          width: 50%;
+        }
+      }
+
     }
 
     button {

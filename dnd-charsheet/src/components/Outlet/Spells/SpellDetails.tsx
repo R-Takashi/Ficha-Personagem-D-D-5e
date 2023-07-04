@@ -6,7 +6,7 @@ import AppContext from '../../../Context/AppContext';
 
 
 export default function SpellDetails(props: any) {
-  const { name, action, duration, range, components, description, index, level } = props;
+  const { name, school, action, duration, range, components, description, index, level } = props;
   const { listSpells, setListSpells } = useContext(AppContext);
   const [toEdit, setToEdit] = React.useState(false);
   const [showInfo, setShowInfo] = React.useState(false);
@@ -48,6 +48,10 @@ export default function SpellDetails(props: any) {
         ) : (
           <span className={`Description ${showInfo ? 'Show' : ''}`}>
             <div className='InfoSpell'>
+              <div className='School'>
+                <img src='https://super.so/icon/light/book.svg' alt="school" />
+                <span>{school}</span>
+              </div>
               <div>
                 <img src='https://super.so/icon/light/activity.svg' alt="action" />
                 <span>{action}</span>

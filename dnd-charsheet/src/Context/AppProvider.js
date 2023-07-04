@@ -5,8 +5,8 @@ import AppContext from './AppContext';
 export default function AppProvider({ children }) {
   const [tab, setTab] = useState('Personagem');
   const [contentTab, setContentTab] = useState({});
-  const [name, setName] = useState('teste');
-  const [race, setRace] = useState('teste');
+  const [name, setName] = useState('');
+  const [race, setRace] = useState('');
   const [charClass, setCharClass] = useState([]);
   const [level, setLevel] = useState(0);
   const [experience, setExperience] = useState(0);
@@ -65,9 +65,7 @@ export default function AppProvider({ children }) {
   });
   const [listItems, setListItems] = useState([]);
   const [listSpells, setListSpells] = useState({
-    "Truques": [{
-      name: 'aaa',
-    }],
+    "Truques": [],
     "1º": [],
     "2º": [],
     "3º": [],
@@ -84,7 +82,7 @@ export default function AppProvider({ children }) {
     CD: 0,
     bonus: 0,
   });
-  const [listTraits, setListTraits] = useState([{ name: 'aaa', description: 'bbb' }]);
+  const [listTraits, setListTraits] = useState([{ name: 'Teste', description: 'Teste Descrição' }]);
   const [listLanguages, setListLanguages] = useState([]);
   const [listProficiencies, setListProficiencies] = useState([]);
   const [listWeapons, setListWeapons] = useState([]);

@@ -54,12 +54,12 @@ export default function Spells() {
               spellListLevel.map((level: string) => (
                 <div>
                   <input
-                      key={level}
+                      key={`${level}-knowledges`}
                       type='checkbox'
                       name='spellCircle'
                       value={level}
                       onChange={(e) => enabledSpellCircle(e)} />
-                  <label key={level} htmlFor='spellCircle'>
+                  <label key={`${level}-circle-level`} htmlFor='spellCircle'>
                     {level}
                   </label>
                 </div>
@@ -82,7 +82,7 @@ export default function Spells() {
           >
             <option value=''>Selecione</option>
             {attributes.map((attribute:any) => (
-              <option key={attribute.name} value={attribute.attr}>
+              <option key={`${attribute.name}-key-spell`} value={attribute.attr}>
                 {attribute.name}
               </option>
             ))}
@@ -117,7 +117,7 @@ export default function Spells() {
 
       <section>
         {spellCircle.length !== 0 && spellCircle.map((level: string) => (
-          <SpellListLevel key={level} level={level} />
+          <SpellListLevel key={`${level}-spell-list`} level={level} />
         ))}
       </section>
     </SpellS>
