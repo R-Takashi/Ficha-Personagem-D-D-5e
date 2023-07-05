@@ -4,7 +4,7 @@ import Items from './Items/Items'
 import Spells from './Spells/Spells'
 import Traits from './Traits/Traits'
 import Notes from './Notes/Notes'
-import Weapons from './Weapons&Combat/Weapons'
+import Weapons from './Weapons&Combat/Combat'
 import Biography from './Biography/Biography'
 
 

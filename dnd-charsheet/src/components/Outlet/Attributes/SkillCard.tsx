@@ -8,11 +8,11 @@ export default function SkillCard(props: any) {
   const { skills, setSkills, proficiencyBonus } = useContext(AppContext);
 
   const changeProficiency = () => {
-    const proficiencyLevel = ['notProf', 'halfProf','prof', 'expert'];
+    const proficiencyLevel = ['notProf', 'prof', 'halfProf', 'expert'];
     const proficiencyValue = [
       skill.baseMod,
-      (skill.baseMod + Math.floor(proficiencyBonus / 2)), 
       (skill.baseMod + proficiencyBonus), 
+      (skill.baseMod + Math.floor(proficiencyBonus / 2)), 
       (skill.baseMod + (proficiencyBonus * 2))
     ]
 

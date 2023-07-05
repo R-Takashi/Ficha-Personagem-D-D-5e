@@ -1,5 +1,6 @@
 import React from 'react'
 import AppContext from '../../../Context/AppContext';
+import { ResourceCard } from './Styles/ResourceCard';
 
 
 export default function CardResource(props :any) {
@@ -36,23 +37,31 @@ export default function CardResource(props :any) {
 
 
   return (
-    <div>
+    <ResourceCard>
 
-      {
-        toEdit ? (
-          <div>
-            <label htmlFor='name'>
-              Nome
+      <div>
+        {
+          toEdit ? (
+            <>
               <input
                 type='text'
                 id='name'
                 value={resource.name}
                 onChange={(e) => setResource({ ...resource, name: e.target.value })}
               />
-            </label>
+            </>
+          ) : (
+            <span>
+              {name}
+            </span>
+          )
+        }
+      </div>
 
-            <label htmlFor='current'>
-              Quantidade Atual
+      <div>
+        {
+          toEdit ? (
+            <>
               <input
                 type='number'
                 id='current'
@@ -61,10 +70,7 @@ export default function CardResource(props :any) {
                 max={resource.max}
                 onChange={(e) => setResource({ ...resource, current: e.target.value })}
               />
-            </label>
-
-            <label htmlFor='max'>
-              Quantidade
+                /
               <input
                 type='number'
                 id='max'
@@ -72,21 +78,23 @@ export default function CardResource(props :any) {
                 min={0}
                 onChange={(e) => setResource({ ...resource, max: e.target.value })}
               />
-            </label>
+            </>
+          ) : (
+            <span>
+              {resource.current} / {resource.max}
+            </span>
+          )
+        }
+      </div>
 
-            <button
-              type='button'
-              onClick={() => { handleRemove() }}
-            >
-              Remover Recurso
-            </button>
-
-          </div>
-        ) : (
-          <div>
-            <p>{name}</p>
-            <p>{resource.current}/{resource.max}</p>
-          </div>
+      {
+        toEdit && (
+          <button
+          type='button'
+          onClick={() => handleRemove()}
+          >
+            <img src='https://super.so/icon/light/trash.svg' alt="show info" />
+          </button>
         )
       }
       
@@ -97,9 +105,14 @@ export default function CardResource(props :any) {
           handleSaveResource(index);
         }}
       >
-        {toEdit ? 'Salvar' : 'Editar'}
+        {
+          toEdit ?
+          <img src='https://super.so/icon/light/save.svg' alt="show info" />
+            :
+          <img src='https://super.so/icon/light/edit.svg' alt="show info" />
+        }
       </button>
       
-    </div>
+    </ResourceCard>
   )
 }

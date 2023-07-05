@@ -110,12 +110,12 @@ export default function AppProvider({ children }) {
   useEffect(() => {
     
     const proficiencyValue = (skill, attr) => {
-      const proficiencyLevel = ['notProf', 'halfProf','prof', 'expert'];
+      const proficiencyLevel = ['notProf', 'prof', 'halfProf', 'expert'];
       const profIndex = proficiencyLevel.indexOf(skill.prof);
       const proficiencyValue = [
         attr.mod,
+        (attr.mod + proficiencyBonus),
         (attr.mod + Math.floor(proficiencyBonus / 2)), 
-        (attr.mod + proficiencyBonus), 
         (attr.mod + (proficiencyBonus * 2))
       ]
       return proficiencyValue[profIndex];
