@@ -2,6 +2,8 @@ import React, { useContext } from 'react'
 import SpellForm from './SpellForm';
 import { SpellCard } from './Styles/SpellCard';
 import Spell from './Icon/spell.svg';
+import Ritual from './Icon/ritual.svg';
+import Concentration from './Icon/concentration.svg';
 import AppContext from '../../../Context/AppContext';
 
 
@@ -69,8 +71,37 @@ export default function SpellDetails(props: any) {
 
               <div>
                 <img src='https://super.so/icon/light/grid.svg' alt="components" />
-                <span>{components}</span>
+                  {
+                    components.map((component: string) => {
+                      if(component !== 'C' && component !== 'R') {
+                        return (
+                          <span>{component}</span>
+                        )
+                      }
+                      return null;
+                    })
+                  }
               </div>
+
+              <div className='Space' />
+
+              {
+                components.includes('C') && (
+                  <div className='ComponentC'>
+                    <img src={ Concentration } alt="Concentration" />
+                    <span>Concentração</span>
+                  </div>
+                )
+              }
+
+              {
+                components.includes('R') && (
+                  <div className='ComponentR'>
+                    <img src={ Ritual } alt="Ritual" />
+                    <span>Ritual</span>
+                  </div>
+                )
+              }
 
             </div>
             <pre>{description}</pre>
@@ -107,7 +138,6 @@ export default function SpellDetails(props: any) {
           </span>
         )
       }
-
 
     </SpellCard>
   )

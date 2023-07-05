@@ -92,7 +92,7 @@ export const SpellCard = styled.li`
 
       .InfoSpell {
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         flex-wrap: wrap;
         align-items: center;
         width: 100%;
@@ -113,6 +113,30 @@ export const SpellCard = styled.li`
           align-items: center;
           gap: 5px;
           padding: 5px;
+        }
+
+        .Space {
+          display: flex;
+          width: 100%;
+          height: 0px;
+        }
+
+        .ComponentC {
+          display: flex;
+          width: 50%;
+
+          img {
+            width: 40px;
+          }
+        }
+
+        .ComponentR {
+          display: flex;
+          width: 50%;
+
+          img {
+            width: 40px;
+          }
         }
       }
     }

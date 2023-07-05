@@ -17,7 +17,7 @@ const SPELL = {
   action: '',
   duration: '',
   range: '',
-  components: '',
+  components: [] as string[],
   description:'',
 }
 
@@ -87,9 +87,7 @@ export default function SpellForm(props: FormProps) {
     const { checked, value } = e.target;
 
     if (checked) {
-      const components = spell.components.split(' ');
-
-      
+      const components = spell.components;
       
       components.push(value);
 
@@ -100,12 +98,21 @@ export default function SpellForm(props: FormProps) {
         return indexA - indexB;
       });
 
-      const newComponents = orderComponents.join(' ');
+      // const newComponents = orderComponents.join('');
+
+      console.log(orderComponents);
+      
       
 
-      setSpell({ ...spell, components: newComponents });
+      setSpell({ ...spell, components: [...orderComponents] });
     } else {
-      setSpell({ ...spell, components: spell.components.replace(value, '') });
+      const components = spell.components;
+
+      const index = components.findIndex((component) => component.charAt(0) === value);
+
+      components.splice(index, 1);
+
+      setSpell({ ...spell, components: [...components] });
     }
     
   }
