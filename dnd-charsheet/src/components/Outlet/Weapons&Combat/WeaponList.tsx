@@ -18,8 +18,29 @@ export default function WeaponList() {
 
   return (
     <Weapons>
-      <h2>Armas</h2>
-        
+
+      <section>
+        <h2>Armas</h2>
+          
+
+          <button onClick={() => setNewWeapon(!newWeapon)}>
+            {
+              newWeapon ? 
+              <img src='https://super.so/icon/light/minus-square.svg' alt="show info" /> :
+              <img src='https://super.so/icon/light/plus-square.svg' alt="show info" />
+            }
+          </button>
+
+          {
+            newWeapon && (
+              <WeaponForm
+                newWeapon
+                saveWeapon={() => setNewWeapon(false)}
+              />
+            )
+          }
+      </section>
+
         <ul>
           {listWeapons.map((weapon: any, index: number) => (
             <CardWeapon
@@ -31,20 +52,6 @@ export default function WeaponList() {
           ))}
         </ul>
 
-        <button onClick={() => setNewWeapon(!newWeapon)}>
-          {
-            newWeapon ? 
-            <img src='https://super.so/icon/light/minus-square.svg' alt="show info" /> :
-            <img src='https://super.so/icon/light/plus-square.svg' alt="show info" />
-          }
-        </button>
-
-        {newWeapon && (
-          <WeaponForm
-            newWeapon
-            saveWeapon={() => setNewWeapon(false)}
-          />
-        )}
     </Weapons>
   )
 }

@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import AppContext from '../../../Context/AppContext'
+import { WeaponFormS } from './Styles/WeaponForm'
 
 
 export default function WeaponForm(props: any) {
@@ -9,6 +10,8 @@ export default function WeaponForm(props: any) {
 
   const [weapon, setWeapon] = React.useState({ 
     name: '',
+    attribute: '',
+    attackAttr: 0,
     attackBonus: 0,
     damage: '',
     damageType: '', 
@@ -28,6 +31,8 @@ export default function WeaponForm(props: any) {
       setListWeapons([...listWeapons, weapon]);
       setWeapon({ 
         name: '',
+        attribute: '',
+        attackAttr: 0,
         attackBonus: 0,
         damage: '',
         damageType: '', 
@@ -49,73 +54,108 @@ export default function WeaponForm(props: any) {
 
     return saveWeapon();
   };
+
+  const handleChangeAttr = (e: any) => {
+    const modAttr = e.target.value !== '' && 
+      attributes.find((attribute: any) => attribute.name === e.target.value).mod;
+
+    setWeapon({ 
+      ...weapon, 
+      attribute: e.target.value,
+      attackAttr: modAttr, 
+    });
+  }
   
 
   return (
-    <div>
+    <WeaponFormS>
 
-      <label htmlFor='weaponName'>Nome</label>
-      <input
-        id='weaponName'
-        type='text'
-        value={weapon.name}
-        onChange={(e) => setWeapon({ ...weapon, name: e.target.value })}
-      />
+      <div>
+        <label htmlFor='weaponName'>Nome</label>
+        <input
+          id='weaponName'
+          type='text'
+          value={weapon.name}
+          onChange={(e) => setWeapon({ ...weapon, name: e.target.value })}
+        />
+      </div>
 
-      <label htmlFor='weaponDamage'>Dano</label>
-      <input
-        id='weaponDamage'
-        type='text'
-        value={weapon.damage}
-        onChange={(e) => setWeapon({ ...weapon, damage: e.target.value })}
-      />
+      <div>
+        <label htmlFor='weaponAttackAttr'>Atributo</label>
+        <select
+          id='weaponAttackAttr'
+          onChange={(e) => handleChangeAttr(e)}
+        >
+          <option value={''}>Selecione</option>
+          {
+            attributes.map((attribute: any) => (
+              <option key={attribute.name} value={attribute.name}>
+                {attribute.name}
+              </option>
+            ))
+          }
+        </select>
+      </div>
 
-      <label htmlFor='weaponAttackBonus'>Atributo</label>
+      <div>
+        <label htmlFor='weaponAttackBonus'>Bonus de Ataque</label>
+        <input
+          id='weaponAttackBonus'
+          type='number'
+          value={weapon.attackBonus}
+          onChange={(e) => setWeapon({ ...weapon, attackBonus: +e.target.value })}
+        />
+      </div>
 
-      <select
-        id='weaponAttackBonus'
-        value={weapon.attackBonus}
-        onChange={(e) => setWeapon({ ...weapon, attackBonus: Number(e.target.value) })}
-      >
-        <option value={0}>Selecione</option>
-        {
-          attributes.map((attribute: any, index: number) => (
-            <option key={attribute.name} value={index}>
-              {attribute.name}
-            </option>
-          ))
-        }
+      <div>
+        <label htmlFor='weaponDamage'>Dano</label>
+        <input
+          id='weaponDamage'
+          type='text'
+          value={weapon.damage}
+          onChange={(e) => setWeapon({ ...weapon, damage: e.target.value })}
+        />
+      </div>
 
-      </select>
+      <div>
+        <label htmlFor='weaponDamageType'>Tipo de dano</label>
+        <input
+          id='weaponDamageType'
+          type='text'
+          value={weapon.damageType}
+          onChange={(e) => setWeapon({ ...weapon, damageType: e.target.value })}
+        />
+      </div>
 
-      <label htmlFor='weaponDamageType'>Tipo de dano</label>
-      <input
-        id='weaponDamageType'
-        type='text'
-        value={weapon.damageType}
-        onChange={(e) => setWeapon({ ...weapon, damageType: e.target.value })}
-      />
+      <div>
+        <label htmlFor='weaponRange'>Alcance</label>
+        <input
+          id='weaponRange'
+          type='text'
+          value={weapon.range}
+          onChange={(e) => setWeapon({ ...weapon, range: e.target.value })}
+        />
+      </div>
 
-      <label htmlFor='weaponRange'>Alcance</label>
-      <input
-        id='weaponRange'
-        type='text'
-        value={weapon.range}
-        onChange={(e) => setWeapon({ ...weapon, range: e.target.value })}
-      />
+      <div>
+        <label htmlFor='weaponProf'>Proficiente</label>
+        <input
+          id='weaponProf'
+          type='checkbox'
+          checked={weapon.prof}
+          onChange={(e) => setWeapon({ ...weapon, prof: e.target.checked })}
+        />
+      </div>
 
-      <label htmlFor='weaponProf'>Proficiente</label>
-      <input
-        id='weaponProf'
-        type='checkbox'
-        checked={weapon.prof}
-        onChange={(e) => setWeapon({ ...weapon, prof: e.target.checked })}
-      />
 
       <button onClick={handleSaveWeapon}>
-        {newWeapon ? 'Salvar' : 'Editar'}
+        {
+          newWeapon ? 
+          <img src='https://super.so/icon/light/save.svg' alt="show info" /> :
+          <img src='https://super.so/icon/light/edit.svg' alt="show info" />
+        }
       </button>
 
-    </div>
+    </WeaponFormS>
   )
 }

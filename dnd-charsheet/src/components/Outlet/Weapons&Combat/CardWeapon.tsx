@@ -1,17 +1,18 @@
 import React from 'react'
 import WeaponForm from './WeaponForm';
 import AppContext from '../../../Context/AppContext'
+import { WeaponCard } from './Styles/WeaponCard';
 
 
 export default function CardWeapon(props: any) {
-  const { index, name, attackBonus, damage, damageType, range, prof, removeWeapon } = props;
-  const { proficiencyBonus, attributes } = React.useContext(AppContext);
+  const { index, name, attribute, attackAttr, attackBonus, damage, damageType, range, prof, removeWeapon } = props;
+  const { proficiencyBonus } = React.useContext(AppContext);
   const [toEdit, setToEdit] = React.useState(false);
   const [showMoreInfo, setShowMoreInfo] = React.useState(false);
 
 
   return (
-    <li>
+    <WeaponCard>
       {
         toEdit ? (
           <WeaponForm
@@ -30,19 +31,19 @@ export default function CardWeapon(props: any) {
             <p>
               Bônus de ataque: {
                   prof ? (
-                    <span>{attributes[attackBonus].mod + proficiencyBonus}</span>
+                    <span>{attackAttr + proficiencyBonus + attackBonus}</span>
                   ) : (
-                    <span>{attributes[attackBonus].mod}</span>
+                    <span>{attackAttr + attackBonus}</span>
                   )
                 }
             </p>
 
             <p>
               Dano: {
-                attributes[attackBonus].mod > 0 ? (
-                  <span>{damage} + {attributes[attackBonus].mod}</span>
+                attackAttr > 0 ? (
+                  <span>{damage} + {attackAttr}</span>
                 ) : (
-                  <span>{damage} {attributes[attackBonus].mod}</span>
+                  <span>{damage} {attackAttr}</span>
                 )
               } 
             </p>
@@ -61,13 +62,29 @@ export default function CardWeapon(props: any) {
             {
               showMoreInfo && (
                 <>
-                  <p>
-                    Tipo de dano: <span>{damageType}</span>
-                  </p>
+                  <div>
+                    Atributo: <span>{attribute}</span>
+                  </div>
 
-                  <p>
+                  <div>
+                    Bonus de ataque:
+                      <span>Atributo: {attackAttr}</span> 
+                      <span>Bônus: {attackBonus}</span>
+                  </div>
+
+                  <div>
+                    Dano: 
+                      <span>Dado: {damage}</span>
+                      <span>Atributo: {attackAttr}</span>
+                  </div>
+
+                  <div>
+                    Tipo de dano: <span>{damageType}</span>
+                  </div>
+
+                  <div>
                     Proficiente: <span>{prof ? 'Sim' : 'Não'}</span>
-                  </p>
+                  </div>
                 </>
               )
             }
@@ -79,6 +96,6 @@ export default function CardWeapon(props: any) {
         )
       }
 
-    </li>
+    </WeaponCard>
   )
 }
