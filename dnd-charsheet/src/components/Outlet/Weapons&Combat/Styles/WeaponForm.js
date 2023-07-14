@@ -19,6 +19,7 @@ export const WeaponFormS = styled.form`
     justify-content: space-between;
     align-items: center;
     margin: 5px 0;
+    
     /* outline: 2px solid var(--white); */
 
 
@@ -44,7 +45,7 @@ export const WeaponFormS = styled.form`
       justify-content: center;
       align-items: center;
       scale: 1.5;
-      margin: 10px 70px;
+      margin: 0;
       padding: 10px 10px;
 
       width: 50%;

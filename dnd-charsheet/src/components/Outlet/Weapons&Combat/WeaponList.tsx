@@ -10,10 +10,11 @@ export default function WeaponList() {
   const [newWeapon, setNewWeapon] = React.useState(false);
   const [showWeapon, setShowWeapon] = React.useState(false);
 
-  const handleRemoveWeapon = (index: number) => {
-    const updatedList = [...listWeapons];
-    updatedList.splice(index, 1);
-    setListWeapons(updatedList);
+  const handleRemoveWeapon = (weapon: any) => {
+    const weaponIndex = listWeapons.findIndex((item: any) => JSON.stringify(item) === JSON.stringify(weapon));
+    const newListWeapons = [...listWeapons];
+    newListWeapons.splice(weaponIndex, 1);
+    setListWeapons(newListWeapons);
   }
 
 
@@ -54,7 +55,7 @@ export default function WeaponList() {
               key={index}
               index={index}
               {...weapon}
-              removeWeapon={handleRemoveWeapon}
+              removeWeapon={ () => handleRemoveWeapon(weapon)}
             />
         ))}
       </div>

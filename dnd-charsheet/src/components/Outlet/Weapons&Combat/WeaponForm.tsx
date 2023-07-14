@@ -11,9 +11,15 @@ export default function WeaponForm(props: any) {
   const [weapon, setWeapon] = React.useState({ 
     name: '',
     attribute: '',
+    versatility: false,
+    damageVersatile: '',
     attackAttr: 0,
     attackBonus: 0,
     damage: '',
+    damageBonusFlat: 0,
+    bonusDice: false,
+    damageBonusDice: '',
+    damageTypeBonus: '',
     damageType: '', 
     range: '',
     prof: false,
@@ -32,10 +38,16 @@ export default function WeaponForm(props: any) {
       setWeapon({ 
         name: '',
         attribute: '',
+        versatility: false,
+        damageVersatile: '',
         attackAttr: 0,
         attackBonus: 0,
         damage: '',
-        damageType: '', 
+        damageBonusFlat: 0,
+        bonusDice: false,
+        damageBonusDice: '',
+        damageTypeBonus: '',
+        damageType: '',
         range: '', 
         prof: false,
       });
@@ -98,6 +110,51 @@ export default function WeaponForm(props: any) {
       </div>
 
       <div>
+        <label htmlFor='weaponDamage'>Dano</label>
+        <input
+          id='weaponDamage'
+          type='text'
+          value={weapon.damage}
+          onChange={(e) => setWeapon({ ...weapon, damage: e.target.value })}
+        />
+      </div>
+
+      <div>
+        <label htmlFor='weaponProf'>Proficiente</label>
+        <input
+          id='weaponProf'
+          type='checkbox'
+          checked={weapon.prof}
+          onChange={(e) => setWeapon({ ...weapon, prof: e.target.checked })}
+        />
+      </div>
+
+
+      <div>
+        <label htmlFor='weaponVersatility'>Versátil?</label>
+        <input
+          id='weaponVersatility'
+          type='checkbox'
+          checked={weapon.versatility}
+          onChange={(e) => setWeapon({ ...weapon, versatility: e.target.checked })}
+        />
+      </div>
+
+      {
+        weapon.versatility && (
+          <div>
+            <label htmlFor='weaponDamageVersatile'>Dano Versátil</label>
+            <input
+              id='weaponDamageVersatile'
+              type='text'
+              value={weapon.damageVersatile}
+              onChange={(e) => setWeapon({ ...weapon, damageVersatile: e.target.value })}
+            />
+          </div>
+        )
+      }
+
+      <div>
         <label htmlFor='weaponAttackBonus'>Bonus de Ataque</label>
         <input
           id='weaponAttackBonus'
@@ -108,14 +165,53 @@ export default function WeaponForm(props: any) {
       </div>
 
       <div>
-        <label htmlFor='weaponDamage'>Dano</label>
+        <label htmlFor='weaponDamageBonusFlat'>Bônus de dano fixo</label>
         <input
-          id='weaponDamage'
-          type='text'
-          value={weapon.damage}
-          onChange={(e) => setWeapon({ ...weapon, damage: e.target.value })}
+          id='weaponDamageBonusFlat'
+          type='number'
+          value={weapon.damageBonusFlat}
+          onChange={(e) => setWeapon({ ...weapon, damageBonusFlat: +e.target.value })}
         />
       </div>
+
+
+      <div>
+        <label htmlFor="BonusDice">Dado Adicional? </label>
+        <input
+          id='BonusDice'
+          type='checkbox'
+          checked={weapon.bonusDice}
+          onChange={(e) => setWeapon({ ...weapon, bonusDice: e.target.checked })}
+        />
+      </div>
+
+      {
+        weapon.bonusDice && (
+          <div>
+            <label htmlFor='weaponDamageBonusDice'>Bônus de dano de dado</label>
+            <input
+              id='weaponDamageBonusDice'
+              type='text'
+              value={weapon.damageBonusDice}
+              onChange={(e) => setWeapon({ ...weapon, damageBonusDice: e.target.value })}
+            />
+          </div>
+        )
+      }
+
+      {
+        weapon.bonusDice && (
+          <div>
+            <label htmlFor='weaponDamageTypeBonus'>Tipo de dano Adicional</label>
+            <input
+              id='weaponDamageTypeBonus'
+              type='text'
+              value={weapon.damageTypeBonus}
+              onChange={(e) => setWeapon({ ...weapon, damageTypeBonus: e.target.value })}
+            />
+          </div>
+        )
+      }
 
       <div>
         <label htmlFor='weaponDamageType'>Tipo de dano</label>
@@ -133,17 +229,8 @@ export default function WeaponForm(props: any) {
           id='weaponRange'
           type='text'
           value={weapon.range}
+          placeholder='Corpo a corpo'
           onChange={(e) => setWeapon({ ...weapon, range: e.target.value })}
-        />
-      </div>
-
-      <div>
-        <label htmlFor='weaponProf'>Proficiente</label>
-        <input
-          id='weaponProf'
-          type='checkbox'
-          checked={weapon.prof}
-          onChange={(e) => setWeapon({ ...weapon, prof: e.target.checked })}
         />
       </div>
 

@@ -25,7 +25,7 @@ export default function CardWeapon(props: any) {
         ) : (
 
           <div className={
-            `Card ${showMoreInfo ? 'MoreInfo' : ''}`
+            `Card ${showMoreInfo ? 'MoreInfo' : ''} ${props.versatility ? 'VersatilityCard' : ''}`
           }>
             <div className='Name'>
               <span>{name}</span>
@@ -45,7 +45,7 @@ export default function CardWeapon(props: any) {
               <p>
                  {
                   prof ? (
-                    <span>{attackAttr + proficiencyBonus + attackBonus}</span>
+                    <span>{attackAttr + proficiencyBonus + attackBonus }</span>
                     ) : (
                       <span>{attackAttr + attackBonus}</span>
                     )
@@ -55,17 +55,59 @@ export default function CardWeapon(props: any) {
 
             
             <div className='Damage'>
-              <p>Dano: </p>
-              <p>
-                {
-                  attackAttr > 0 ? (
-                    <span>{damage} + {attackAttr}</span>
-                  ) : (
-                    <span>{damage} {attackAttr}</span>
-                  )
-                } 
-              </p>
+                <p>Dano: </p>
+                <p>
+                  {
+                    attackAttr > 0 ? (
+                      <span>{damage} + {attackAttr + props.damageBonusFlat}
+                        {
+                          props.damageBonusDice !== '' && (
+                            <span> + {props.damageBonusDice}</span>
+                          )
+                        }
+                      </span>
+                    ) : (
+                      <span>{damage} {attackAttr+ props.damageBonusFlat}
+                        {
+                          props.damageBonusDice !== '' && (
+                            <span> + {props.damageBonusDice}</span>
+                          )
+                        }
+                      </span>
+                    )
+                  } 
+                </p>
+
             </div>
+            
+            {
+              props.versatility && (
+                <div className='Versatility'>
+                  <p>Dano Versátil: </p>
+                  <p>
+                    {
+                      attackAttr > 0 ? (
+                        <span>{props.damageVersatile} + {attackAttr + props.damageBonusFlat}
+                          {
+                            props.damageBonusDice !== '' && (
+                              <span> + {props.damageBonusDice}</span>
+                            )
+                          }
+                        </span>
+                      ) : (
+                        <span>{props.damageVersatile} {attackAttr + props.damageBonusFlat}
+                          {
+                            props.damageBonusDice !== '' && (
+                              <span> + {props.damageBonusDice}</span>
+                            )
+                          }
+                        </span>
+                      )
+                    } 
+                  </p>
+                </div>
+              )
+            }
 
             {
               showMoreInfo && (
@@ -94,10 +136,23 @@ export default function CardWeapon(props: any) {
                         <p>{attackAttr}</p>
                       </span>
 
-                      <span>
-                        <p>Bônus: </p> 
-                        <p>{attackBonus}</p>
-                      </span> 
+                      {
+                        attackBonus > 0 && (
+                          <span>
+                            <p>Bônus: </p> 
+                            <p>{attackBonus}</p>
+                          </span>
+                        )
+                      }
+
+                      {
+                        prof && (
+                          <span>
+                            <p>Proficiência: </p> 
+                            <p>{proficiencyBonus}</p>
+                          </span>
+                        )
+                      }
                     </div>
                   </div>
 
@@ -109,10 +164,47 @@ export default function CardWeapon(props: any) {
                         <p>{damage}</p>
                       </span>
 
+                      {
+                        props.versatility && (
+                          <span>
+                            <p>Versátil: </p>
+                            <p>{props.damageVersatile}</p>
+                          </span>
+                        )
+                      }
+
+
                       <span>
                         <p>Atributo: </p> 
                         <p>{attackAttr}</p>
-                      </span> 
+                      </span>
+
+                      {
+                        props.damageBonusFlat > 0 && (
+                          <span>
+                            <p>Bônus Fixo: </p> 
+                            <p>{props.damageBonusFlat}</p>
+                          </span>
+                        )
+                      }
+
+                      {
+                        props.damageBonusDice !== '' && (
+                          <span>
+                            <p>Dado Bônus: </p> 
+                            <p>{props.damageBonusDice}</p>
+                          </span>
+                        )
+                      }
+
+                      {
+                        props.damageTypeBonus !== '' && (
+                          <span>
+                            <p>Tipo de dano bônus: </p> 
+                            <p>{props.damageTypeBonus}</p>
+                          </span>
+                        )
+                      }
                     </div>
                   </div>
 
