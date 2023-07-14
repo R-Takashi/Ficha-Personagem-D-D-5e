@@ -8,6 +8,7 @@ import { Weapons } from './Styles/Weapons'
 export default function WeaponList() {
   const { listWeapons, setListWeapons } = useContext(AppContext);
   const [newWeapon, setNewWeapon] = React.useState(false);
+  const [showWeapon, setShowWeapon] = React.useState(false);
 
   const handleRemoveWeapon = (index: number) => {
     const updatedList = [...listWeapons];
@@ -20,7 +21,12 @@ export default function WeaponList() {
     <Weapons>
 
       <section>
-        <h2>Armas</h2>
+        <h2
+          className={`${showWeapon ? 'Listed' : ''}`}
+          onClick={() => {
+            setShowWeapon(!showWeapon);
+          }}
+        >Armas</h2>
           
 
           <button onClick={() => setNewWeapon(!newWeapon)}>
@@ -41,16 +47,17 @@ export default function WeaponList() {
           }
       </section>
 
-        <ul>
-          {listWeapons.map((weapon: any, index: number) => (
+      <div className={`${showWeapon ? 'DisplayOn' : 'DisplayOff'}`}>
+        {
+          listWeapons.map((weapon: any, index: number) => (
             <CardWeapon
               key={index}
               index={index}
               {...weapon}
               removeWeapon={handleRemoveWeapon}
             />
-          ))}
-        </ul>
+        ))}
+      </div>
 
     </Weapons>
   )

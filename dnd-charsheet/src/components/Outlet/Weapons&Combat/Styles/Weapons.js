@@ -28,14 +28,32 @@ export const Weapons = styled.div`
       text-align: center;
       border-bottom: 2px solid var(--white);
       border-radius: 5px;
-      transition: all 0.5s ease-in-out;
+      transition: all 0.3s ease-in-out;
     }
+
+    .Listed {
+        border: none;
+        border-radius: 10px;
+        background-color: transparent;
+        border-bottom: 4px solid var(--white);
+      }
   
     button {
       margin-left: auto;
       border: none;
       background-color: transparent;
     }
+  }
+
+  .DisplayOn, .DisplayOff {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .DisplayOff {
+    display: none;
   }
 
   

@@ -18,80 +18,132 @@ export default function CardWeapon(props: any) {
           <WeaponForm
             index={index}
             editWeapon
+            removeWeapon={removeWeapon}
             saveWeapon={() => setToEdit(!toEdit)}
           />
 
         ) : (
 
-          <>
-            <p>
-              Arma: <span>{name}</span>
-            </p>
+          <div className={
+            `Card ${showMoreInfo ? 'MoreInfo' : ''}`
+          }>
+            <div className='Name'>
+              <span>{name}</span>
+            </div>
 
-            <p>
-              Bônus de ataque: {
+            <button 
+              type='button' 
+              onClick={() => setToEdit(!toEdit)}
+              className='Btn-Edit'
+            >
+              <img src='https://super.so/icon/light/settings.svg' alt='Editar' />
+            </button>
+
+
+            <div className='AtkBonus'>
+              <p>Ataque: </p>
+              <p>
+                 {
                   prof ? (
                     <span>{attackAttr + proficiencyBonus + attackBonus}</span>
-                  ) : (
-                    <span>{attackAttr + attackBonus}</span>
-                  )
-                }
-            </p>
+                    ) : (
+                      <span>{attackAttr + attackBonus}</span>
+                    )
+                  }
+              </p>
+            </div>
 
-            <p>
-              Dano: {
-                attackAttr > 0 ? (
-                  <span>{damage} + {attackAttr}</span>
-                ) : (
-                  <span>{damage} {attackAttr}</span>
-                )
-              } 
-            </p>
-
-            <p>
-              Alcance: {
-                range === '' ? (
-                  <span>Corpo a corpo</span>
-                ) : (
-                  <span>{range}</span>
-                )
-              }
-            </p>
             
-            <button type='button' onClick={() => setShowMoreInfo(!showMoreInfo)}>+</button>
+            <div className='Damage'>
+              <p>Dano: </p>
+              <p>
+                {
+                  attackAttr > 0 ? (
+                    <span>{damage} + {attackAttr}</span>
+                  ) : (
+                    <span>{damage} {attackAttr}</span>
+                  )
+                } 
+              </p>
+            </div>
+
             {
               showMoreInfo && (
                 <>
-                  <div>
-                    Atributo: <span>{attribute}</span>
+                  <div className='Range'>
+                    <p>Alcance: </p>
+                      {
+                        range === '' ? (
+                          <span>Corpo a corpo</span>
+                        ) : (
+                          <span>{range}</span>
+                          )
+                      }
                   </div>
 
-                  <div>
-                    Bonus de ataque:
-                      <span>Atributo: {attackAttr}</span> 
-                      <span>Bônus: {attackBonus}</span>
+                  <div className='Attr'>
+                    <p>Atributo:</p>
+                    <span>{attribute}</span>
                   </div>
 
-                  <div>
-                    Dano: 
-                      <span>Dado: {damage}</span>
-                      <span>Atributo: {attackAttr}</span>
+                  <div className='AtkDesc'>
+                    <p>Bonus de ataque: </p>
+                    <div>
+                      <span>
+                        <p>Atributo: </p> 
+                        <p>{attackAttr}</p>
+                      </span>
+
+                      <span>
+                        <p>Bônus: </p> 
+                        <p>{attackBonus}</p>
+                      </span> 
+                    </div>
                   </div>
 
-                  <div>
+                  <div className='DmgDesc'>
+                    <p>Dano: </p>
+                    <div>
+                      <span>
+                        <p>Dado: </p> 
+                        <p>{damage}</p>
+                      </span>
+
+                      <span>
+                        <p>Atributo: </p> 
+                        <p>{attackAttr}</p>
+                      </span> 
+                    </div>
+                  </div>
+
+                  <div className='DmgType'>
                     Tipo de dano: <span>{damageType}</span>
                   </div>
 
-                  <div>
+                  <div className='Prof'>
                     Proficiente: <span>{prof ? 'Sim' : 'Não'}</span>
                   </div>
                 </>
               )
             }
 
-            <button type='button' onClick={() => setToEdit(!toEdit)}>Editar</button>
-            <button type='button' onClick={removeWeapon}>X</button>
-          </>
+                       
+            
+            <button 
+              type='button' 
+              onClick={() => setShowMoreInfo(!showMoreInfo)}
+              className='Btn-Info'
+            >
+                {
+                  showMoreInfo ? (
+                    <img src='https://super.so/icon/light/chevron-up.svg' alt='Mais informações' />
+                  ) : (
+                    <img src='https://super.so/icon/light/chevron-down.svg' alt='Mais informações' />
+                  )
+                }
+            </button>
+            
+          </div>
 
         )
       }

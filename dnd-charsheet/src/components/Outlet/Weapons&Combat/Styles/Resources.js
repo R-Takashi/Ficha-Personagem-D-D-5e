@@ -66,7 +66,7 @@ export const Resources = styled.div`
       border-left: 2px solid #7a7d83;
       border-right: 2px solid #7a7d83;
       box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
-      transition: all 0.5s ease-in-out;
+      transition: all 0.3s ease-in-out;
 
     
       label {

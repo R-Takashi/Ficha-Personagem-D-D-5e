@@ -147,14 +147,25 @@ export default function WeaponForm(props: any) {
         />
       </div>
 
-
-      <button onClick={handleSaveWeapon}>
+      <div className='Btn-Form'>
         {
-          newWeapon ? 
-          <img src='https://super.so/icon/light/save.svg' alt="show info" /> :
-          <img src='https://super.so/icon/light/edit.svg' alt="show info" />
+          editWeapon && (
+            <button onClick={props.removeWeapon}>
+              <img src='https://super.so/icon/light/trash.svg' alt="show info" />
+            </button>
+          )
         }
-      </button>
+
+
+        <button onClick={handleSaveWeapon}>
+          {
+            newWeapon ? 
+            <img src='https://super.so/icon/light/save.svg' alt="show info" /> :
+            <img src='https://super.so/icon/light/edit.svg' alt="show info" />
+          }
+        </button>
+      </div>
+
 
     </WeaponFormS>
   )
