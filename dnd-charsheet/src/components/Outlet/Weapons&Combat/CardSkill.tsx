@@ -1,20 +1,7 @@
 import React from 'react'
 import AppContext from '../../../Context/AppContext';
-import styled from 'styled-components';
 import SkillForm from './SkillForm';
-
-
-const CardSkillS = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 80%;
-  margin: 1rem 0;
-  padding: 1rem;
-  border: 1px solid black;
-  border-radius: 5px;
-`;
+import { SkillCard } from './Styles/SkillCard';
 
 
 export default function CardSkill(props: any) {
@@ -68,57 +55,71 @@ export default function CardSkill(props: any) {
 
 
   return (
-    <CardSkillS>
-      <p>{listSkills[index].name}</p>
-
-      {
-        showDescription && (
-          <>
-            <p>{listSkills[index].description}</p>
-
-            <button type='button' onClick={handleEdit}>Editar</button>
-
-          </>
-        )
-      }
-
-      {
-        toEdit && (
+    <SkillCard>
+       {
+        toEdit ? (
           <SkillForm
             index={index}
             editSkill
             saveSkill={() => setToEdit(false)}
           />
-        )
-      }
-
-      <button type='button' onClick={() => setShowDescription(!showDescription)}>+</button>
-
-      {
-        listSkills[index].resource && (
-          <div>
-            <span>Recurso: {listResources[resource].name}</span>
-            <p>Usos restantes: { 
-              listResources[resource].name === 'Proficiência Bonus' ? (
-                proficiencyResource.current
-              ) : (
-                Math.floor(listResources[resource].current / listSkills[index].resourceDrain)
+        ) : (
+          <>
+            <div>
+              <p>{listSkills[index].name}</p>
+              <p>Usar:</p>
+              <button
+                type='button'
+                disabled={checkDisabled()}
+                onClick={() => handleUseResource()}
+              >
+                <img src='https://super.so/icon/light/disc.svg' alt="show info" />
+              </button>
+            </div>
+      
+            {
+              listSkills[index].resource && (
+                <div>
+                  <span>Recurso: {listResources[resource].name}</span>
+                  <p>Usos restantes: { 
+                    listResources[resource].name === 'Proficiência Bonus' ? (
+                      proficiencyResource.current
+                    ) : (
+                      Math.floor(listResources[resource].current / listSkills[index].resourceDrain)
+                    )
+                  }
+                  </p>
+                </div>
               )
             }
-             </p>
 
-            <button
-              type='button'
-              disabled={checkDisabled()}
-              onClick={() => handleUseResource()
+            {
+              showDescription && (
+                <div>
+                  <pre>{listSkills[index].description}</pre>
+      
+                  <button type='button' onClick={handleEdit}>
+                    <img src='https://super.so/icon/light/edit.svg' alt="show info" />
+                  </button>
+      
+                </div>
+              )
             }
-            >
-              Usar
+
+            <button type='button' onClick={() => setShowDescription(!showDescription)}>
+              {
+                showDescription ? (
+                  <img src='https://super.so/icon/light/chevron-up.svg' alt="show info" />
+                ) : (
+                  <img src='https://super.so/icon/light/chevron-down.svg' alt="show info" />
+                )
+              }
             </button>
-          </div>
+          </>
         )
       }
+
       
-    </CardSkillS>
+    </SkillCard>
   )
 }

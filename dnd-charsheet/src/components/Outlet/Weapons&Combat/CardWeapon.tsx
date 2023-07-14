@@ -218,9 +218,7 @@ export default function CardWeapon(props: any) {
                 </>
               )
             }
-
-                       
-            
+      
             <button 
               type='button' 
               onClick={() => setShowMoreInfo(!showMoreInfo)}
@@ -234,9 +232,7 @@ export default function CardWeapon(props: any) {
                   )
                 }
             </button>
-            
           </div>
-
         )
       }
 

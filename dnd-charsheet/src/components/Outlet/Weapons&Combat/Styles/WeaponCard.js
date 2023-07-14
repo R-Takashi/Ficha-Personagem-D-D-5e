@@ -48,6 +48,7 @@ export const WeaponCard = styled.div`
             'btnDesc btnDesc btnDesc' 50px
             / 1fr 0.5fr 1fr;
     }
+
     &.MoreInfo.VersatilityCard {
       grid: 'name name btn' 50px
             'atk  dmg dmg' 50px

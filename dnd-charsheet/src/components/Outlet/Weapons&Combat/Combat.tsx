@@ -19,15 +19,7 @@ export default function Combat() {
 
       <ResourceSkill />
 
-
-      <div>
-        <h2>Habilidades</h2>
-
-        <SkillList />
-
-      </div>
-
-      
+      <SkillList />
 
     </CombatS>
   )
