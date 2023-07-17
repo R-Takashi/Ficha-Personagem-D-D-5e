@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const SkillCard = styled.div`
+export const CardGeneralTraitS = styled.div`
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
@@ -14,6 +14,10 @@ export const SkillCard = styled.div`
   text-align: center;
   width: 95%;
   font-size: 1.3rem;
+
+  span {
+    padding: 10px 10px;
+  }
 
   div {
     display: flex;
@@ -39,10 +43,11 @@ export const SkillCard = styled.div`
   button {
     background: transparent;
     border: none;
+    padding: 10px 10px;
   }
 
   button:disabled {
     opacity: 0.5;
   }
-
+  
 `;

@@ -88,8 +88,6 @@ export const CardItemS = styled.li`
       pre {
         width: 80%;
         white-space: pre-wrap;
-        word-wrap: break-word;
-        word-break: break-all;
         font-size: 1.2rem;
         max-height: 100rem;
         text-align: center;

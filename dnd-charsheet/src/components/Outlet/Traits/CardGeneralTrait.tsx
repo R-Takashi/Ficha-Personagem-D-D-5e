@@ -1,5 +1,6 @@
 import React from 'react'
 import TraitForm from './TraitForm';
+import { CardGeneralTraitS } from './Styles/CardGeneralTrait';
 
 
 export default function CardGeneralTrait(props: any) {
@@ -9,8 +10,8 @@ export default function CardGeneralTrait(props: any) {
 
 
   return (
-    <li>
-      <div className='Trait'>
+    <CardGeneralTraitS>
+      
         {
           toEdit ? (
             <TraitForm
@@ -18,23 +19,37 @@ export default function CardGeneralTrait(props: any) {
               index={props.index}
               saveTrait={() => setToEdit(!toEdit)}
               editTrait
+              removeTrait={removeTrait}
             />
           ) : (
             <>
               <span>{name}</span>
-              <button type='button' onClick={() => setShowDescription(!showDescription)}>+</button>
+              {
+                showDescription && (
+                  <button type='button' onClick={() => setToEdit(!toEdit)}>
+                    <img src='https://super.so/icon/light/edit.svg' alt="edit" />
+                  </button>
+                )
+              }
                 {
                   showDescription && (
-                    <>
-                      <span>{description}</span>
-                    </>
+                    <div>
+                      <pre>{description}</pre>
+                    </div>
                 )}
-              <button type='button' onClick={() => setToEdit(!toEdit)}>Editar</button>
-              <button type='button' onClick={removeTrait}>X</button>
+
+              <button type='button' onClick={() => setShowDescription(!showDescription)}>
+                {
+                  showDescription ? (
+                    <img src='https://super.so/icon/light/chevron-up.svg' alt="show info" />
+                  ) : (
+                    <img src='https://super.so/icon/light/chevron-down.svg' alt="show info" />
+                  )
+                }
+              </button>
             </>
           )
         }
-      </div>
-    </li>
+    </CardGeneralTraitS>
   )
 }

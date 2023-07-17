@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import AppContext from '../../../Context/AppContext'
-
+import { TraitFormS } from './Styles/TraitForm';
 
 export default function TraitForm(props: any) {
   const { type, index=0, newTrait=false, editTrait=false, saveTrait } = props;
@@ -89,30 +89,46 @@ export default function TraitForm(props: any) {
 
 
   return (
-    <div>
+    <TraitFormS>
 
-      <label htmlFor='traitName'>Nome</label>
-      <input
-        type='text'
-        name='traitName'
-        value={trait.name}
-        onChange={(e) => setTrait({...trait, name: e.target.value})}
-      />
+      <div>
+        <label htmlFor='traitName'>Nome</label>
+        <input
+          type='text'
+          name='traitName'
+          value={trait.name}
+          onChange={(e) => setTrait({...trait, name: e.target.value})}
+        />
+      </div>
 
       {type === 'general' && (
-        <>
+        <div className='Description'>
           <label htmlFor='traitDescription'>Descrição</label>
           <textarea
             name='traitDescription'
             value={trait.description}
             onChange={(e) => setTrait({...trait, description: e.target.value})}
           />
-        </>
+        </div>
       )}
 
-      <button type='button' onClick={handleSaveTrait}>
-        Salvar
-      </button>
-    </div>
+      <section className='Buttons'>
+        {
+          editTrait && (
+            <button type='button' onClick={() => props.removeTrait()}>
+              <img src='https://super.so/icon/light/trash.svg' alt="delete" />
+            </button>
+          )
+        }
+        
+        <button 
+          type='button' 
+          onClick={handleSaveTrait}
+          disabled={trait.name === ''}
+        >
+          <img src='https://super.so/icon/light/save.svg' alt="save" />
+        </button>
+      </section>
+    </TraitFormS>
   )
 }

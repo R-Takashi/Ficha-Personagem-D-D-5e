@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import AppContext from '../../../Context/AppContext'
 import GeneralTraits from './GeneralTraits';
 import ListTrait from './ListTrait';
+import { TraitS } from './Styles/Traits';
 
 
 export default function Traits() {
@@ -11,30 +12,26 @@ export default function Traits() {
   if (tab !== 'Características') return null;
 
   return (
-    <>
-      <div>
-        <h1>Características e Talentos</h1>
-        <GeneralTraits />
-      </div>
-
-      <div>
-        <ListTrait
-          listTrait={listLanguages}
-          setListTrait={setListLanguages}
-          title='Idiomas'
-          type='languages'
-        />
-      </div>
-
-      <div>
-        <ListTrait
-          listTrait={listProficiencies}
-          setListTrait={setListProficiencies}
-          title='Outras Proficiências'
-          type='proficiencies' 
-        />
-      </div>
+    <TraitS>
+    
+      <h1 className='Title'>Características & Talentos</h1>
+      
+      <GeneralTraits /> 
+      
+      <ListTrait
+        listTrait={listLanguages}
+        setListTrait={setListLanguages}
+        title='Idiomas'
+        type='languages'
+      />
+    
+      <ListTrait
+        listTrait={listProficiencies}
+        setListTrait={setListProficiencies}
+        title='Outras Proficiências'
+        type='proficiencies' 
+      />
         
-    </>
+    </TraitS>
   )
 }
