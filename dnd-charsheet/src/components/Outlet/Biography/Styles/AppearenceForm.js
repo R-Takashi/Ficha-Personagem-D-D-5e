@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const SkillFormS = styled.form`
+export const AppearenceFormS = styled.form`
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -8,10 +8,10 @@ export const SkillFormS = styled.form`
   align-items: center;
   margin: 5px 0;
   width: 100%;
-/* 
-  * {
-    outline: 2px solid white;
-  } */
+  border-radius: 10px;
+  border-left: 2px solid #7a7d83;
+  border-right: 2px solid #7a7d83;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
 
   div {
     display: flex;
@@ -19,19 +19,16 @@ export const SkillFormS = styled.form`
     justify-content: space-between;
     align-items: center;
     margin: 5px 0;
-    
-    /* outline: 2px solid var(--white); */
-
 
     label {
-      width: 45%;
+      width: 40%;
       margin: 5px 0;
       padding: 5px 10px;
       font-size: 1.2rem;
     }
 
     input {
-      width: 50%;
+      width: 60%;
       margin: 5px 0;
       padding: 5px 10px;
       border: none;
@@ -39,30 +36,7 @@ export const SkillFormS = styled.form`
       font-size: 1.2rem;
       text-align: center;
     }
-    
-    input[type="checkbox"] {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      scale: 1.5;
-      margin: 0;
-      padding: 10px 10px;
 
-      width: 50%;
-    }
-
-    select {
-      width: 100%;
-      margin: 5px 0;
-      padding: 5px 10px;
-      border: none;
-      border-radius: 5px;
-      font-size: 1.2rem;
-      text-align: center;
-      text-align-last: center;
-    }
-    
-      
   }
 
   .Description {
@@ -85,11 +59,14 @@ export const SkillFormS = styled.form`
   }
 
   button {
-    width: 100%;
-    margin: 5px 0;
-    padding: 10px 10px;
-    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
     border-radius: 5px;
-    /* outline: 2px solid var(--white); */
+    border: none;
+    padding: 5px 10px;
+    margin: 10px 0;
+    background: transparent;
   }
 `;

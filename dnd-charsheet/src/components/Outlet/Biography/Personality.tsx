@@ -1,16 +1,30 @@
 import React from 'react'
 import AppContext from '../../../Context/AppContext';
 import PersonalityForm from './PersonalityForm';
+import { PersonalityS } from './Styles/Personality';
 
 
 export default function Personality() {
   const { bio } = React.useContext(AppContext);
   const [toEdit, setToEdit] = React.useState(false);
+  const [showPersonality, setShowPersonality] = React.useState(false);
 
 
   return (
-    <div>
-      <h1>Personalidade</h1>
+    <PersonalityS>
+      <header>
+        <h2
+          className={`${showPersonality ? 'Listed' : ''}`}
+          onClick={() => setShowPersonality(!showPersonality)}
+        >Personalidade</h2>
+
+        <button
+          type='button'
+          onClick={() => setToEdit(!toEdit)}
+        >
+          <img src='https://super.so/icon/light/settings.svg' alt="Edit Personality" />
+        </button>
+      </header>
 
       {
         toEdit ? (
@@ -18,21 +32,29 @@ export default function Personality() {
             savePersonality={() => setToEdit(!toEdit)}
           />
         ) : (
-          <div>
-            <p>Personalidade: {bio?.personality?.personalityTraits}</p>
-            <p>Ideais: {bio?.personality?.ideals}</p>
-            <p>Vínculos: {bio?.personality?.bonds}</p>
-            <p>Fraquezas: {bio?.personality?.flaws}</p>
+          <div className={`${showPersonality ? 'DisplayOn' : 'DisplayOff'}`}>
+            <div>
+              <p>Personalidade: </p>
+              <span>{bio?.personality?.personalityTraits}</span>
+            </div>
 
-            <button
-              type='button'
-              onClick={() => setToEdit(!toEdit)}
-            >
-              Editar
-            </button>
+            <div>
+              <p>Ideais: </p>
+              <span>{bio?.personality?.ideals}</span>
+            </div>
+
+            <div>
+              <p>Vínculos: </p>
+              <span>{bio?.personality?.bonds}</span>
+            </div>
+
+            <div>
+              <p>Fraquezas: </p>
+              <span>{bio?.personality?.flaws}</span>
+            </div>
           </div>
         )
       }
-    </div>
+    </PersonalityS>
   )
 }

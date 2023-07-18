@@ -1,48 +1,95 @@
 import React from 'react'
 import AppContext from '../../../Context/AppContext';
 import AppearenceForm from './AppearenceForm';
+import { AppearenceS } from './Styles/Appearence';
 
 
 export default function Appearence() {
   const { bio } = React.useContext(AppContext);
-
+  const [showAppearence, setShowAppearence] = React.useState(false);
   const [toEdit, setToEdit] = React.useState(false);
 
 
   return (
-    <div>
-      <h1>Aparência</h1>
+    <AppearenceS>
+      <header>
+        <h2
+          className={`${showAppearence ? 'Listed' : ''}`}
+          onClick={() => setShowAppearence(!showAppearence)}
+        >Aparência</h2>
+
+        <button
+          type='button'
+          onClick={() => setToEdit(!toEdit)}
+        >
+          <img src='https://super.so/icon/light/settings.svg' alt="Edit Appearence" />
+        </button>
+      </header>
       {
         toEdit ? (
           <AppearenceForm
             saveAppearence={() => setToEdit(!toEdit)}
           />
         ) : (
-          <div>
-            <p>Idade: {bio?.appearence?.age}</p>
-            <p>Tamanho: {bio?.appearence?.size}</p>
-            <p>Altura: {bio?.appearence?.height}</p>
-            <p>Peso: {bio?.appearence?.weight}</p>
-            <p>Olhos: {bio?.appearence?.eyes}</p>
-            <p>Pele: {bio?.appearence?.skin}</p>
-            <p>Cabelo: {bio?.appearence?.hair}</p>
-            <p>Genero: {bio?.appearence?.gender}</p>
-            <p>Alinhamento: {bio?.appearence?.alignment}</p>
-            <p>Antecedente: {bio?.appearence?.background}</p>
-            <p>Aparência: {bio?.appearence?.appearence}</p>
+          <div className={`${showAppearence ? 'DisplayOn' : 'DisplayOff'}`}>
+            <div>
+              <p>Idade: </p>
+              <span>{bio?.appearence?.age}</span>
+            </div>
 
-            <button
-              type='button'
-              onClick={() => setToEdit(!toEdit)}
-            >
-              Editar
-            </button>
+            <div>
+              <p>Tamanho: </p>
+              <span>{bio?.appearence?.size}</span>
+            </div>
+
+            <div>
+              <p>Altura: </p>
+              <span>{bio?.appearence?.height}</span>
+            </div>
+
+            <div>
+              <p>Peso: </p>
+              <span>{bio?.appearence?.weight}</span>
+            </div>
+
+            <div>
+              <p>Olhos: </p>
+              <span>{bio?.appearence?.eyes}</span>
+            </div>
+
+            <div>
+              <p>Pele: </p>
+              <span>{bio?.appearence?.skin}</span>
+            </div>
+
+            <div>
+              <p>Cabelo: </p>
+              <span>{bio?.appearence?.hair}</span>
+            </div>
+
+            <div>
+              <p>Gênero: </p>
+              <span>{bio?.appearence?.gender}</span>
+            </div>
+
+            <div>
+              <p>Alinhamento: </p>
+              <span>{bio?.appearence?.alignment}</span>
+            </div>
+
+            <div>
+              <p>Antecedente: </p>
+              <span>{bio?.appearence?.background}</span>
+            </div>
+
+            <div className='Appearence'>
+              <p>Aparência: </p>
+              <pre>{bio?.appearence?.appearence}</pre>
+            </div>
           </div>
         )
       }
 
-
-
-    </div>
+    </AppearenceS>
   )
 }

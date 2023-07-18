@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import AppContext from '../../../Context/AppContext';
+import { AppearenceFormS } from './Styles/AppearenceForm';
 
 
 export default function AppearenceForm(props: any) {
@@ -27,117 +28,138 @@ export default function AppearenceForm(props: any) {
 
 
   return (
-    <div>
-      <form>
-        <label htmlFor='age'>
-          Idade
+    <AppearenceFormS>
+
+        <div>
+          <label htmlFor='age'>
+            Idade :
+          </label>
           <input
             id='age'
             type='text'
             value={appearence.age}
             onChange={(e) => setAppearence({ ...appearence, age: e.target.value })}
           />
-        </label>
+        </div>
 
-        <label htmlFor='size'>
-          Tamanho
+        <div>
+          <label htmlFor='size'>
+            Tamanho
+          </label>
           <input
             id='size'
             type='text'
             value={appearence.size}
             onChange={(e) => setAppearence({ ...appearence, size: e.target.value })}
           />
-        </label>
+        </div>
 
-        <label htmlFor='height'>
-          Altura
+        <div>
+          <label htmlFor='height'>
+            Altura
+          </label>
           <input
             id='height'
             type='text'
             value={appearence.height}
             onChange={(e) => setAppearence({ ...appearence, height: e.target.value })}
           />
-        </label>
+        </div>
 
-        <label htmlFor='weight'>
-          Peso
+        <div>
+          <label htmlFor='weight'>
+            Peso
+          </label>
           <input
             id='weight'
             type='text'
             value={appearence.weight}
             onChange={(e) => setAppearence({ ...appearence, weight: e.target.value })}
           />
-        </label>
+        </div>
 
-        <label htmlFor='eyes'>
-          Olhos
+        <div>
+          <label htmlFor='eyes'>
+            Olhos
+          </label>
           <input
             id='eyes'
             type='text'
             value={appearence.eyes}
             onChange={(e) => setAppearence({ ...appearence, eyes: e.target.value })}
           />
-        </label>
+        </div>
 
-        <label htmlFor='skin'>
-          Pele
+        <div>
+          <label htmlFor='skin'>
+            Pele
+          </label>
           <input
-            id='skin'
-            type='text'
-            value={appearence.skin}
-            onChange={(e) => setAppearence({ ...appearence, skin: e.target.value })}
-          />
-        </label>
+              id='skin'
+              type='text'
+              value={appearence.skin}
+              onChange={(e) => setAppearence({ ...appearence, skin: e.target.value })}
+            />
+        </div>
 
-        <label htmlFor='hair'>
-          Cabelo
+        <div>
+          <label htmlFor='hair'>
+            Cabelo
+          </label>
           <input
-            id='hair'
-            type='text'
-            value={appearence.hair}
-            onChange={(e) => setAppearence({ ...appearence, hair: e.target.value })}
-          />
-        </label>
+              id='hair'
+              type='text'
+              value={appearence.hair}
+              onChange={(e) => setAppearence({ ...appearence, hair: e.target.value })}
+            />
+        </div>
 
-        <label htmlFor='gender'>
-          Genero
+        <div>
+          <label htmlFor='gender'>
+            Genero
+          </label>
           <input
             id='gender'
             type='text'
             value={appearence.gender}
             onChange={(e) => setAppearence({ ...appearence, gender: e.target.value })}
-          />
-        </label>
+            />
+        </div>
 
-        <label htmlFor='alignment'>
-          Alinhamento
+        <div>
+          <label htmlFor='alignment'>
+            Alinhamento
+          </label>
           <input
             id='alignment'
             type='text'
             value={appearence.alignment}
             onChange={(e) => setAppearence({ ...appearence, alignment: e.target.value })}
           />
-        </label>
+        </div>
 
-        <label htmlFor='background'>
-          Antecedente
+        <div>
+          <label htmlFor='background'>
+            Antecedente
+          </label>
           <input
-            id='background'
-            type='text'
-            value={appearence.background}
-            onChange={(e) => setAppearence({ ...appearence, background: e.target.value })}
+              id='background'
+              type='text'
+              value={appearence.background}
+              onChange={(e) => setAppearence({ ...appearence, background: e.target.value })}
           />
-        </label>
+        </div>
 
-        <label htmlFor='appearence'>
-          Aparência
+        <div className='Description'>
+          <label htmlFor='appearence'>
+            Aparência
+          </label>
           <textarea
             id='appearence'
             value={appearence.appearence}
             onChange={(e) => setAppearence({ ...appearence, appearence: e.target.value })}
           />
-        </label>
-
+        </div>
 
         <button
           type='button'
@@ -146,11 +168,9 @@ export default function AppearenceForm(props: any) {
             saveAppearence();
           }}
         >
-          Salvar
+          <img src='https://super.so/icon/light/save.svg' alt="save" />
         </button>
 
-      </form>
-
-    </div>
+    </AppearenceFormS>
   )
 }

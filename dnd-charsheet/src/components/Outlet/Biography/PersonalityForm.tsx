@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import AppContext from '../../../Context/AppContext';
+import { PersonalityFormS } from './Styles/PersonalityForm';
 
 
 export default function PersonalityForm(props: any) {
@@ -20,47 +21,55 @@ export default function PersonalityForm(props: any) {
 
 
   return (
-    <div>
-      <form>
+    <PersonalityFormS>
+      <div>
         <label htmlFor='personalityTraits'>
           Personalidade
-          <input
-            id='personalityTraits'
-            type='text'
-            value={personality.personalityTraits}
-            onChange={(e) => setPersonality({ ...personality, personalityTraits: e.target.value })}
-          />
         </label>
+        <input
+          id='personalityTraits'
+          type='text'
+          value={personality.personalityTraits}
+          onChange={(e) => setPersonality({ ...personality, personalityTraits: e.target.value })}
+        />
+      </div>
 
+      <div>
         <label htmlFor='ideals'>
           Ideais
-          <input
-            id='ideals'
-            type='text'
-            value={personality.ideals}
-            onChange={(e) => setPersonality({ ...personality, ideals: e.target.value })}
-          />
         </label>
+        <input
+          id='ideals'
+          type='text'
+          value={personality.ideals}
+          onChange={(e) => setPersonality({ ...personality, ideals: e.target.value })}
+        />
+      </div>
 
+      <div>
         <label htmlFor='bonds'>
           Vínculos
-          <input
-            id='bonds'
-            type='text'
-            value={personality.bonds}
-            onChange={(e) => setPersonality({ ...personality, bonds: e.target.value })}
-          />
         </label>
+        <input
+          id='bonds'
+          type='text'
+          value={personality.bonds}
+          onChange={(e) => setPersonality({ ...personality, bonds: e.target.value })}
+        />
+      </div>
 
+      <div>
         <label htmlFor='flaws'>
           Fraquezas
-          <input
-            id='flaws'
-            type='text'
-            value={personality.flaws}
-            onChange={(e) => setPersonality({ ...personality, flaws: e.target.value })}
-          />
         </label>
+        <input
+          id='flaws'
+          type='text'
+          value={personality.flaws}
+          onChange={(e) => setPersonality({ ...personality, flaws: e.target.value })}
+        />
+      </div>
+
 
         <button
           type='button'
@@ -69,10 +78,8 @@ export default function PersonalityForm(props: any) {
             savePersonality();
           }}
         >
-          Salvar
+          <img src='https://super.so/icon/light/save.svg' alt="save" />
         </button>
-
-      </form>
-    </div>
+    </PersonalityFormS>
   )
 }
