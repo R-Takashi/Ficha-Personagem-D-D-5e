@@ -11,6 +11,7 @@ export default function SkillForm(props: any) {
   const [skill, setSkill] = React.useState({
     name: '',
     description: '',
+    consumeResource: false,
     resource: '',
     resourceDrain: '',
   });
@@ -32,6 +33,7 @@ export default function SkillForm(props: any) {
       setSkill({
         name: '',
         description: '',
+        consumeResource: false,
         resource: '',
         resourceDrain: '',
       });
@@ -87,7 +89,10 @@ export default function SkillForm(props: any) {
           type='checkbox'
           id='skillResource'
           checked={useResource}
-          onChange={(e) => setUseResource(e.target.checked)}
+          onChange={(e) => {
+            setUseResource(e.target.checked);
+            setSkill({...skill, consumeResource: e.target.checked});
+          }}
         />
       </div>
 
@@ -124,6 +129,14 @@ export default function SkillForm(props: any) {
       <button type='button' onClick={handleSaveSkill}>
         <img src='https://super.so/icon/light/save.svg' alt="save" />
       </button>
+
+      {
+        editSkill && (
+          <button type='button' onClick={props.removeSkill}>
+            <img src='https://super.so/icon/light/trash.svg' alt="remove" />
+          </button>
+        )
+      }
 
     </SkillFormS>
   )

@@ -6,25 +6,14 @@ import { SkillCard } from './Styles/SkillCard';
 
 export default function CardSkill(props: any) {
   const { index } = props;
-  const { listSkills, listResources, setListResources } = React.useContext(AppContext);
-  const resource = listResources.findIndex((resource: any) => resource.name === listSkills[index].resource);
+  const { listSkills, listResources, setListResources, setListSkills } = React.useContext(AppContext);
+  const resource = listResources.findIndex((resource: any) => resource?.name === listSkills[index].resource);
   const [showDescription, setShowDescription] = React.useState(false);
   const [toEdit, setToEdit] = React.useState(false);
   const [proficiencyResource, setProficiencyResource] = React.useState({
-    current: 0,
-    max: 0,
+    current: listResources[resource]?.current,
+    max: listResources[resource]?.max,
   });
-
-  React.useEffect(() => {
-    const typeResource = listResources[resource].name;
-
-    if (typeResource === 'Proficiência Bonus') {
-      setProficiencyResource({
-        current: listResources[resource].current,
-        max: listResources[resource].max,
-      });
-    }
-  }, [listResources, resource]);
 
 
   const handleEdit = () => {
@@ -32,8 +21,13 @@ export default function CardSkill(props: any) {
     setShowDescription(false);
   }
 
-  const checkDisabled = () => {
-    if (listResources[resource].name === 'Proficiência Bonus') {
+  const checkDisabled = (consumeResource: boolean) => {
+    if (!consumeResource) {
+      return false;
+    }
+
+    if (listResources[resource]?.name === 'Proficiência Bonus') {
+      
       return Math.floor(proficiencyResource.current / listSkills[index].resourceDrain) === 0;
     }
 
@@ -53,6 +47,12 @@ export default function CardSkill(props: any) {
     }
   }
 
+  const removeSkill = () => {
+    const newList = [...listSkills];
+    newList.splice(index, 1);
+    setListSkills(newList);
+  }
+
 
   return (
     <SkillCard>
@@ -62,33 +62,40 @@ export default function CardSkill(props: any) {
             index={index}
             editSkill
             saveSkill={() => setToEdit(false)}
+            removeSkill={removeSkill}
           />
         ) : (
           <>
-            <div>
+            <div className={ listSkills[index].consumeResource && 'WithResource'}>
               <p>{listSkills[index].name}</p>
-              <p>Usar:</p>
-              <button
-                type='button'
-                disabled={checkDisabled()}
-                onClick={() => handleUseResource()}
-              >
-                <img src='https://super.so/icon/light/disc.svg' alt="show info" />
-              </button>
+
+              { listSkills[index].consumeResource && (
+                <>
+                  <p>Usar:</p>
+                  <button
+                    type='button'
+                    disabled={checkDisabled(listSkills[index].consumeResource)}
+                    onClick={() => handleUseResource()}
+                  >
+                    <img src='https://super.so/icon/light/disc.svg' alt="show info" />
+                  </button>
+                </>
+              )}
+              
             </div>
       
             {
-              listSkills[index].resource && (
-                <div>
-                  <span>Recurso: {listResources[resource].name}</span>
-                  <p>Usos restantes: { 
+              listSkills[index]?.resource && (
+                <div className='Resources'>
+                  <span>{listResources[resource].name}</span>
+                  <span>Usos: { 
                     listResources[resource].name === 'Proficiência Bonus' ? (
                       proficiencyResource.current
                     ) : (
                       Math.floor(listResources[resource].current / listSkills[index].resourceDrain)
                     )
                   }
-                  </p>
+                  </span>
                 </div>
               )
             }
