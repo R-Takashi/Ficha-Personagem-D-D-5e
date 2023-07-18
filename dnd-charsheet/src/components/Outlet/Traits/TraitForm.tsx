@@ -92,7 +92,16 @@ export default function TraitForm(props: any) {
     <TraitFormS>
 
       <div>
-        <label htmlFor='traitName'>Nome</label>
+        {
+          type === 'languages' ? (
+          <label htmlFor='traitName'>Idioma: </label>
+          ) : 
+          type === 'proficiencies' ? (
+            <label htmlFor='traitName'>Proficiência: </label>
+          ) : (
+            <label htmlFor='traitName'>Nome: </label>
+          )
+        }
         <input
           type='text'
           name='traitName'

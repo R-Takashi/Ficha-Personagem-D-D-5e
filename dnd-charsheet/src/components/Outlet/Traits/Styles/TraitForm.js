@@ -20,14 +20,14 @@ export const TraitFormS = styled.form`
 
 
     label {
-      width: 45%;
+      width: 40%;
       margin: 5px 0;
       padding: 5px 10px;
       font-size: 1.2rem;
     }
 
     input {
-      width: 50%;
+      width: 60%;
       margin: 5px 0;
       padding: 5px 10px;
       border: none;
