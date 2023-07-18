@@ -1,11 +1,13 @@
 import React from 'react'
 import CardTrait from './CardTrait'
 import TraitForm from './TraitForm';
+import { BasicTrait } from './Styles/BasicTraits';
 
 
 export default function ListTrait(props: any) {
   const { title, type, listTrait, setListTrait } = props;
   const [ newTrait, setNewTrait ] = React.useState(false);
+  const [showTrait, setShowTrait] = React.useState(false);
 
   const handleRemoveTrait = (index: number) => {
     const updatedList = [...listTrait];
@@ -15,10 +17,41 @@ export default function ListTrait(props: any) {
 
 
   return (
-    <div>
-      <h2>{title}</h2>
+    
+    <BasicTrait>
+      <header>
+        <h2
+          className={`${showTrait ? 'Listed' : ''}`}
+          onClick={() => setShowTrait(!showTrait)}
+        >{title}</h2>
 
-      <ul>
+        <button
+          type='button'
+          onClick={() => setNewTrait(!newTrait)}
+        >
+          {
+            newTrait ? (
+              <img src='https://super.so/icon/light/minus-square.svg' alt="show info" />
+            ) : (
+              <img src='https://super.so/icon/light/plus-square.svg' alt="show info" />
+            )
+          }
+        </button>
+
+        { 
+          newTrait && (
+            <TraitForm
+              type={type}
+              newTrait
+              saveTrait={() => setNewTrait(!newTrait)}
+            />
+          )
+        }
+
+      </header>
+
+
+      <div className={`${showTrait ? 'DisplayOn' : 'DisplayOff'}`}>
         {listTrait.map((trait: any, index: number) => (
           <CardTrait
             key={index}
@@ -28,24 +61,7 @@ export default function ListTrait(props: any) {
             removeTrait={() => handleRemoveTrait(index)}
           />
         ))}
-
-        {
-          newTrait ? (
-            <li>
-              <TraitForm
-                type={type}
-                newTrait
-                saveTrait={() => setNewTrait(!newTrait)}
-              />
-            </li>
-          ) : (
-            
-            <button type='button' onClick={() => setNewTrait(!newTrait)}>Adicionar</button>
-          )
-
-        }
-
-      </ul>
-    </div>
+      </div>
+    </BasicTrait>
   )
 }
