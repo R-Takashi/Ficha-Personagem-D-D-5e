@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import AppContext from '../../../Context/AppContext'
 import BasicList from './BasicList';
+import { NotesS } from './Styles/Notes';
 
 
 export default function Notes() {
@@ -8,9 +9,7 @@ export default function Notes() {
 
   if (tab !== 'Diário') return null;
   return (
-    <div>
-      <h1>Diario</h1>
-
+    <NotesS>
       <BasicList
         title='Organizações'
         type='organizations'
@@ -41,6 +40,6 @@ export default function Notes() {
         type='treasures'
       />
 
-    </div>
+    </NotesS>
   )
 }

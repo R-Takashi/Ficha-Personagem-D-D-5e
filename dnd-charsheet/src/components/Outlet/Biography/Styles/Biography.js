@@ -131,7 +131,6 @@ export const BiographyS = styled.div`
 
     }
 
-
     button {
       display: flex;
       justify-content: center;

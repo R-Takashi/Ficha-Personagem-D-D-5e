@@ -1,6 +1,7 @@
 import React from 'react'
 import AppContext from '../../../Context/AppContext';
 import BasicForm from './BasicForm';
+import { CardItemS } from './Styles/CardItem';
 
 
 export default function CardItem(props: any) {
@@ -10,7 +11,7 @@ export default function CardItem(props: any) {
 
 
   return (
-    <li>
+    <CardItemS>
 
       {
         toEdit ? (
@@ -18,22 +19,24 @@ export default function CardItem(props: any) {
             index={index}
             type={type}
             saveItem={() => setToEdit(!toEdit)}
+            removeItem={removeItem}
             editItem
           />
 
         ) : (
 
           <>
-            <p>
+            <span>
               {notes[type][index]}
-            </p>
+            </span>
 
-            <button type='button' onClick={() => setToEdit(!toEdit)}>Editar</button>
-            <button type='button' onClick={removeItem}>X</button>
+            <button type='button' onClick={() => setToEdit(!toEdit)}>
+              <img src='https://super.so/icon/light/edit.svg' alt="edit" />
+            </button>
           </>
         )
       }
       
-    </li>
+    </CardItemS>
   )
 }

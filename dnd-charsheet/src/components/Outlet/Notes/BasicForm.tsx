@@ -1,6 +1,6 @@
 import React from 'react'
 import AppContext from '../../../Context/AppContext';
-
+import { BasicFormS } from './Styles/BasicForm';
 
 
 export default function BasicForm(props: any) {
@@ -37,19 +37,31 @@ export default function BasicForm(props: any) {
 
 
   return (
-    <div>
-      <form>
-        <label htmlFor={type}>
+    <BasicFormS>
+        <div>
           <input
             type='text'
             id={type}
             value={value}
             onChange={(e) => setValue(e.target.value)}
           />
-        </label>
 
-        <button type='button' onClick={handleSave}>Salvar</button>
-      </form>
-    </div>
+        </div>
+
+        <div className='Buttons'>
+          {
+            editItem && (
+              <button type='button' onClick={() => props.removeItem()}>
+                <img src='https://super.so/icon/light/trash.svg' alt="remove" />
+              </button>
+            )
+          }
+
+          <button type='button' onClick={handleSave}>
+            <img src='https://super.so/icon/light/save.svg' alt="save" />
+          </button>
+        </div>
+
+    </BasicFormS>
   )
 }
