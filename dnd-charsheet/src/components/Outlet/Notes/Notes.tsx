@@ -5,7 +5,7 @@ import { NotesS } from './Styles/Notes';
 
 
 export default function Notes() {
-  const { tab } = useContext(AppContext);
+  const { tab, saveSheet, loadSheet } = useContext(AppContext);
 
   if (tab !== 'Diário') return null;
   return (
@@ -39,6 +39,20 @@ export default function Notes() {
         title='Tesouros'
         type='treasures'
       />
+
+      <button
+        type='button'
+        onClick={() => saveSheet()}
+        >
+        Salvar Ficha
+      </button>
+
+      <button
+        type='button'
+        onClick={() => loadSheet()}
+        >
+        Carregar Ficha
+      </button>
 
     </NotesS>
   )

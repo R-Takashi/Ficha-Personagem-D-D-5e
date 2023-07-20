@@ -65,16 +65,46 @@ export default function AppProvider({ children }) {
   });
   const [listItems, setListItems] = useState([]);
   const [listSpells, setListSpells] = useState({
-    "Truques": [],
-    "1º": [],
-    "2º": [],
-    "3º": [],
-    "4º": [],
-    "5º": [],
-    "6º": [],
-    "7º": [],
-    "8º": [],
-    "9º": [],
+    "Truques": [{
+      max: 0,
+      uses: 0,
+    }],
+    "1º": [{
+        max: 0,
+        uses: 0,
+      }],
+    "2º": [{
+        max: 0,
+        uses: 0,
+      }],
+    "3º": [{
+        max: 0,
+        uses: 0,
+      }],
+    "4º": [{
+        max: 0,
+        uses: 0,
+      }],
+    "5º": [{
+        max: 0,
+        uses: 0,
+      }],
+    "6º": [{
+        max: 0,
+        uses: 0,
+      }],
+    "7º": [{
+        max: 0,
+        uses: 0,
+      }],
+    "8º": [{
+        max: 0,
+        uses: 0,
+      }],
+    "9º": [{
+        max: 0,
+        uses: 0,
+      }],
   });
   const [attributeSpell, setAttributeSpell] = useState({
     attr: '',
@@ -85,6 +115,8 @@ export default function AppProvider({ children }) {
   const [listTraits, setListTraits] = useState([{ name: 'Teste', description: 'Teste Descrição' }]);
   const [listLanguages, setListLanguages] = useState([]);
   const [listProficiencies, setListProficiencies] = useState([]);
+  const [listArmorProficiencies, setListArmorProficiencies] = useState([]);
+  const [listWeaponProficiencies, setListWeaponProficiencies] = useState([]);
   const [listWeapons, setListWeapons] = useState([]);
   const [listSkills, setListSkills] = useState([]);
   const [listResources, setListResources] = useState([
@@ -190,6 +222,96 @@ export default function AppProvider({ children }) {
     setListResources(updateResources);
   };
 
+  const resetSpellSlots = () => {
+
+    if (!listSpells) return;
+
+    const updateSpells = Object.values(listSpells).map((spellLevel) => {
+      if (spellLevel.length > 0) {
+          const circleSlots = {
+            ...spellLevel[0],
+            uses: spellLevel[0]?.max,
+          };
+    
+          let updateList = [...spellLevel]
+          updateList[0] = circleSlots;
+          return updateList;
+        }
+        
+        return spellLevel;
+      }
+    );
+
+    const spellLevels = ["Truques", "1º", "2º", "3º", "4º", "5º", "6º", "7º", "8º", "9º"];
+
+    const updateList = spellLevels.reduce((acc, level, index) => {
+      return { ...acc, [level]: updateSpells[index] };
+    }, {});
+
+    return setListSpells(updateList);
+  };
+
+  const saveSheet = () => {
+    const sheet = {
+      name,
+      race,
+      charClass,
+      level,
+      experience,
+      attributes,
+      proficiencyBonus,
+      lifePoints,
+      movement,
+      skills,
+      currency,
+      listItems,
+      listSpells,
+      attributeSpell,
+      listTraits,
+      listLanguages,
+      listProficiencies,
+      listArmorProficiencies,
+      listWeaponProficiencies,
+      listWeapons,
+      listSkills,
+      listResources,
+      bio,
+      notes,
+    };
+
+    localStorage.setItem('sheet', JSON.stringify(sheet));
+
+    return sheet;
+  };
+
+  const loadSheet = () => {
+    const sheet = JSON.parse(localStorage.getItem('sheet'));
+
+    setName(sheet.name);
+    setRace(sheet.race);
+    setCharClass(sheet.charClass);
+    setLevel(sheet.level);
+    setExperience(sheet.experience);
+    setAttributes(sheet.attributes);
+    setProficiencyBonus(sheet.proficiencyBonus);
+    setLifePoints(sheet.lifePoints);
+    setMovement(sheet.movement);
+    setSkills(sheet.skills);
+    setCurrency(sheet.currency);
+    setListItems(sheet.listItems);
+    setListSpells(sheet.listSpells);
+    setAttributeSpell(sheet.attributeSpell);
+    setListTraits(sheet.listTraits);
+    setListLanguages(sheet.listLanguages);
+    setListProficiencies(sheet.listProficiencies);
+    setListArmorProficiencies(sheet.listArmorProficiencies);
+    setListWeaponProficiencies(sheet.listWeaponProficiencies);
+    setListWeapons(sheet.listWeapons);
+    setListSkills(sheet.listSkills);
+    setListResources(sheet.listResources);
+    setBio(sheet.bio);
+    setNotes(sheet.notes);
+  };
 
   const contextValue = {
     tab, setTab,
@@ -211,12 +333,16 @@ export default function AppProvider({ children }) {
     listTraits, setListTraits,
     listLanguages, setListLanguages,
     listProficiencies, setListProficiencies,
+    listArmorProficiencies, setListArmorProficiencies,
+    listWeaponProficiencies, setListWeaponProficiencies,
     listWeapons, setListWeapons,
     listSkills, setListSkills,
     listResources, setListResources,
     resetResources,
+    resetSpellSlots,
     bio, setBio,
     notes, setNotes,
+    saveSheet, loadSheet,
   };
 
 

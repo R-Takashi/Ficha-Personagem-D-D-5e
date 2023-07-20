@@ -9,6 +9,8 @@ export default function TraitForm(props: any) {
     listTraits, setListTraits,
     listLanguages, setListLanguages,
     listProficiencies, setListProficiencies,
+    listArmorProficiencies, setListArmorProficiencies,
+    listWeaponProficiencies, setListWeaponProficiencies,
   } = useContext(AppContext);
 
   const [trait, setTrait] = React.useState(
@@ -32,11 +34,29 @@ export default function TraitForm(props: any) {
           setTrait({...listProficiencies[index]});
         }
         break;
+      case 'armorProficiencies':
+        if (editTrait) {
+          setTrait({...listArmorProficiencies[index]});
+        }
+        break;
+      case 'weaponProficiencies':
+        if (editTrait) {
+          setTrait({...listWeaponProficiencies[index]});
+        }
+        break;
       default:
         break;
 
     }
-  }, [editTrait, index, listLanguages, listProficiencies, listTraits, type]);
+  }, [
+      editTrait, 
+      index, 
+      listLanguages, 
+      listProficiencies,
+      listArmorProficiencies,
+      listWeaponProficiencies,
+      listTraits,
+      type]);
 
   const handleSaveTrait = () => {
     if (newTrait) {
@@ -49,6 +69,12 @@ export default function TraitForm(props: any) {
           break;
         case 'proficiencies':
           setListProficiencies([...listProficiencies, trait]);
+          break;
+        case 'armorProficiencies':
+          setListArmorProficiencies([...listArmorProficiencies, trait]);
+          break;
+        case 'weaponProficiencies':
+          setListWeaponProficiencies([...listWeaponProficiencies, trait]);
           break;
         default:
           break;
@@ -78,6 +104,16 @@ export default function TraitForm(props: any) {
         const updatedProficienciesList = [...listProficiencies];
         updatedProficienciesList[index] = editedTrait;
         setListProficiencies(updatedProficienciesList);
+        break
+      case 'armorProficiencies':
+        const updatedArmorProficienciesList = [...listArmorProficiencies];
+        updatedArmorProficienciesList[index] = editedTrait;
+        setListArmorProficiencies(updatedArmorProficienciesList);
+        break;
+      case 'weaponProficiencies':
+        const updatedWeaponProficienciesList = [...listWeaponProficiencies];
+        updatedWeaponProficienciesList[index] = editedTrait;
+        setListWeaponProficiencies(updatedWeaponProficienciesList);
         break;
       default:
         break;

@@ -7,7 +7,10 @@ import { TraitS } from './Styles/Traits';
 
 export default function Traits() {
   const { tab, listLanguages, setListLanguages,
-    listProficiencies, setListProficiencies, } = useContext(AppContext);
+    listProficiencies, setListProficiencies,
+    listArmorProficiencies, setListArmorProficiencies,
+    listWeaponProficiencies, setListWeaponProficiencies,
+  } = useContext(AppContext);
 
   if (tab !== 'Características') return null;
 
@@ -23,6 +26,20 @@ export default function Traits() {
         setListTrait={setListLanguages}
         title='Idiomas'
         type='languages'
+      />
+
+      <ListTrait
+        listTrait={listArmorProficiencies}
+        setListTrait={setListArmorProficiencies}
+        title='Armaduras'
+        type='armorProficiencies'
+      />
+
+      <ListTrait
+        listTrait={listWeaponProficiencies}
+        setListTrait={setListWeaponProficiencies}
+        title='Armas'
+        type='weaponProficiencies'
       />
     
       <ListTrait

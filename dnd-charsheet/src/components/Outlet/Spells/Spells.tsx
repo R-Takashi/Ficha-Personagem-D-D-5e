@@ -5,8 +5,6 @@ import { SpellS } from './Styles/SpellS';
 
 const spellListLevel = ["Truques", "1º", "2º", "3º", "4º", "5º", "6º", "7º", "8º", "9º"];
 
-//  "2º", "3º", "4º", "5º", "6º", "7º", "8º", "9º"
-
 
 export default function Spells() {
   const { tab, attributes, attributeSpell, setAttributeSpell, } = useContext(AppContext);
@@ -52,14 +50,14 @@ export default function Spells() {
           <section>
             {
               spellListLevel.map((level: string) => (
-                <div>
+                <div key={`${level}-circle-level`}>
                   <input
-                      key={`${level}-knowledges`}
                       type='checkbox'
                       name='spellCircle'
                       value={level}
-                      onChange={(e) => enabledSpellCircle(e)} />
-                  <label key={`${level}-circle-level`} htmlFor='spellCircle'>
+                      onChange={(e) => enabledSpellCircle(e)}
+                  />
+                  <label htmlFor='spellCircle'>
                     {level}
                   </label>
                 </div>

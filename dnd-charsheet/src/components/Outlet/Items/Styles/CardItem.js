@@ -60,7 +60,7 @@ export const CardItemS = styled.li`
     flex-direction: column;
     flex-wrap: wrap;
     text-align: left;
-    word-break: break-all;
+    white-space: pre-wrap;
     width: 100%;
     max-height: 0px;
     opacity: 0;
@@ -79,6 +79,10 @@ export const CardItemS = styled.li`
       width: 80%;
     }
 
+    pre {
+      display: none;
+    }
+
 
     &.Show {
       max-height: 100rem;
@@ -86,11 +90,13 @@ export const CardItemS = styled.li`
       padding: 10px;
 
       pre {
-        width: 80%;
+        display: flex;
+        width: 100%;
         white-space: pre-wrap;
         font-size: 1.2rem;
         max-height: 100rem;
         text-align: center;
+        padding: 15px;
       }
 
       button {

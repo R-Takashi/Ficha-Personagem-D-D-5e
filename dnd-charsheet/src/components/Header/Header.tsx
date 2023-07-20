@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import AppContext from '../../Context/AppContext'
 import { HeaderS } from './Styles/HeaderS'
 import HeaderForm from './HeaderForm';
+import ShortRest from './campfire.svg'
 
 
 export default function Header() {
@@ -9,10 +10,23 @@ export default function Header() {
     name,
     race,
     charClass,
-    level
+    level,
+    lifePoints, setLifePoints,
+    resetResources, resetSpellSlots,
   } = useContext(AppContext)
 
   const [toEdit, setToEdit] = React.useState(false);
+  const [charMenu, setCharMenu] = React.useState(false);
+  
+
+  const longRest = () => {
+    setLifePoints({
+      ...lifePoints,
+      current: lifePoints.max,
+    });
+    resetResources();
+    resetSpellSlots();
+  }
 
   return (
     <>
@@ -23,35 +37,72 @@ export default function Header() {
           />
         ) : (
           <HeaderS>
-            <div className='NameRace'>
+            <div 
+              className='NameRace'
+              onClick={() => setCharMenu(!charMenu)}
+            >
               <h1>{name}</h1>
               <p>{race}</p>
             </div>
 
-            <div className='ClassLevel'>
-              {
-                charClass.map((cClass: any, index: number) => (
-                  <div 
-                    key={cClass.name + cClass.level}
-                    className={index === 0 ? 'MainClass' : ''}
-                  >
-                    <p>{cClass.name} {cClass.level}</p>
+            {
+              charMenu ? (
+                <div className='CharMenu'>
+
+                  <p>Descanso: </p>
+
+                  <div className='Buttons'>
+
+                    <div>
+                      <button
+                        type='button'
+                      >
+                        <img src={ ShortRest } alt="Descanso curto" />
+                      </button>
+                      <p>Curto</p>
+                    </div>
+
+                    <div>
+                      <button
+                        type='button'
+                        onClick={() => longRest()}
+                      >
+                        <img src="https://super.so/icon/light/moon.svg" alt="Descanso longo" />
+                      </button>
+                      <p>Longo</p>
+                    </div>
+
                   </div>
-                ))
-              }
-            </div>
+                </div>
+              ) : (
+                <div className='InfoChar'>
+                  <div className='ClassLevel'>
+                    {
+                      charClass.map((cClass: any, index: number) => (
+                        <div 
+                          key={cClass.name + cClass.level}
+                          className={index === 0 ? 'MainClass' : ''}
+                        >
+                          <p>{cClass.name} {cClass.level}</p>
+                        </div>
+                      ))
+                    }
+                  </div>
 
-            <div className='Level'>
-              <p>Nível</p>
-              <p>{level}</p>
-            </div>
+                  <div className='Level'>
+                    <p>Nível</p>
+                    <p>{level}</p>
+                  </div>
 
-            <button
-              type='button'
-              onClick={() => setToEdit(!toEdit)}
-            >
-              <img src='https://super.so/icon/light/settings.svg' alt='edit' />
-            </button>
+                  <button
+                    type='button'
+                    onClick={() => setToEdit(!toEdit)}
+                  >
+                    <img src='https://super.so/icon/light/settings.svg' alt='edit' />
+                  </button>
+                </div>
+              )
+            }
           </HeaderS>
         )
 

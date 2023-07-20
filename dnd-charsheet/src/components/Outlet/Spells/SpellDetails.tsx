@@ -48,7 +48,7 @@ export default function SpellDetails(props: any) {
             editSpell
           />
         ) : (
-          <span className={`Description ${showInfo ? 'Show' : ''}`}>
+          <span className={`Description ${showInfo ? 'Show' : 'Closed'}`}>
             <div className='InfoSpell'>
               <div className='School'>
                 <img src='https://super.so/icon/light/book.svg' alt="school" />

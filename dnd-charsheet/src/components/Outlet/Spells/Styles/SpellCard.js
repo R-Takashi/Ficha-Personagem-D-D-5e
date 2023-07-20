@@ -36,12 +36,12 @@ export const SpellCard = styled.li`
     flex-direction: column;
     flex-wrap: wrap;
     text-align: left;
-    word-break: break-all;
+    white-space: pre-wrap;
     width: 100%;
     max-height: 0px;
     opacity: 0;
     font-size: 1.2rem;
-    transition: max-height .1s linear;
+    transition: all .1s linear;
 
     .InfoSpell {
       display: none;
@@ -65,7 +65,14 @@ export const SpellCard = styled.li`
       }
     }
 
-    &.Show {
+    pre {
+      max-width: 400px;
+      max-height:0rem;
+    }
+  }
+
+
+  .Description.Show {
       max-height: 100rem;
       opacity: 1;
       padding: 10px;
@@ -138,6 +145,5 @@ export const SpellCard = styled.li`
         }
       }
     }
-  }
 
 `;
