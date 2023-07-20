@@ -72,7 +72,7 @@ export default function SpellListLevel(props: any) {
       </header>
 
       
-      <ul style={ showList ? {} : { display: 'none'}}>
+      <ul className={ showList ? 'ShowSpells' : 'HideSpells'}>
         {listSpells[level]?.slice(1).map((spell: any, index: number) => (
           <SpellDetails
             key={`${level}-spells-${index}`}

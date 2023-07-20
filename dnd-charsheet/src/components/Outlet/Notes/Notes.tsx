@@ -5,7 +5,7 @@ import { NotesS } from './Styles/Notes';
 
 
 export default function Notes() {
-  const { tab, saveSheet, loadSheet } = useContext(AppContext);
+  const { tab, saveSheet, loadSheet, exportSheet, importSheet, } = useContext(AppContext);
 
   if (tab !== 'Diário') return null;
   return (
@@ -40,19 +40,36 @@ export default function Notes() {
         type='treasures'
       />
 
-      <button
-        type='button'
-        onClick={() => saveSheet()}
-        >
-        Salvar Ficha
-      </button>
+      <div className='SaveSheet'>
+        <button
+          type='button'
+          onClick={() => saveSheet()}
+          >
+          Salvar Ficha localmente
+        </button>
 
-      <button
-        type='button'
-        onClick={() => loadSheet()}
+        <button
+          type='button'
+          onClick={() => loadSheet()}
+          >
+          Carregar Ficha localmente
+        </button>
+
+        <button
+          type='button'
+          onClick={() => exportSheet()}
         >
-        Carregar Ficha
-      </button>
+          Exportar Ficha
+        </button>
+
+        <input
+          type='file'
+          id='importSheet'
+          accept='.json'
+          onChange={(e) => importSheet(e)}
+        />
+      </div>
+
 
     </NotesS>
   )

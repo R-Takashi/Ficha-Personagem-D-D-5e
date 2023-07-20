@@ -313,6 +313,60 @@ export default function AppProvider({ children }) {
     setNotes(sheet.notes);
   };
 
+  const exportSheet = () => {
+    const sheet = saveSheet();
+    const sheetJSON = JSON.stringify(sheet);
+    const blob = new Blob([sheetJSON], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${name}.json`;
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const importSheet = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      const sheet = JSON.parse(e.target.result);
+      setName(sheet.name);
+      setRace(sheet.race);
+      setCharClass(sheet.charClass);
+      setLevel(sheet.level);
+      setExperience(sheet.experience);
+      setAttributes(sheet.attributes);
+      setProficiencyBonus(sheet.proficiencyBonus);
+      setLifePoints(sheet.lifePoints);
+      setMovement(sheet.movement);
+      setSkills(sheet.skills);
+      setCurrency(sheet.currency);
+      setListItems(sheet.listItems);
+      setListSpells(sheet.listSpells);
+      setAttributeSpell(sheet.attributeSpell);
+      setListTraits(sheet.listTraits);
+      setListLanguages(sheet.listLanguages);
+      setListProficiencies(sheet.listProficiencies);
+      setListArmorProficiencies(sheet.listArmorProficiencies);
+      setListWeaponProficiencies(sheet.listWeaponProficiencies);
+      setListWeapons(sheet.listWeapons);
+      setListSkills(sheet.listSkills);
+      setListResources(sheet.listResources);
+      setBio(sheet.bio);
+      setNotes(sheet.notes);
+    };
+
+    reader.readAsText(file);
+
+    console.log(reader);
+    console.log(file);
+    
+  };
+
+
+
+
   const contextValue = {
     tab, setTab,
     contentTab, setContentTab,
@@ -343,6 +397,7 @@ export default function AppProvider({ children }) {
     bio, setBio,
     notes, setNotes,
     saveSheet, loadSheet,
+    exportSheet, importSheet,
   };
 
 

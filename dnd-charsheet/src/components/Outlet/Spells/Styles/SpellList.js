@@ -67,7 +67,7 @@ export const SpellList = styled.div`
 
   }
 
-  ul {
+  .ShowSpells {
     width: 90%;
     display: flex;
     flex-direction: column;
@@ -88,7 +88,14 @@ export const SpellList = styled.div`
       margin: 10px 0;
       padding: 10px 0;
     }
+  }
 
+  .HideSpells {
+    display: none;
+
+    li {
+      display: none;
+    }
   }
 
   .NewSpell {

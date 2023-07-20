@@ -65,9 +65,8 @@ export const SpellCard = styled.li`
       }
     }
 
-    pre {
-      max-width: 400px;
-      max-height:0rem;
+    &.Closed {
+      display: none;
     }
   }
 
