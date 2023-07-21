@@ -14,6 +14,23 @@ export default function SkillList() {
     <Skills>
 
       <header>
+        {
+          listSkills.length > 0 && (
+            <div
+              className='Btn-Show'
+              onClick={() => setShowSkill(!showSkill)}
+            >
+              {
+                showSkill ? (
+                  <img src='https://super.so/icon/light/chevron-up.svg' alt='Mais informações' />
+                ) : (
+                  <img src='https://super.so/icon/light/chevron-down.svg' alt='Mais informações' />
+                )
+              }
+            </div>
+          )
+        }
+
         <h2
           className={`${showSkill ? 'Listed' : ''}`}
           onClick={() => setShowSkill(!showSkill)}

@@ -54,6 +54,23 @@ export default function Biography() {
 
           <div className='BGChar'>
             <header>
+              {
+                bio.background && (
+                  <div
+                    className='Btn-Show'
+                    onClick={() => setShowBackground(!showBackground)}
+                  >
+                    {
+                      showBackground ? (
+                        <img src='https://super.so/icon/light/chevron-up.svg' alt='Mais informações' />
+                      ) : (
+                        <img src='https://super.so/icon/light/chevron-down.svg' alt='Mais informações' />
+                      )
+                    }
+                  </div>
+                )
+              }
+
               <h2
                 className={`${showBackground ? 'Listed' : ''}`}
                 onClick={() => setShowBackground(!showBackground)}

@@ -13,6 +13,23 @@ export default function Personality() {
   return (
     <PersonalityS>
       <header>
+        {
+          bio?.personality && (
+            <div
+              className='Btn-Show'
+              onClick={() => setShowPersonality(!showPersonality)}
+            >
+              {
+                showPersonality ? (
+                  <img src='https://super.so/icon/light/chevron-up.svg' alt='Mais informações' />
+                ) : (
+                  <img src='https://super.so/icon/light/chevron-down.svg' alt='Mais informações' />
+                )
+              }
+            </div>
+          )
+        }
+
         <h2
           className={`${showPersonality ? 'Listed' : ''}`}
           onClick={() => setShowPersonality(!showPersonality)}

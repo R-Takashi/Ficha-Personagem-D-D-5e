@@ -17,6 +17,23 @@ export default function ResourceList() {
       <section>
 
         <header>
+          {
+            listResources.length > 0 && (
+              <div
+                className='Btn-Show'
+                onClick={() => setShowResource(!showResource)}
+              >
+                {
+                  showResource ? (
+                    <img src='https://super.so/icon/light/chevron-up.svg' alt='Mais informações' />
+                  ) : (
+                    <img src='https://super.so/icon/light/chevron-down.svg' alt='Mais informações' />
+                  )
+                }
+              </div>
+            )
+          }
+
           <h2
             className={`${showResource ? 'Listed' : ''}`}
             onClick={() => {

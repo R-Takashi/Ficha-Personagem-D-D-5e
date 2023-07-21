@@ -22,6 +22,12 @@ export const Resources = styled.div`
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
     padding: 10px 10px;
     text-align: center;
+    position: relative;
+
+    .Btn-Show {
+      position: absolute;
+      left: 20px;
+    }
 
     header {
       width: 100%;

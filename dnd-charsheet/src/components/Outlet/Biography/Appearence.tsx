@@ -13,6 +13,23 @@ export default function Appearence() {
   return (
     <AppearenceS>
       <header>
+        {
+          bio?.appearence && (
+            <div
+              className='Btn-Show'
+              onClick={() => setShowAppearence(!showAppearence)}
+            >
+              {
+                showAppearence ? (
+                  <img src='https://super.so/icon/light/chevron-up.svg' alt='Mais informações' />
+                ) : (
+                  <img src='https://super.so/icon/light/chevron-down.svg' alt='Mais informações' />
+                )
+              }
+            </div>
+          )
+        }
+
         <h2
           className={`${showAppearence ? 'Listed' : ''}`}
           onClick={() => setShowAppearence(!showAppearence)}

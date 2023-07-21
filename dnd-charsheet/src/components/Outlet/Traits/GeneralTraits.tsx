@@ -20,6 +20,22 @@ export default function GeneralTraits() {
     <GeneralTraitS>
 
       <header>
+        {
+          listTraits.length > 0 && (
+            <div
+              className='Btn-Show'
+              onClick={() => setShowTrait(!showTrait)}
+            >
+              {
+                showTrait ? (
+                  <img src='https://super.so/icon/light/chevron-up.svg' alt='Mais informações' />
+                ) : (
+                  <img src='https://super.so/icon/light/chevron-down.svg' alt='Mais informações' />
+                )
+              }
+            </div>
+          )
+        }
       
         <h2
           className={`${showTrait ? 'Listed' : ''}`}

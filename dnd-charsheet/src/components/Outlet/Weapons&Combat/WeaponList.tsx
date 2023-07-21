@@ -22,6 +22,23 @@ export default function WeaponList() {
     <Weapons>
 
       <section>
+        {
+          listWeapons.length > 0 && (
+            <div
+              className='Btn-Show'
+              onClick={() => setShowWeapon(!showWeapon)}
+            >
+              {
+                showWeapon ? (
+                  <img src='https://super.so/icon/light/chevron-up.svg' alt='Mais informações' />
+                ) : (
+                  <img src='https://super.so/icon/light/chevron-down.svg' alt='Mais informações' />
+                )
+              }
+            </div>
+          )
+        }
+
         <h2
           className={`${showWeapon ? 'Listed' : ''}`}
           onClick={() => {
