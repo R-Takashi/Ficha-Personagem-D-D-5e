@@ -130,7 +130,6 @@ export const ListItems = styled.section`
       opacity: 0;
       height: 0;
     }
-
   }
 
   ul {

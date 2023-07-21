@@ -15,6 +15,7 @@ const tabs = [
     'Características',
     'Biografia',
     'Diário',
+    'Configurações',
 ]
 
 export default function TabNav() {

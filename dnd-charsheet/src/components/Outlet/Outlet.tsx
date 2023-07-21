@@ -6,6 +6,7 @@ import Traits from './Traits/Traits'
 import Notes from './Notes/Notes'
 import Weapons from './Weapons&Combat/Combat'
 import Biography from './Biography/Biography'
+import Settings from './Settings/Settings'
 
 
 export default function Outlet() {
@@ -18,6 +19,7 @@ export default function Outlet() {
       <Notes />
       <Weapons />
       <Biography />
+      <Settings />
     </div>
   )
 }
