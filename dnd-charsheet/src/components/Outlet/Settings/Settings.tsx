@@ -73,10 +73,10 @@ export default function Settings() {
   }
 
   React.useEffect(() => {
-    const saveLocal = JSON.parse(localStorage.getItem('sheet')|| '');
+    const saveLocal = localStorage.getItem('sheet')|| '';
     
-    if (saveLocal.name !== '') {
-      setActualSaveLocal(saveLocal?.name);
+    if (saveLocal !== '') {
+      setActualSaveLocal(JSON.parse(saveLocal).name);
       setIsSaved(false);
     }
   }, []);
