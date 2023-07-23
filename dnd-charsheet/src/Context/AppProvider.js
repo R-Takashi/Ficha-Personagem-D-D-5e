@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import AppContext from './AppContext';
 
+
 export default function AppProvider({ children }) {
   const [tab, setTab] = useState('Personagem');
   const [contentTab, setContentTab] = useState({});
   const [name, setName] = useState('');
   const [race, setRace] = useState('');
   const [charClass, setCharClass] = useState([]);
+  const [armorClass, setArmorClass] = useState(0);
   const [level, setLevel] = useState(0);
   const [experience, setExperience] = useState(0);
   const [attributes, setAttributes] = useState([
@@ -256,6 +258,7 @@ export default function AppProvider({ children }) {
       name,
       race,
       charClass,
+      armorClass,
       level,
       experience,
       attributes,
@@ -290,6 +293,7 @@ export default function AppProvider({ children }) {
     setName(sheet.name);
     setRace(sheet.race);
     setCharClass(sheet.charClass);
+    setArmorClass(sheet?.armorClass || 0);
     setLevel(sheet.level);
     setExperience(sheet.experience);
     setAttributes(sheet.attributes);
@@ -334,6 +338,7 @@ export default function AppProvider({ children }) {
       setName(sheet.name);
       setRace(sheet.race);
       setCharClass(sheet.charClass);
+      setArmorClass(sheet?.armorClass || 0);
       setLevel(sheet.level);
       setExperience(sheet.experience);
       setAttributes(sheet.attributes);
@@ -373,6 +378,7 @@ export default function AppProvider({ children }) {
     name, setName,
     race, setRace,
     charClass, setCharClass,
+    armorClass, setArmorClass,
     level, setLevel,
     experience, setExperience,
     attributes, setAttributes,

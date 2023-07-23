@@ -20,6 +20,7 @@ type Attribute = {
 export default function Attributes() {
   const { 
     attributes, setAttributes, charClass,
+    armorClass, setArmorClass,
     tab, proficiencyBonus,
     lifePoints, setLifePoints,
     movement, setMovement,
@@ -27,7 +28,6 @@ export default function Attributes() {
   const [hpEdit, setHpEdit] = React.useState(false);
   const [hpCurrent, setHpCurrent] = React.useState(0);
   const [hpCurrentType, setHpCurrentType] = React.useState('damage');
-  const [armorClass, setArmorClass] = React.useState(attributes[1].mod + 10);
   const [lifeStatus, setLifeStatus] = React.useState({});
   const [isDead, setIsDead] = React.useState(false);
   
