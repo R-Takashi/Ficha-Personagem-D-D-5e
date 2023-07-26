@@ -24,7 +24,7 @@ export default function Attributes() {
     tab, proficiencyBonus,
     lifePoints, setLifePoints,
     movement, setMovement,
-    skills } = useContext(AppContext);
+    skills, inspiration, setInspiration } = useContext(AppContext);
   const [hpEdit, setHpEdit] = React.useState(false);
   const [hpCurrent, setHpCurrent] = React.useState(0);
   const [hpCurrentType, setHpCurrentType] = React.useState('damage');
@@ -181,6 +181,17 @@ export default function Attributes() {
 
   return (
     <AttributesS>
+      <div className='Inspiration'>
+        <label htmlFor='Inspiration'>
+          <span>Inspiração</span>
+        </label>
+        <input
+          type="checkbox"
+          id='Inspiration'
+          checked={ inspiration }
+          onChange={ () => setInspiration(!inspiration) }
+        />
+      </div>
       <StatusBase>
         <div className='HP'>
 

@@ -46,9 +46,57 @@ export const HeaderS = styled.div`
       align-items: center;
       justify-content: center;
       color: #7a7d83;
+      position: relative;
 
       .MainClass {
         color: var(--white);
+      }
+
+      .Inspiration {
+        position: absolute;
+        bottom: 30px;
+        left: 0;
+        color: var(--white);
+        
+        div {
+          position: relative;
+          display: inline-block;
+          top: 5px;
+          
+          margin-left: .9em;
+          margin-right: .9em;
+          margin-bottom: 1.2em;
+          
+          border-right:  .3em solid transparent;
+          border-bottom: .7em  solid var(--white);
+          border-left:   .3em solid transparent;
+
+          /* Controlls the size of the stars. */
+          font-size: 0.7rem;
+          
+          &:before, &:after {
+            content: '';
+            
+            display: block;
+            width: 0;
+            height: 0;
+            
+            position: absolute;
+            top: .5em;
+            left: -1em;
+          
+            border-right:  1em solid transparent;
+            border-bottom: .7em  solid var(--white);
+            border-left:   1em solid transparent;
+          
+            transform: rotate(-35deg);
+          }
+          
+          &:after {  
+            transform: rotate(35deg);
+          }
+        }
+        
       }
     }
 

@@ -19,4 +19,26 @@ export const AttributesS = styled.div`
       font-size: 1.5rem;
     }
   }
+
+  .Inspiration {
+    width: 95%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+    border-top: 1px solid #7a7d83;
+    border-bottom: 1px solid #7a7d83;
+    border-radius: 10px;
+    padding: 0.5rem 0;
+    text-transform: capitalize;
+
+    label {
+      width: 50%;
+      font-size: 1.5rem;
+    }
+
+    input {
+      scale: 1.5;
+    }
+  }
 `;

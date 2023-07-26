@@ -13,6 +13,7 @@ export default function Header() {
     level,
     lifePoints, setLifePoints,
     resetResources, resetSpellSlots,
+    inspiration,
   } = useContext(AppContext)
 
   const [toEdit, setToEdit] = React.useState(false);
@@ -77,6 +78,10 @@ export default function Header() {
               ) : (
                 <div className='InfoChar'>
                   <div className='ClassLevel'>
+                    {inspiration && (
+                      <p className='Inspiration'>Inspiração: <div /></p>
+                    )  
+                    }
                     {
                       charClass.map((cClass: any, index: number) => (
                         <div 

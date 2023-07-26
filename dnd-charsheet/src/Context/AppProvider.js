@@ -21,6 +21,7 @@ export default function AppProvider({ children }) {
     { name: 'Carisma', value: 0, mod: -5, save: -5, prof: false, attr: 'charisma' },
   ]);
   const [proficiencyBonus, setProficiencyBonus] = useState(2);
+  const [inspiration, setInspiration] = useState(false);
   const [lifePoints, setLifePoints] = useState({
     max: 0,
     current: 0,
@@ -280,6 +281,7 @@ export default function AppProvider({ children }) {
       listResources,
       bio,
       notes,
+      inspiration,
     };
 
     localStorage.setItem('sheet', JSON.stringify(sheet));
@@ -289,6 +291,7 @@ export default function AppProvider({ children }) {
 
   const loadSheet = () => {
     const sheet = JSON.parse(localStorage.getItem('sheet'));
+
 
     setName(sheet.name);
     setRace(sheet.race);
@@ -315,6 +318,7 @@ export default function AppProvider({ children }) {
     setListResources(sheet.listResources);
     setBio(sheet.bio);
     setNotes(sheet.notes);
+    setInspiration(sheet?.inspiration);
   };
 
   const exportSheet = () => {
@@ -360,13 +364,10 @@ export default function AppProvider({ children }) {
       setListResources(sheet.listResources);
       setBio(sheet.bio);
       setNotes(sheet.notes);
+      setInspiration(sheet?.inspiration);
     };
 
     reader.readAsText(file);
-
-    console.log(reader);
-    console.log(file);
-    
   };
 
 
@@ -404,6 +405,7 @@ export default function AppProvider({ children }) {
     notes, setNotes,
     saveSheet, loadSheet,
     exportSheet, importSheet,
+    inspiration, setInspiration,
   };
 
 
