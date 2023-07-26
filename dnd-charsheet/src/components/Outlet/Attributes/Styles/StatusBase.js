@@ -10,7 +10,7 @@ export const StatusBase = styled.section`
   grid-gap: 0.5rem;
   margin: 0.5rem 0;
   padding: 0.5rem;
-  
+
   h3 {
     text-align: center;
     color: var(--white);
@@ -38,6 +38,7 @@ export const StatusBase = styled.section`
   .HP {
     grid-area: hp;
     border: 1px solid #7a7d83;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
     border-radius: 10px;
     padding: 0.5rem;
 

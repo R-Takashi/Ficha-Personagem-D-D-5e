@@ -13,6 +13,7 @@ export const CardAttr = styled.div`
   border: 1px solid #7a7d83;
   border-radius: 5px;
   background-color: #151618;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
   margin: 5px;
   padding: 10px;
 

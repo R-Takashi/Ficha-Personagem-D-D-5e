@@ -11,12 +11,14 @@ export const AttributesS = styled.div`
     flex-wrap: wrap;
     justify-content: center;
     margin: 10px;
+    
 
     h3 {
       width: 100%;
       text-align: center;
       margin: 10px 0;
       font-size: 1.5rem;
+      
     }
   }
 
@@ -31,6 +33,7 @@ export const AttributesS = styled.div`
     border-radius: 10px;
     padding: 0.5rem 0;
     text-transform: capitalize;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
 
     label {
       width: 50%;
