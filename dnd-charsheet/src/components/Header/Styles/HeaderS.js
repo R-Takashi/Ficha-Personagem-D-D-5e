@@ -37,8 +37,9 @@ export const HeaderS = styled.div`
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
     padding: 0 10px;
+    position: relative;
 
     .ClassLevel {
       display: flex;
@@ -54,9 +55,10 @@ export const HeaderS = styled.div`
 
       .Inspiration {
         position: absolute;
-        bottom: 30px;
-        left: 0;
+        top: 25px;
         color: var(--white);
+        left: 17%;
+        width: 100%;
         
         div {
           position: relative;
@@ -112,14 +114,13 @@ export const HeaderS = styled.div`
       background-color: transparent;
       cursor: pointer;
       position: relative;
+      position: absolute;
+      bottom: 35px;
+      right: 0;
 
       img {
         filter: invert(50%) sepia(9%) saturate(210%) hue-rotate(182deg) brightness(95%) contrast(91%);
         transform: scale(0.8);
-        position: absolute;
-        bottom: 20px;
-        left: -10px;
-
       }
     }
 
