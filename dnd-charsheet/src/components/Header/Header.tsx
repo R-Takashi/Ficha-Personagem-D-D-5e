@@ -78,10 +78,7 @@ export default function Header() {
               ) : (
                 <div className='InfoChar'>
                   <div className='ClassLevel'>
-                    {inspiration && (
-                      <p className='Inspiration'>Inspiração: <div /></p>
-                    )  
-                    }
+                    
                     {
                       charClass.map((cClass: any, index: number) => (
                         <div 
@@ -92,22 +89,28 @@ export default function Header() {
                         </div>
                       ))
                     }
+
+                    {inspiration && (
+                      <p className='Inspiration'>Inspiração: <div /></p>
+                    )
+                    }
                   </div>
 
                   <div className='Level'>
                     <p>Nível</p>
                     <p>{level}</p>
                   </div>
-
-                  <button
-                    type='button'
-                    onClick={() => setToEdit(!toEdit)}
-                  >
-                    <img src='https://super.so/icon/light/settings.svg' alt='edit' />
-                  </button>
                 </div>
               )
             }
+
+            <button
+              type='button'
+              className='Edit'
+              onClick={() => setToEdit(!toEdit)}
+            >
+              <img src='https://super.so/icon/light/settings.svg' alt='edit' />
+            </button>
           </HeaderS>
         )
 

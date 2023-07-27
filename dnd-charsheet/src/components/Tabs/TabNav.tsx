@@ -9,9 +9,9 @@ const selected = {
 
 const tabs = [
     'Atributos',
-    'Itens',
-    'Magias',
     'Combate',
+    'Magias',
+    'Itens',
     'Características',
     'Biografia',
     'Diário',

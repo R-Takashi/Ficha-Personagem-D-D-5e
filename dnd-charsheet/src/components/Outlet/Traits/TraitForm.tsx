@@ -143,19 +143,22 @@ export default function TraitForm(props: any) {
           name='traitName'
           value={trait.name}
           onChange={(e) => setTrait({...trait, name: e.target.value})}
+          
         />
       </div>
 
-      {type === 'general' && (
-        <div className='Description'>
-          <label htmlFor='traitDescription'>Descrição</label>
-          <textarea
-            name='traitDescription'
-            value={trait.description}
-            onChange={(e) => setTrait({...trait, description: e.target.value})}
-          />
-        </div>
-      )}
+      {
+        type === 'general' && (
+          <div className='Description'>
+            <label htmlFor='traitDescription'>Descrição</label>
+            <textarea
+              name='traitDescription'
+              value={trait.description}
+              onChange={(e) => setTrait({...trait, description: e.target.value})}
+            />
+          </div>
+        )
+      }
 
       <section className='Buttons'>
         {

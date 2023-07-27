@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const TraitFormS = styled.form`
+export const TraitFormS = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;

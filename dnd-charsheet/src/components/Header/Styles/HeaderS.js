@@ -10,6 +10,7 @@ export const HeaderS = styled.div`
   margin-bottom: 10px;
   border-bottom: 1px solid #7a7d83;
   border-radius: 10px;
+  position: relative;
 
   .NameRace {
     display: flex;
@@ -54,11 +55,12 @@ export const HeaderS = styled.div`
       }
 
       .Inspiration {
-        position: absolute;
-        top: 25px;
+        /* position: absolute; */
+        /* top: 25px; */
         color: var(--white);
-        left: 17%;
+        /* left: 17%; */
         width: 100%;
+        text-align: center;
         
         div {
           position: relative;
@@ -107,23 +109,20 @@ export const HeaderS = styled.div`
       flex-direction: column;
       align-items: center;
     }
-    
+  }
 
-    button {
-      border: none;
-      background-color: transparent;
-      cursor: pointer;
-      position: relative;
-      position: absolute;
-      bottom: 35px;
-      right: 0;
+  .Edit {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    position: absolute;
+    bottom: 65px;
+    right: 5px;
 
-      img {
-        filter: invert(50%) sepia(9%) saturate(210%) hue-rotate(182deg) brightness(95%) contrast(91%);
-        transform: scale(0.8);
-      }
+    img {
+      filter: invert(50%) sepia(9%) saturate(210%) hue-rotate(182deg) brightness(95%) contrast(91%);
+      transform: scale(0.8);
     }
-
   }
 
   
