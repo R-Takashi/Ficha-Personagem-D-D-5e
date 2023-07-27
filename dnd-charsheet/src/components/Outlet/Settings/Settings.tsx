@@ -132,6 +132,14 @@ export default function Settings() {
               isLoaded ? 'Ficha  Local Restaurada!' : 'Carregar Ficha'
             }
           </button>
+
+          <button
+            type='button'
+            onClick={() => localStorage.removeItem('sheet')}
+            disabled={actualSaveLocal === ''}
+            >
+            Limpar Ficha Local
+          </button>
         </div>
 
         <div className='SaveData'>

@@ -127,7 +127,14 @@ export default function AppProvider({ children }) {
   ]);
   const [bio, setBio] = useState({});
   const [notes, setNotes] = useState({});
+  const [loadCache, setLoadCache] = useState(false);
 
+  useEffect(() => {
+    const sheet = JSON.parse(localStorage.getItem('sheet'));
+    if (sheet) {
+      setLoadCache(true);
+    }
+  }, []);
 
   useEffect(() => {
     const bonus = Math.floor((level - 1) / 4) + 2;
@@ -320,6 +327,14 @@ export default function AppProvider({ children }) {
     setNotes(sheet.notes);
     setInspiration(sheet?.inspiration);
   };
+
+  useEffect(() => {
+    if (loadCache) {
+      loadSheet();
+      setLoadCache(false);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loadCache]);
 
   const exportSheet = () => {
     const sheet = saveSheet();
