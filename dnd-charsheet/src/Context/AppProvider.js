@@ -128,6 +128,7 @@ export default function AppProvider({ children }) {
   const [bio, setBio] = useState({});
   const [notes, setNotes] = useState({});
   const [loadCache, setLoadCache] = useState(false);
+  const [autoSave, setAutoSave] = useState(false);
 
   useEffect(() => {
     const sheet = JSON.parse(localStorage.getItem('sheet'));
@@ -296,6 +297,7 @@ export default function AppProvider({ children }) {
     return sheet;
   };
 
+
   const loadSheet = () => {
     const sheet = JSON.parse(localStorage.getItem('sheet'));
 
@@ -332,9 +334,45 @@ export default function AppProvider({ children }) {
     if (loadCache) {
       loadSheet();
       setLoadCache(false);
+      setAutoSave(true);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadCache]);
+
+  useEffect(() => {
+    if (autoSave) {
+      saveSheet();
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    name,
+    name,
+    race,
+    charClass,
+    armorClass,
+    level,
+    experience,
+    attributes,
+    proficiencyBonus,
+    lifePoints,
+    movement,
+    skills,
+    currency,
+    listItems,
+    listSpells,
+    attributeSpell,
+    listTraits,
+    listLanguages,
+    listProficiencies,
+    listArmorProficiencies,
+    listWeaponProficiencies,
+    listWeapons,
+    listSkills,
+    listResources,
+    bio,
+    notes,
+    inspiration,
+  ]);
 
   const exportSheet = () => {
     const sheet = saveSheet();

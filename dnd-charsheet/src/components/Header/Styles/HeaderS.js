@@ -65,6 +65,10 @@ export const HeaderS = styled.div`
     transition: all 0.5s linear;
 
   }
+/* 
+  * {
+    outline: 1px solid white;
+  } */
 
   .NameRace.HeaderActive {
     width: 95%;
@@ -77,7 +81,6 @@ export const HeaderS = styled.div`
       flex-direction: column;
       width: 80%;
       height: 100%;
-      margin-left: 15%;
 
       .Buttons {
           display: flex;
@@ -114,13 +117,7 @@ export const HeaderS = styled.div`
   }
 
   .CharMenuOpen{
-    opacity: 0;
-    width: 0;
-
-    * {
-      opacity: 0;
-      width: 0;
-    }
+    display: none;
   }
 
   .InfoChar{
@@ -128,7 +125,7 @@ export const HeaderS = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    padding: 0 10px;
+    /* padding: 0 10px; */
     position: relative;
 
     .ClassLevel {
