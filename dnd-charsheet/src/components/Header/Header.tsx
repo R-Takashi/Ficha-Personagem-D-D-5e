@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import AppContext from '../../Context/AppContext'
 import { HeaderS } from './Styles/HeaderS'
 import HeaderForm from './HeaderForm';
@@ -18,7 +18,7 @@ export default function Header() {
 
   const [toEdit, setToEdit] = React.useState(false);
   const [charMenu, setCharMenu] = React.useState(false);
-  
+
 
   const longRest = () => {
     setLifePoints({
@@ -38,17 +38,17 @@ export default function Header() {
           />
         ) : (
           <HeaderS>
-            <div 
-              className='NameRace'
+            <div
+              className={`NameRace ${charMenu && 'HeaderActive'}`}
               onClick={() => setCharMenu(!charMenu)}
             >
-              <h1>{name}</h1>
-              <p>{race}</p>
-            </div>
+              <div 
+                className='DefaultDisplay'>
+                <h1>{name}</h1>
+                <p>{race}</p>
+              </div>
 
-            {
-              charMenu ? (
-                <div className='CharMenu'>
+              <div className={`${charMenu ? 'CharMenuActive' : 'CharMenu'}`}>
 
                   <p>Descanso: </p>
 
@@ -57,6 +57,7 @@ export default function Header() {
                     <div>
                       <button
                         type='button'
+                        disabled={!charMenu}
                       >
                         <img src={ ShortRest } alt="Descanso curto" />
                       </button>
@@ -66,6 +67,7 @@ export default function Header() {
                     <div>
                       <button
                         type='button'
+                        disabled={!charMenu}
                         onClick={() => longRest()}
                       >
                         <img src="https://super.so/icon/light/moon.svg" alt="Descanso longo" />
@@ -75,41 +77,50 @@ export default function Header() {
 
                   </div>
                 </div>
-              ) : (
-                <div className='InfoChar'>
-                  <div className='ClassLevel'>
-                    
-                    {
-                      charClass.map((cClass: any, index: number) => (
-                        <div 
-                          key={cClass.name + cClass.level}
-                          className={index === 0 ? 'MainClass' : ''}
-                        >
-                          <p>{cClass.name} {cClass.level}</p>
-                        </div>
-                      ))
-                    }
 
-                    {inspiration && (
-                      <p className='Inspiration'>Inspiração: <div /></p>
-                    )
-                    }
-                  </div>
+                <img
+                  src={
+                    charMenu ? 'https://super.so/icon/light/chevron-left.svg' : 'https://super.so/icon/light/chevron-right.svg'
+                  }
+                  alt='menu'
+                  className='MenuIcon'
+                />
 
-                  <div className='Level'>
-                    <p>Nível</p>
-                    <p>{level}</p>
-                  </div>
-                </div>
-              )
-            }
+
+            </div>
+
+            <div className={`${charMenu ? 'CharMenuOpen' : 'InfoChar'}`}>
+              <div className='ClassLevel'>
+                
+                {
+                  charClass.map((cClass: any, index: number) => (
+                    <div 
+                      key={cClass.name + cClass.level}
+                      className={index === 0 ? 'MainClass' : ''}
+                    >
+                      <p>{cClass.name} {cClass.level}</p>
+                    </div>
+                  ))
+                }
+
+                {inspiration && (
+                  <p className='Inspiration'>Inspiração: <div /></p>
+                )
+                }
+              </div>
+
+              <div className='Level'>
+                <p>Nível</p>
+                <p>{level}</p>
+              </div>
+            </div>
 
             <button
               type='button'
               className='Edit'
               onClick={() => setToEdit(!toEdit)}
             >
-              <img src='https://super.so/icon/light/settings.svg' alt='edit' />
+              <img src='https://super.so/icon/light/menu.svg' alt='edit' />
             </button>
           </HeaderS>
         )

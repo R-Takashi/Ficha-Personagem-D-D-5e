@@ -14,23 +14,112 @@ export const HeaderS = styled.div`
 
   .NameRace {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    border-left: 1px solid #c53131;
-    border-right: 1px solid #c53131;
+    justify-content: space-between;
     border-radius: 10px;
+    border-left: 2px solid #c53131;
+    border-right: 2px solid #c53131;
     box-shadow: 0 0 5px 0 rgba(0,0,0,0.75);
-    margin: 0 5px;
-    width: 50%;
+    height: 100%;
+    padding: 0 5%;
+    position: relative;
 
-    h1 {
-      padding: 5px 5px;
+    .DefaultDisplay {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      h1 {
+        font-size: 1.5rem;
+        padding: 5px 15px;
+        text-align: center;
+      }
+      
+      p {
+        color: #7a7d83;
+        padding: 0 0 5px 0;
+      }
     }
-    
-    p {
-      color: #7a7d83;
-      padding: 0 0 5px 0;
+
+
+    .MenuIcon {
+      position: absolute;
+      top: 50;
+      right: 0;
+      width: 20px;
+      filter: invert(50%) sepia(9%) saturate(210%) hue-rotate(182deg) brightness(95%) contrast(91%);
+    }
+
+
+    .CharMenu {
+      opacity: 0;
+      width: 0;
+
+      * {
+        opacity: 0;
+        width: 0;
+      }
+    }
+
+    transition: all 0.5s linear;
+
+  }
+
+  .NameRace.HeaderActive {
+    width: 95%;
+
+    .CharMenuActive {
+      opacity: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      flex-direction: column;
+      width: 80%;
+      height: 100%;
+      margin-left: 15%;
+
+      .Buttons {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
+
+          div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            width: 100%;
+
+
+            button {
+              border: none;
+              background-color: transparent;
+              cursor: pointer;
+            }
+        
+            img {
+              width: 20px;
+              height: 20px;
+            }
+
+            p {
+              color: white;
+            }
+          }
+        }
+
+    }
+  }
+
+  .CharMenuOpen{
+    opacity: 0;
+    width: 0;
+
+    * {
+      opacity: 0;
+      width: 0;
     }
   }
 
