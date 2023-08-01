@@ -12,6 +12,8 @@ export const HeaderS = styled.div`
   border-radius: 10px;
   position: relative;
 
+  // Name Race Rests
+
   .NameRace {
     display: flex;
     align-items: center;
@@ -21,8 +23,11 @@ export const HeaderS = styled.div`
     border-right: 2px solid #c53131;
     box-shadow: 0 0 5px 0 rgba(0,0,0,0.75);
     height: 100%;
+    width: 50%;
     padding: 0 5%;
     position: relative;
+
+    transition: all 0.5s linear;
 
     .DefaultDisplay {
       display: flex;
@@ -52,7 +57,7 @@ export const HeaderS = styled.div`
     }
 
 
-    .CharMenu {
+    .RestMenu.Close {
       opacity: 0;
       width: 0;
 
@@ -62,18 +67,12 @@ export const HeaderS = styled.div`
       }
     }
 
-    transition: all 0.5s linear;
-
   }
-/* 
-  * {
-    outline: 1px solid white;
-  } */
 
-  .NameRace.HeaderActive {
+  .NameRace.RestMenuActive {
     width: 95%;
 
-    .CharMenuActive {
+    .RestMenu.Open {
       opacity: 1;
       display: flex;
       align-items: center;
@@ -116,17 +115,19 @@ export const HeaderS = styled.div`
     }
   }
 
-  .CharMenuOpen{
-    display: none;
-  }
+  // Name Race Rests
 
-  .InfoChar{
+  //----------------------//
+
+  // Class Level
+
+  .InfoChar.Open {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    /* padding: 0 10px; */
     position: relative;
+    opacity: 1;
 
     .ClassLevel {
       display: flex;
@@ -195,7 +196,22 @@ export const HeaderS = styled.div`
       flex-direction: column;
       align-items: center;
     }
+
+    transition: all 0.5s linear;
   }
+
+  .InfoChar.Close {
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+
+    * {
+      opacity: 0;
+      width: 0;
+    }
+  }
+
+  // Class Level
 
   .Edit {
     border: none;

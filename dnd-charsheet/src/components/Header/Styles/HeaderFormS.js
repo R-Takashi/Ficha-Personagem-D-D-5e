@@ -9,7 +9,7 @@ export const HeaderFormS = styled.div`
   border-bottom: 1px solid var(--white);
   border-radius: 10px;
   padding-bottom: 20px;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
   width: auto;
   text-align: center;
   font-size: var(--font-size-medium);

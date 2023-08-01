@@ -4,7 +4,7 @@ import CharClassForm from './CharClassForm';
 import { HeaderFormS } from './Styles/HeaderFormS'
 
 export default function HeaderForm(props: any) {
-  const { saveChar } = props;
+  const { saveChar, toEdit } = props;
   const {
     name, setName,
     race, setRace,
@@ -45,13 +45,15 @@ export default function HeaderForm(props: any) {
 
 
   useEffect(() => {
+    if (toEdit) {
     setChar({
       name,
       race,
       level,
     });
+  }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [toEdit]);
 
   const handleSave = () => {
     setName(char.name);
@@ -98,7 +100,7 @@ export default function HeaderForm(props: any) {
 
 
   return (
-    <HeaderFormS  >
+    <HeaderFormS>
 
       <div className='InputHeader'>
         <label htmlFor="name">Nome: </label>

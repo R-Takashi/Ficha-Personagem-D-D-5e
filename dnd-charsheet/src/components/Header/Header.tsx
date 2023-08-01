@@ -1,8 +1,44 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import AppContext from '../../Context/AppContext'
 import { HeaderS } from './Styles/HeaderS'
 import HeaderForm from './HeaderForm';
 import ShortRest from './campfire.svg'
+import styled from 'styled-components';
+
+const FormOpen = styled.div`
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: all 0.2s ease-in-out;
+
+  & > div {
+    overflow: hidden;
+  }
+
+  &.Closing > div, &.Opening > div {
+    display: block;
+  }
+
+  &.Closing {
+    opacity: 0.5;
+  }
+
+  &.Closed {
+    opacity: 0;
+    margin: 0;
+    padding: 0;
+    height: 0;
+  }
+
+  &.Opening, &.Open {
+    opacity: 0.5;
+    grid-template-rows: 1fr;
+  }
+
+  &.Open {
+    opacity: 1;
+  }
+
+`;
 
 
 export default function Header() {
@@ -18,6 +54,25 @@ export default function Header() {
 
   const [toEdit, setToEdit] = React.useState(false);
   const [charMenu, setCharMenu] = React.useState(false);
+  const [timerClose, setTimerClose] = React.useState(false);
+  const [timerOpen, setTimerOpen] = React.useState(false);
+
+  useEffect(() => {
+    if (!toEdit && timerClose) {
+      const timer = setTimeout(() => {
+        setTimerClose(!timerClose);
+      }, 200);
+      return () => clearTimeout(timer);
+    }
+
+    if (toEdit && timerOpen) {
+      const timer = setTimeout(() => {
+        setTimerOpen(!timerOpen);
+      } , 230);
+      return () => clearTimeout(timer);
+    }
+
+  }, [toEdit, timerClose, timerOpen]);
 
 
   const longRest = () => {
@@ -29,17 +84,17 @@ export default function Header() {
     resetSpellSlots();
   }
 
+  const editEnd = () => {
+    if (toEdit === true) return setTimerOpen(true);
+
+    if (toEdit === false) return setTimerClose(true);
+  }
+
   return (
     <>
-      {
-        toEdit || name.length < 1 ? (
-          <HeaderForm
-            saveChar={() => setToEdit(!toEdit)}
-          />
-        ) : (
-          <HeaderS>
+      <HeaderS>
             <div
-              className={`NameRace ${charMenu && 'HeaderActive'}`}
+              className={`NameRace ${charMenu ? 'RestMenuActive' : ''}`}
               onClick={() => setCharMenu(!charMenu)}
             >
               <div 
@@ -48,7 +103,7 @@ export default function Header() {
                 <p>{race}</p>
               </div>
 
-              <div className={`${charMenu ? 'CharMenuActive' : 'CharMenu'}`}>
+              <div className={`RestMenu ${charMenu ? 'Open' : 'Close'}`}>
 
                   <p>Descanso: </p>
 
@@ -89,7 +144,7 @@ export default function Header() {
 
             </div>
 
-            <div className={`${charMenu ? 'CharMenuOpen' : 'InfoChar'}`}>
+            <div className={`InfoChar ${charMenu ? 'Close' : 'Open'}`}>
               <div className='ClassLevel'>
                 
                 {
@@ -118,15 +173,25 @@ export default function Header() {
             <button
               type='button'
               className='Edit'
-              onClick={() => setToEdit(!toEdit)}
+              onClick={() => {
+                setToEdit(!toEdit);
+                editEnd();
+              }}
             >
               <img src='https://super.so/icon/light/menu.svg' alt='edit' />
             </button>
-          </HeaderS>
-        )
-
-      }
-
+      </HeaderS>
+      <FormOpen className={`${toEdit || name.length < 1 ? (
+        timerOpen ? 'Opening' : 'Open'
+      ) : (
+        timerClose ? 'Closing' : 'Closed'
+      )}`}>
+        <HeaderForm
+          toEdit={toEdit}
+          saveChar={() => setToEdit(!toEdit)}
+        />
+      </FormOpen>
+      
     </>
   )
 }
