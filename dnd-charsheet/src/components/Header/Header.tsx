@@ -48,14 +48,17 @@ export default function Header() {
     charClass,
     level,
     lifePoints, setLifePoints,
-    resetResources, resetSpellSlots,
-    inspiration,
+    resetResources, resetSpellSlots, resetUseProfSkills,
+    inspiration, listResources, setListResources,
+    listSkills, setListSkills, ShortRestSpell,
   } = useContext(AppContext)
 
   const [toEdit, setToEdit] = React.useState(false);
   const [charMenu, setCharMenu] = React.useState(false);
   const [timerClose, setTimerClose] = React.useState(false);
   const [timerOpen, setTimerOpen] = React.useState(false);
+  const [modalShortRest, setModalShortRest] = React.useState(false);
+  const [modalLongRest, setModalLongRest] = React.useState(false);
 
   useEffect(() => {
     if (!toEdit && timerClose) {
@@ -81,6 +84,7 @@ export default function Header() {
       current: lifePoints.max,
     });
     resetResources();
+    resetUseProfSkills();
     resetSpellSlots();
   }
 
@@ -90,15 +94,94 @@ export default function Header() {
     if (toEdit === false) return setTimerClose(true);
   }
 
+  const ShortRestSkills = () => {
+
+    const profSkills = listSkills.map((skill: any, index: number) => {
+      if (skill.resource === 'Proficiência Bonus' && skill.shortRest === true) {
+        return {
+          name: skill.name,
+          index: index,
+         };
+      };
+
+      return skill;
+    }).filter((skill: any) => skill?.index !== undefined);
+
+    const updateList = [...listSkills];
+
+    profSkills.forEach((skill: any) => {
+      updateList[skill.index].current = updateList[skill.index].max;
+    });
+
+    return setListSkills([...updateList]);
+  }
+
+  const ShortRestResources = () => {
+    const resources = listResources.map((resource: any, index: number) => {
+      if (resource.shortRest === true) {
+        return {
+          name: resource.name,
+          index: index,
+          }
+      };
+      return resource;
+    }).filter((resource: any) => resource?.index !== undefined);
+
+    const updateList = [...listResources];
+
+    resources.forEach((resource: any) => {
+      updateList[resource.index].current = updateList[resource.index].max;
+    });
+
+    return setListResources([...updateList]);
+
+  }
+
+  const ShortRestDone = () => {   
+    if (ShortRestSpell === true) {
+      resetSpellSlots();
+    }
+    ShortRestSkills();
+    ShortRestResources();
+  }
+
+  const handleRestMenu = () => {
+    setCharMenu(!charMenu);
+
+    if (charMenu === false) {
+      setModalLongRest(false);
+      return setModalShortRest(false);
+    }
+  }
+
+  const handleModal = (modalOpen: boolean, type: string) => {
+    if (modalOpen === true && type === 'short') {
+      setModalShortRest(modalOpen);
+      return setModalLongRest(false);
+    }
+
+    if (modalOpen === true && type === 'long') {
+      setModalLongRest(modalOpen);
+      return setModalShortRest(false);
+    }
+
+    if (modalOpen === false) {
+      setModalLongRest(false);
+      return setModalShortRest(false);
+    }
+  }
+    
+
   return (
     <>
       <HeaderS>
             <div
               className={`NameRace ${charMenu ? 'RestMenuActive' : ''}`}
-              onClick={() => setCharMenu(!charMenu)}
             >
               <div 
-                className='DefaultDisplay'>
+                className='DefaultDisplay'
+                onClick={() => handleRestMenu()}  
+              >
                 <h1>{name}</h1>
                 <p>{race}</p>
               </div>
@@ -109,25 +192,62 @@ export default function Header() {
 
                   <div className='Buttons'>
 
-                    <div>
+                    <div className='ShortRest'>
                       <button
                         type='button'
                         disabled={!charMenu}
+                        onClick={() => handleModal(!modalShortRest, 'short')}
                       >
                         <img src={ ShortRest } alt="Descanso curto" />
                       </button>
                       <p>Curto</p>
+
+                      <div className={`Modal ${modalShortRest ? 'Open' : 'Close'}`}>
+                        <div className='ModalContent'>
+                          <div>
+                            <h2>Descanso curto</h2>
+                            <p>Você pode recuperar vida utilizando seus dados de vida.</p>
+                          </div>
+
+                          <div>
+                            <button
+                              type='button'
+                              onClick={() => ShortRestDone()}
+                            >
+                              Descansar
+                            </button>
+                          </div>
+                        </div>
+                      </div>
                     </div>
 
-                    <div>
+                    <div className='LongRest'>
                       <button
                         type='button'
                         disabled={!charMenu}
-                        onClick={() => longRest()}
+                        onClick={() => handleModal(!modalLongRest, 'long')}
                       >
                         <img src="https://super.so/icon/light/moon.svg" alt="Descanso longo" />
                       </button>
                       <p>Longo</p>
+
+                      <div className={`Modal ${modalLongRest ? 'Open' : 'Close'}`}>
+                        <div className='ModalContent'>
+                          <div>
+                            <h2>Descanso longo</h2>
+                            <p>Ao descançar, você recupera todos os seus pontos de vida, recursos e habilidades.</p>
+                          </div>
+
+                          <div>
+                            <button
+                              type='button'
+                              onClick={() => longRest()}
+                            >
+                              Descansar
+                            </button>
+                          </div>
+                        </div>
+                      </div>
                     </div>
 
                   </div>
@@ -139,6 +259,7 @@ export default function Header() {
                   }
                   alt='menu'
                   className='MenuIcon'
+                  onClick={() => handleRestMenu()}
                 />
 
 
@@ -172,15 +293,23 @@ export default function Header() {
 
             <button
               type='button'
-              className='Edit'
+              className={`Edit ${toEdit ? 'Close' : 'Open'}`}
               onClick={() => {
                 setToEdit(!toEdit);
                 editEnd();
               }}
             >
-              <img src='https://super.so/icon/light/menu.svg' alt='edit' />
+              {
+                toEdit ? (
+                  <img src="https://super.so/icon/light/x.svg" alt="Close Menu" />
+                ) : (
+                  <img src='https://super.so/icon/light/menu.svg' alt='Menu' />
+                )
+              }
             </button>
+            
       </HeaderS>
+
       <FormOpen className={`${toEdit || name.length < 1 ? (
         timerOpen ? 'Opening' : 'Open'
       ) : (

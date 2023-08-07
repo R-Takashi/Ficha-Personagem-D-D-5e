@@ -14,9 +14,16 @@ export default function SkillForm(props: any) {
     consumeResource: false,
     resource: '',
     resourceDrain: '',
+    shortRest: false,
+    longRest: false,
   });
 
   const [useResource, setUseResource] = React.useState(false);
+
+  console.log(listSkills);
+  console.log(listResources);
+  
+  
 
   useEffect(() => {
     if (editSkill) {
@@ -28,14 +35,33 @@ export default function SkillForm(props: any) {
   }, [editSkill, index, listSkills]);
 
   const handleSaveSkill = () => {
+    console.log(skill);
+    
+
     if (newSkill) {
-      setListSkills([...listSkills, skill]);
+      if ( skill?.resource === 'Proficiência Bonus' ) {
+        const skillProfResource = {
+          ...skill,
+          resourceDrain: 1,
+          current: 0,
+          max: 0,
+        }
+
+        setListSkills([...listSkills, skillProfResource]);
+      } else {
+        setListSkills([...listSkills, skill]);
+      }
+      
+
       setSkill({
+        ...skill,
         name: '',
         description: '',
         consumeResource: false,
         resource: '',
         resourceDrain: '',
+        shortRest: false,
+        longRest: false,
       });
 
       setUseResource(false);
@@ -114,15 +140,40 @@ export default function SkillForm(props: any) {
             </select>
           </div>
 
-          <div>
-            <label htmlFor='resourceDrain'>Dreno de recurso</label>
-            <input
-              type='number'
-              id='resourceDrain'
-              value={skill.resourceDrain}
-              onChange={(e) => setSkill({...skill, resourceDrain: e.target.value})}
-            />
-          </div>
+          {
+            skill.resource !== 'Proficiência Bonus' ? (
+              <div>
+                <label htmlFor='resourceDrain'>Dreno de recurso</label>
+                <input
+                  type='number'
+                  id='resourceDrain'
+                  value={skill.resourceDrain}
+                  onChange={(e) => setSkill({...skill, resourceDrain: e.target.value})}
+                />
+              </div>
+            ) : (
+              <div>
+                <h2>Recarga</h2>
+                
+                  <label htmlFor='shortRest'>Curto</label>
+                  <input
+                    type='checkbox'
+                    id='shortRest'
+                    checked={skill.shortRest}
+                    onChange={(e) => setSkill({...skill, shortRest: e.target.checked})}
+                  />
+
+                  <label htmlFor='longRest'>Longo</label>
+                  <input
+                    type='checkbox'
+                    id='longRest'
+                    checked={skill.longRest}
+                    onChange={(e) => setSkill({...skill, longRest: e.target.checked})}
+                  />
+              </div>
+            )
+          }
+
         </>
       )}
 

@@ -3,7 +3,8 @@ import styled from "styled-components";
 export const TabNavS = styled.nav`
   border-bottom: 1px solid #7a7d83;
   padding: 10px;
-  margin: 10px;
+  /* margin: 10px; */
+  margin-top: -5px;
   user-select: none;
 
   ul::-webkit-scrollbar {

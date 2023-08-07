@@ -75,7 +75,7 @@ export default function SpellDetails(props: any) {
                     components.map((component: string) => {
                       if(component !== 'C' && component !== 'R') {
                         return (
-                          <span>{component}</span>
+                          <span key={component}>{component}</span>
                         )
                       }
                       return null;

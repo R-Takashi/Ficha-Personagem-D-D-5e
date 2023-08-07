@@ -71,44 +71,55 @@ export default function AppProvider({ children }) {
     "Truques": [{
       max: 0,
       uses: 0,
+      active: false,
     }],
     "1º": [{
-        max: 0,
-        uses: 0,
+      max: 0,
+      uses: 0,
+      active: false,
       }],
     "2º": [{
-        max: 0,
-        uses: 0,
+      max: 0,
+      uses: 0,
+      active: false,
       }],
     "3º": [{
-        max: 0,
-        uses: 0,
+      max: 0,
+      uses: 0,
+      active: false,
       }],
     "4º": [{
-        max: 0,
-        uses: 0,
+      max: 0,
+      uses: 0,
+      active: false,
       }],
     "5º": [{
-        max: 0,
-        uses: 0,
+      max: 0,
+      uses: 0,
+      active: false,
       }],
     "6º": [{
-        max: 0,
-        uses: 0,
+      max: 0,
+      uses: 0,
+      active: false,
       }],
     "7º": [{
-        max: 0,
-        uses: 0,
+      max: 0,
+      uses: 0,
+      active: false,
       }],
     "8º": [{
-        max: 0,
-        uses: 0,
+      max: 0,
+      uses: 0,
+      active: false,
       }],
     "9º": [{
-        max: 0,
-        uses: 0,
+      max: 0,
+      uses: 0,
+      active: false,
       }],
   });
+  const [ShortRestSpell, setShortRestSpell] = useState(false);
   const [attributeSpell, setAttributeSpell] = useState({
     attr: '',
     mod: 0,
@@ -231,6 +242,16 @@ export default function AppProvider({ children }) {
   const resetResources = () => {
     const updateResources = listResources.map((resource) => resource.current !== resource.max ? { ...resource, current: resource.max } : resource);
     setListResources(updateResources);
+  };
+
+  const resetUseProfSkills = () => {
+    const updateProfSkills = listSkills.map((skill) => {
+      if (skill?.resource === 'Proficiência Bonus') {
+        return { ...skill, current: skill.max };
+      }
+      return skill;
+    });
+    setListSkills(updateProfSkills);
   };
 
   const resetSpellSlots = () => {
@@ -443,6 +464,7 @@ export default function AppProvider({ children }) {
     currency, setCurrency,
     listItems, setListItems,
     listSpells, setListSpells,
+    ShortRestSpell, setShortRestSpell,
     attributeSpell, setAttributeSpell,
     listTraits, setListTraits,
     listLanguages, setListLanguages,
@@ -453,6 +475,7 @@ export default function AppProvider({ children }) {
     listSkills, setListSkills,
     listResources, setListResources,
     resetResources,
+    resetUseProfSkills,
     resetSpellSlots,
     bio, setBio,
     notes, setNotes,

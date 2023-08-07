@@ -41,6 +41,12 @@ export const ResourceCard = styled.div`
   button {
     background: transparent;
     border: none;
+
+    :disabled {
+      img {
+        opacity: 0.5;
+      }
+    }
   }
 
 `;

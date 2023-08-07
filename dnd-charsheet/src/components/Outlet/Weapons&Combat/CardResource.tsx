@@ -5,7 +5,7 @@ import { ResourceCard } from './Styles/ResourceCard';
 
 export default function CardResource(props :any) {
   const { index, name, removeResource } = props;
-  const { listResources, setListResources } = React.useContext(AppContext);
+  const { listResources, setListResources, listSkills } = React.useContext(AppContext);
   const [toEdit, setToEdit] = React.useState(false);
   const [resource, setResource] = React.useState({
     name: '',
@@ -92,6 +92,7 @@ export default function CardResource(props :any) {
           <button
           type='button'
           onClick={() => handleRemove()}
+          disabled={listSkills.some((skill: any) => skill.resource === resource.name)}
           >
             <img src='https://super.so/icon/light/trash.svg' alt="show info" />
           </button>

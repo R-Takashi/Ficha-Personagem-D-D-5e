@@ -6,7 +6,7 @@ import { Resources } from './Styles/Resources';
 
 export default function ResourceList() {
   const { listResources, setListResources } = React.useContext(AppContext);
-  const [resource, setResource] = React.useState({ name: '', current: '', max: '' });
+  const [resource, setResource] = React.useState({ name: '', current: '', max: '', shortRest: false, longRest: false });
   const [newResource, setNewResource] = React.useState(false);
   const [showResource, setShowResource] = React.useState(false);
   
@@ -81,12 +81,32 @@ export default function ResourceList() {
                   onChange={(e) => setResource({ ...resource, current: e.target.value ,max: e.target.value })}
                 />
 
+              <label htmlFor='shortRest'>
+                Recupera em descanso curto?
+                </label>
+                <input
+                  type='checkbox'
+                  id='shortRest'
+                  checked={resource.shortRest}
+                  onChange={(e) => setResource({ ...resource, shortRest: e.target.checked })}
+                />
+
+              <label htmlFor='longRest'>
+                Recupera em descanso longo?
+                </label>
+                <input
+                  type='checkbox'
+                  id='longRest'
+                  checked={resource.longRest}
+                  onChange={(e) => setResource({ ...resource, longRest: e.target.checked })}
+                />
+
               <button
                 type='button'
                 disabled={resource.name === '' || resource.max === ''}
                 onClick={() => {
                   setListResources([...listResources, resource]);
-                  setResource({ name: '', current: '', max: '' });
+                  setResource({ name: '', current: '', max: '', shortRest: false, longRest: false });
                   setNewResource(!newResource);
                 }}
               >

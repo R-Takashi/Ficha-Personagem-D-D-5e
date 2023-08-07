@@ -10,10 +10,19 @@ export default function CardSkill(props: any) {
   const resource = listResources.findIndex((resource: any) => resource?.name === listSkills[index].resource);
   const [showDescription, setShowDescription] = React.useState(false);
   const [toEdit, setToEdit] = React.useState(false);
-  const [proficiencyResource, setProficiencyResource] = React.useState({
-    current: listResources[resource]?.current,
-    max: listResources[resource]?.max,
-  });
+
+  React.useEffect(() => {
+    if (listSkills[index]?.resource === 'Proficiência Bonus' && listSkills[index]?.max === 0) {
+      const updatedlist = [...listSkills];
+      updatedlist[index] = {
+        ...updatedlist[index],
+        current: listResources[resource]?.current,
+        max: listResources[resource]?.max,
+      }
+      setListSkills(updatedlist);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
 
   const handleEdit = () => {
@@ -28,18 +37,20 @@ export default function CardSkill(props: any) {
 
     if (listResources[resource]?.name === 'Proficiência Bonus') {
       
-      return Math.floor(proficiencyResource.current / listSkills[index].resourceDrain) === 0;
+      return Math.floor(listSkills[index]?.current / listSkills[index].resourceDrain) === 0;
     }
 
-    return Math.floor(listResources[resource].current / listSkills[index].resourceDrain) === 0;
+    return Math.floor(listResources[resource]?.current / listSkills[index].resourceDrain) === 0;
   }
 
   const handleUseResource = () => {
     if (listResources[resource].name === 'Proficiência Bonus') {
-      setProficiencyResource({
-        current: proficiencyResource.current -= listSkills[index].resourceDrain,
-        max: proficiencyResource.max,
-      });
+      const updatedlist = [...listSkills];
+      updatedlist[index] = {
+        ...updatedlist[index],
+        current: updatedlist[index].current -= listSkills[index].resourceDrain,
+      }
+      setListSkills(updatedlist);
     } else {
       const newList = [...listResources];
       newList[resource].current -= listSkills[index].resourceDrain;
@@ -90,7 +101,7 @@ export default function CardSkill(props: any) {
                   <span>{listResources[resource].name}</span>
                   <span>Usos: { 
                     listResources[resource].name === 'Proficiência Bonus' ? (
-                      proficiencyResource.current
+                      listSkills[index].current
                     ) : (
                       Math.floor(listResources[resource].current / listSkills[index].resourceDrain)
                     )

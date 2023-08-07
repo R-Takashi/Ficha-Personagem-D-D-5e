@@ -7,12 +7,22 @@ const spellListLevel = ["Truques", "1º", "2º", "3º", "4º", "5º", "6º", "7�
 
 
 export default function Spells() {
-  const { tab, attributes, attributeSpell, setAttributeSpell, } = useContext(AppContext);
+  const { tab, attributes, attributeSpell, setAttributeSpell, listSpells, setListSpells, ShortRestSpell, setShortRestSpell } = useContext(AppContext);
   const [spellCircle, setSpellCircle] = React.useState([] as string[]);
   const [spellSettings, setSpellSettings] = React.useState(false);
   
   const enabledSpellCircle = (e : any) => {
-    if(e.target.checked){
+    const { checked } = e.target;
+
+    const updateSpells = listSpells;
+
+    updateSpells[e.target.value][0] = {
+      ...updateSpells[e.target.value][0],
+      active: checked,
+    }
+
+
+    if(checked){
       const updateSpellCircle = [...spellCircle, e.target.value];
       
       const orderSpellCircle = updateSpellCircle.sort((a: string, b: string) => {
@@ -25,8 +35,45 @@ export default function Spells() {
     else{
       setSpellCircle(spellCircle.filter((circle: string) => circle !== e.target.value));
     }
-
   }
+
+  React.useEffect(() => {
+    if (spellListLevel.some((level: string) => listSpells[level][0].active === undefined)) {
+      const updateSpellList = spellListLevel.reduce((acc: any, level: string) => {
+        const updateLevel = acc;
+        
+        updateLevel[level] = [{...listSpells[level][0], active: false}, ...listSpells[level].slice(1)];
+
+        return updateLevel;
+    }, {} as any);
+
+    setListSpells(updateSpellList);
+
+    }
+  }, []);
+
+
+  React.useEffect(() => {
+    if (tab === 'Magias') {
+
+    const updateSpellCircle = [] as string[];
+
+    spellListLevel.forEach((spell: any) => {
+      
+      if(listSpells[spell][0].active === true){
+        updateSpellCircle.push(spell);
+      }
+    });
+    
+    const orderSpellCircle = updateSpellCircle.sort((a: string, b: string) => {
+      return spellListLevel.indexOf(a) - spellListLevel.indexOf(b);
+    });
+
+    setSpellCircle([...orderSpellCircle]);
+  }
+  
+  }, [tab]);
+
 
   if (tab !== 'Magias') return null;
 
@@ -45,6 +92,19 @@ export default function Spells() {
         <div
           style={{ display: spellSettings ? 'flex' : 'none' }}
         >
+          <div style={{display: 'flex', width: '100%'}}>
+            <label htmlFor="ShortRest">
+              Descanso Curto ? 
+            </label>
+
+            <input
+              type="checkbox"
+              name="ShortRest"
+              id="ShortRest"
+              checked={ShortRestSpell}
+              onChange={() => setShortRestSpell(!ShortRestSpell)}
+            />
+          </div>
           <h2>Círculos</h2>
 
           <section>
@@ -55,6 +115,7 @@ export default function Spells() {
                       type='checkbox'
                       name='spellCircle'
                       value={level}
+                      checked={listSpells[level][0].active}
                       onChange={(e) => enabledSpellCircle(e)}
                   />
                   <label htmlFor='spellCircle'>

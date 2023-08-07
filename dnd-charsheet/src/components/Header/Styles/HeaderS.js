@@ -112,6 +112,80 @@ export const HeaderS = styled.div`
           }
         }
 
+      .ShortRest, .LongRest {
+        position: relative;
+
+        .Modal.Close {
+          display: none;
+        }
+      
+        .Modal.Open {
+          position: absolute;
+          top: 60px;
+          z-index: 1;
+
+          .ModalContent {
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            flex-direction: column;
+            gap: 10px;
+            padding: 10px;
+            width: 300px;
+            height: auto;
+            background-color: #1c1c1c;
+            border-radius: 10px;
+            border: 1px solid #7a7d83;
+            box-shadow: 0 0 5px 0 rgba(0,0,0,0.75);
+            
+
+            div {
+              text-align: center;
+
+              button {
+                border-left: 1px solid #7a7d83;
+                border-right: 1px solid #7a7d83;
+                border-radius: 10px;
+                box-shadow: 0 0 5px 0 rgba(0,0,0,0.75);
+                width: 100%;
+                padding: 5px;
+                margin: 10px 0;
+                color: white;
+                font-size: 1.2rem;
+              }
+            }
+
+            .SkillsReset, .ResourcesReset {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              
+              button {
+                border-left: 1px solid #7a7d83;
+                border-right: 1px solid #7a7d83;
+                border-radius: 10px;
+                box-shadow: 0 0 5px 0 rgba(0,0,0,0.75);
+                width: 100%;
+                padding: 5px;
+                margin: 10px 0;
+                color: white;
+                font-size: 1.2rem;
+              }
+            }
+          }
+        }
+
+      }
+
+      .LongRest {
+      
+        .Modal.Open {
+          position: absolute;
+          top: 60px;
+          right: 60px;
+          z-index: 1;
+        }
+      }
     }
   }
 
@@ -120,6 +194,11 @@ export const HeaderS = styled.div`
   //----------------------//
 
   // Class Level
+
+  .InfoChar {
+    height: 100%;
+    transition: all 0.5s linear;
+  }
 
   .InfoChar.Open {
     width: 100%;
@@ -135,17 +214,13 @@ export const HeaderS = styled.div`
       align-items: center;
       justify-content: center;
       color: #7a7d83;
-      position: relative;
 
       .MainClass {
         color: var(--white);
       }
 
       .Inspiration {
-        /* position: absolute; */
-        /* top: 25px; */
         color: var(--white);
-        /* left: 17%; */
         width: 100%;
         text-align: center;
         
@@ -162,7 +237,6 @@ export const HeaderS = styled.div`
           border-bottom: .7em  solid var(--white);
           border-left:   .3em solid transparent;
 
-          /* Controlls the size of the stars. */
           font-size: 0.7rem;
           
           &:before, &:after {
@@ -197,13 +271,13 @@ export const HeaderS = styled.div`
       align-items: center;
     }
 
-    transition: all 0.5s linear;
   }
 
   .InfoChar.Close {
     opacity: 0;
     width: 0;
     overflow: hidden;
+    transition: all 0.5s linear;
 
     * {
       opacity: 0;
@@ -224,10 +298,17 @@ export const HeaderS = styled.div`
     img {
       filter: invert(50%) sepia(9%) saturate(210%) hue-rotate(182deg) brightness(95%) contrast(91%);
       transform: scale(0.8);
+      transition: 0.3s;
     }
+
+    &.Close {
+      img {
+        rotate: 180deg;
+      }
+    }
+
   }
 
-  
 
   .CharMenu {
     display: flex;
