@@ -50,6 +50,7 @@ export default function Spells() {
     setListSpells(updateSpellList);
 
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 
@@ -71,7 +72,7 @@ export default function Spells() {
 
     setSpellCircle([...orderSpellCircle]);
   }
-  
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tab]);
 
 
@@ -92,7 +93,7 @@ export default function Spells() {
         <div
           style={{ display: spellSettings ? 'flex' : 'none' }}
         >
-          <div style={{display: 'flex', width: '100%'}}>
+          <div className='RestoreShortRest'>
             <label htmlFor="ShortRest">
               Descanso Curto ? 
             </label>

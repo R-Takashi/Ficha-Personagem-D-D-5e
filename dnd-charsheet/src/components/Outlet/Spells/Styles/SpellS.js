@@ -77,6 +77,22 @@ export const SpellS = styled.div`
 
         }
       }
+
+      .RestoreShortRest {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+        width: 100%;
+        outline: 2px solid #7a7d83;
+        border-radius: 10px;
+        padding: 10px 0;
+        font-size: 1.2rem;
+
+        input[type="checkbox"] {
+          scale: 1.5;
+        }
+      }
     }
 
   }

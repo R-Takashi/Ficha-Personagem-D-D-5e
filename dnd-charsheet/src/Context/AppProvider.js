@@ -311,6 +311,7 @@ export default function AppProvider({ children }) {
       bio,
       notes,
       inspiration,
+      ShortRestSpell,
     };
 
     localStorage.setItem('sheet', JSON.stringify(sheet));
@@ -349,6 +350,7 @@ export default function AppProvider({ children }) {
     setBio(sheet.bio);
     setNotes(sheet.notes);
     setInspiration(sheet?.inspiration);
+    setShortRestSpell(sheet?.ShortRestSpell);
   };
 
   useEffect(() => {
@@ -393,6 +395,7 @@ export default function AppProvider({ children }) {
     bio,
     notes,
     inspiration,
+    ShortRestSpell,
   ]);
 
   const exportSheet = () => {
@@ -439,6 +442,7 @@ export default function AppProvider({ children }) {
       setBio(sheet.bio);
       setNotes(sheet.notes);
       setInspiration(sheet?.inspiration);
+      setShortRestSpell(sheet?.ShortRestSpell);
     };
 
     reader.readAsText(file);
