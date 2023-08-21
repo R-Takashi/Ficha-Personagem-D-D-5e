@@ -9,6 +9,7 @@ export default function SkillList() {
   const { listSkills } = React.useContext(AppContext);
   const [newSkill, setNewSkill] = React.useState(false);
   const [showSkill, setShowSkill] = React.useState(false);
+  
 
   return (
     <Skills>

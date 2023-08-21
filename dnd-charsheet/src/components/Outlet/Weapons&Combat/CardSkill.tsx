@@ -11,6 +11,7 @@ export default function CardSkill(props: any) {
   const [showDescription, setShowDescription] = React.useState(false);
   const [toEdit, setToEdit] = React.useState(false);
 
+
   React.useEffect(() => {
     if (listSkills[index]?.resource === 'Proficiência Bonus' && listSkills[index]?.max === 0) {
       const updatedlist = [...listSkills];

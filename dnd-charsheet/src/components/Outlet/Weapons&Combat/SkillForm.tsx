@@ -20,10 +20,6 @@ export default function SkillForm(props: any) {
 
   const [useResource, setUseResource] = React.useState(false);
 
-  console.log(listSkills);
-  console.log(listResources);
-  
-  
 
   useEffect(() => {
     if (editSkill) {

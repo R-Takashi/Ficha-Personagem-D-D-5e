@@ -9,7 +9,6 @@ export default function ResourceList() {
   const [resource, setResource] = React.useState({ name: '', current: '', max: '', shortRest: false, longRest: false });
   const [newResource, setNewResource] = React.useState(false);
   const [showResource, setShowResource] = React.useState(false);
-  
 
   return (
     <Resources>

@@ -142,6 +142,20 @@ export default function AppProvider({ children }) {
   const [autoSave, setAutoSave] = useState(false);
 
   useEffect(() => {
+    const updateResources = listResources.map((resource) => {
+      return resource.name === 'Proficiência Bonus' ? { ...resource, current: proficiencyBonus, max: proficiencyBonus } : resource;
+    });
+    setListResources(updateResources);
+    const updateSkills = listSkills.map((skill) => {
+      return skill.resource === 'Proficiência Bonus' ? { ...skill, current: proficiencyBonus, max: proficiencyBonus } : skill;
+    });
+    setListSkills(updateSkills);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [proficiencyBonus]);
+
+
+  useEffect(() => {
     const sheet = JSON.parse(localStorage.getItem('sheet'));
     if (sheet) {
       setLoadCache(true);
