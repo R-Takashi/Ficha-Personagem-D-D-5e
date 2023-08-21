@@ -28,6 +28,7 @@ export default function Attributes() {
   const [hpEdit, setHpEdit] = React.useState(false);
   const [hpCurrent, setHpCurrent] = React.useState(0);
   const [hpCurrentType, setHpCurrentType] = React.useState('damage');
+  const [damageResist, setDamageResist] = React.useState(false);
   const [lifeStatus, setLifeStatus] = React.useState({});
   const [isDead, setIsDead] = React.useState(false);
   
@@ -55,7 +56,7 @@ export default function Attributes() {
           ...attribute,
           value: Number(attributeValue),
           mod: Math.floor((Number(value) - 10) / 2),
-          save: Math.floor((Number(value) - 10) / 2),
+          save: attribute.prof ? Math.floor((Number(value) - 10) / 2) + proficiencyBonus : Math.floor((Number(value) - 10) / 2),
         }
       }
       
@@ -99,7 +100,13 @@ export default function Attributes() {
       const damageTemp = lifePoints.temporary - hpCurrent;
       if (damageTemp < 0) {
         newLifePoints.temporary = 0;
-        newLifePoints.current = lifePoints.current - Math.abs(damageTemp);
+        let damagePoints= 0
+        if (damageResist) {
+          damagePoints = lifePoints.current - Math.abs(damageTemp) / 2;
+          newLifePoints.current = Math.round(damagePoints);
+        } else {
+          newLifePoints.current = lifePoints.current - Math.abs(damageTemp);
+        }
       } else {
         newLifePoints.temporary = damageTemp;
       }
@@ -252,93 +259,108 @@ export default function Attributes() {
               {
                 hpEdit && (
                   <>
-                <section className='InputHP'
-                  style={{opacity: `${ hpEdit ? '1' : '0'}`,}}>
-                  <button
-                    type='button'
-                    onClick={ () => setHpCurrent(hpCurrent - 1) }
-                  >
-                    -
-                  </button>
+                    <div className='DamageResist'>
+                      <label 
+                        htmlFor='DamageResist'
+                        className={ damageResist ? 'Active' : '' }
+                      >
+                        <span>Resistência a dano</span>
+                      </label>
+                      <input
+                        type="checkbox"
+                        id='DamageResist'
+                        checked={ damageResist }
+                        onChange={ () => setDamageResist(!damageResist) }
+                      />
+                    </div>
 
-                  <input
-                    type="number"
-                    value={ hpCurrent }
-                    onChange={ (e) => {
-                      clearInputZero(e, setHpCurrent)
-                    }}
-                  />
+                    <section className='InputHP'
+                      style={{opacity: `${ hpEdit ? '1' : '0'}`,}}>
+                      <button
+                        type='button'
+                        onClick={ () => setHpCurrent(hpCurrent - 1) }
+                      >
+                        -
+                      </button>
 
-                  <button
-                    type='button'
-                    onClick={ () => setHpCurrent(hpCurrent + 1) }
-                  >
-                    +
-                  </button>
-                </section>
+                      <input
+                        type="number"
+                        value={ hpCurrent }
+                        onChange={ (e) => {
+                          clearInputZero(e, setHpCurrent)
+                        }}
+                      />
 
-                <label 
-                  htmlFor='DamageHP' 
-                  className={
-                    `DmgHP ${ hpCurrentType === 'damage' ? 'Active' : '' }`
-                  }
-                  style={{
-                    opacity: `${ hpEdit ? '1' : '0'}`,
-                    
-                  }}
-                >
-                  <span>Dano</span>
-                  <input
-                    type="radio"
-                    id='DamageHP'
-                    value="damage"
-                    checked={ hpCurrentType === 'damage'}
-                    onChange={ (e) => setHpCurrentType(e.target.value)}
-                    />
-                </label>
+                      <button
+                        type='button'
+                        onClick={ () => setHpCurrent(hpCurrent + 1) }
+                      >
+                        +
+                      </button>
+                    </section>
 
-                <label 
-                  htmlFor='HealHP' 
-                  className={
-                    `HealHP ${ hpCurrentType === 'heal' ? 'Active' : '' }`
-                  }
-                  style={{opacity: `${ hpEdit ? '1' : '0'}`}} 
-                >
-                  <span>Cura</span>
-                  <input
-                    type="radio"
-                    id='HealHP'
-                    value="heal"
-                    checked={ hpCurrentType === 'heal'}
-                    onChange={ (e) => setHpCurrentType(e.target.value)}
-                  />
-                </label>
+                    <label 
+                      htmlFor='DamageHP' 
+                      className={
+                        `DmgHP ${ hpCurrentType === 'damage' ? 'Active' : '' }`
+                      }
+                      style={{
+                        opacity: `${ hpEdit ? '1' : '0'}`,
+                        
+                      }}
+                    >
+                      <span>Dano</span>
+                      <input
+                        type="radio"
+                        id='DamageHP'
+                        value="damage"
+                        checked={ hpCurrentType === 'damage'}
+                        onChange={ (e) => setHpCurrentType(e.target.value)}
+                        />
+                    </label>
 
-                <label 
-                  htmlFor='TempHP' 
-                  className={
-                    `TempHP ${ hpCurrentType === 'tempHP' ? 'Active' : '' }`
-                  }
-                  style={{opacity: `${ hpEdit ? '1' : '0'}`}}
-                >
-                  <span>Temp HP</span>
-                  <input
-                    type="radio"
-                    id='TempHP'
-                    value="tempHP"
-                    checked={ hpCurrentType === 'tempHP'}
-                    onChange={ (e) => setHpCurrentType(e.target.value)}
-                  />
-                </label>
+                    <label 
+                      htmlFor='HealHP' 
+                      className={
+                        `HealHP ${ hpCurrentType === 'heal' ? 'Active' : '' }`
+                      }
+                      style={{opacity: `${ hpEdit ? '1' : '0'}`}} 
+                    >
+                      <span>Cura</span>
+                      <input
+                        type="radio"
+                        id='HealHP'
+                        value="heal"
+                        checked={ hpCurrentType === 'heal'}
+                        onChange={ (e) => setHpCurrentType(e.target.value)}
+                      />
+                    </label>
 
-                <button
-                  className='SaveHP'
-                  type="button"
-                  onClick={ handleCurrentChange }
-                  style={{opacity: `${ hpEdit ? '1' : '0'}`}}
-                >
-                  Aplicar
-                </button>
+                    <label 
+                      htmlFor='TempHP' 
+                      className={
+                        `TempHP ${ hpCurrentType === 'tempHP' ? 'Active' : '' }`
+                      }
+                      style={{opacity: `${ hpEdit ? '1' : '0'}`}}
+                    >
+                      <span>Temp HP</span>
+                      <input
+                        type="radio"
+                        id='TempHP'
+                        value="tempHP"
+                        checked={ hpCurrentType === 'tempHP'}
+                        onChange={ (e) => setHpCurrentType(e.target.value)}
+                      />
+                    </label>
+
+                    <button
+                      className='SaveHP'
+                      type="button"
+                      onClick={ handleCurrentChange }
+                      style={{opacity: `${ hpEdit ? '1' : '0'}`}}
+                    >
+                      Aplicar
+                    </button>
                   </>
                 )
               }

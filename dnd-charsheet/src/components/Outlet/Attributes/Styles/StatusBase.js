@@ -56,7 +56,7 @@ export const StatusBase = styled.section`
       
       &.EditHP {
         grid: 'current current' 1fr
-              'input dmg' 1fr
+              'resist dmg' 1fr
               'input heal' 1fr
               'input temp' 1fr
               'save save' 1fr
@@ -66,6 +66,43 @@ export const StatusBase = styled.section`
 
         transition: 1s;
 
+      }
+
+      /* * {
+        outline: 1px solid white;
+      } */
+
+      .DamageResist {
+        grid-area: resist;
+        display: flex;
+        align-items: center;
+        transition: label 1s ease-in-out;
+
+        input[type=checkbox] {
+          display: none;
+        }
+
+        label {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          border-radius: 10px;
+          border-left: 1px solid #7a7d83;
+          border-right: 1px solid #7a7d83;
+          font-size: 1.2rem;
+          padding: 20px 0;
+          color: #7a7d83;
+        }
+
+        .Active {
+          border-color: lightblue;
+          border-width: 2px;
+          background-color: #151618;
+          color: lightblue;
+        }
+
+        
       }
       
       .CurrentHP {
@@ -123,6 +160,7 @@ export const StatusBase = styled.section`
         align-self: center;
         align-items: center;
         justify-content: center;
+        height: 100%;
         transition: 1s;
         
         * {

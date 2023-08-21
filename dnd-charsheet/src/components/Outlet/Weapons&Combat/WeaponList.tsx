@@ -6,7 +6,7 @@ import { Weapons } from './Styles/Weapons'
 
 
 export default function WeaponList() {
-  const { listWeapons, setListWeapons } = useContext(AppContext);
+  const { listWeapons, setListWeapons, attributes } = useContext(AppContext);
   const [newWeapon, setNewWeapon] = React.useState(false);
   const [showWeapon, setShowWeapon] = React.useState(false);
 
@@ -16,6 +16,18 @@ export default function WeaponList() {
     newListWeapons.splice(weaponIndex, 1);
     setListWeapons(newListWeapons);
   }
+
+  React.useEffect(() => {
+    const newListWeapons = listWeapons.map((weapon: any) => {
+      if (weapon.attribute !== '') {
+        const modAttr = attributes.find((attribute: any) => attribute.name === weapon.attribute).mod;
+        return { ...weapon, attackAttr: modAttr };
+      }
+      return weapon;
+    });
+    setListWeapons(newListWeapons);
+    // eslint-disable-next-line
+  }, []);
 
 
   return (
