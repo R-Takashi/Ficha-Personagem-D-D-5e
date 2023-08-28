@@ -15,6 +15,24 @@ export default function SkillList() {
     <Skills>
 
       <header>
+        <button
+            type='button'
+            onClick={() => setNewSkill(!newSkill)}
+          >
+            {
+              newSkill ? (
+                <img src='https://super.so/icon/light/minus-square.svg' alt="show info" />
+              ) : (
+                <img src='https://super.so/icon/light/plus-square.svg' alt="show info" />
+              )
+            }
+          </button>
+
+        <h2
+          className={`${showSkill ? 'Listed' : ''}`}
+          onClick={() => setShowSkill(!showSkill)}
+        >Habilidades</h2>
+
         {
           listSkills.length > 0 && (
             <div
@@ -32,24 +50,6 @@ export default function SkillList() {
           )
         }
 
-        <h2
-          className={`${showSkill ? 'Listed' : ''}`}
-          onClick={() => setShowSkill(!showSkill)}
-        >Habilidades</h2>
-        
-        <button
-          type='button'
-          onClick={() => setNewSkill(!newSkill)}
-        >
-          {
-            newSkill ? (
-              <img src='https://super.so/icon/light/minus-square.svg' alt="show info" />
-            ) : (
-              <img src='https://super.so/icon/light/plus-square.svg' alt="show info" />
-            )
-          }
-        </button>
-     
         {
           newSkill && (
             <SkillForm

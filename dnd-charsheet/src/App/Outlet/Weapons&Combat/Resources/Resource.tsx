@@ -16,6 +16,28 @@ export default function ResourceList() {
       <section>
 
         <header>
+          <button
+            type='button'
+            onClick={() => {
+              setNewResource(!newResource);
+            }}
+          >
+            { 
+              newResource ? (
+                <img src='https://super.so/icon/light/minus-square.svg' alt="show info" />
+                ) : (
+                <img src='https://super.so/icon/light/plus-square.svg' alt="show info" />
+                )
+            }
+          </button>
+
+          <h2
+            className={`${showResource ? 'Listed' : ''}`}
+            onClick={() => {
+              setShowResource(!showResource);
+            }}
+          >Recursos</h2>
+
           {
             listResources.length > 0 && (
               <div
@@ -32,28 +54,6 @@ export default function ResourceList() {
               </div>
             )
           }
-
-          <h2
-            className={`${showResource ? 'Listed' : ''}`}
-            onClick={() => {
-              setShowResource(!showResource);
-            }}
-          >Recursos</h2>
-
-          <button
-            type='button'
-            onClick={() => {
-              setNewResource(!newResource);
-            }}
-          >
-            { 
-              newResource ? (
-                <img src='https://super.so/icon/light/minus-square.svg' alt="show info" />
-                ) : (
-                <img src='https://super.so/icon/light/plus-square.svg' alt="show info" />
-                )
-            }
-          </button>
         </header>
 
 

@@ -25,11 +25,12 @@ export const Skills = styled.div`
 
     .Btn-Show {
       position: absolute;
-      left: 20px;
+      right: 20px;
     }
 
     h2 {
-      margin-left: auto;
+      margin: auto;
+      margin-right: 25%;
       width: 50%;
       text-align: center;
       border-bottom: 2px solid var(--white);
@@ -45,7 +46,6 @@ export const Skills = styled.div`
       }
   
     button {
-      margin-left: auto;
       border: none;
       background-color: transparent;
     }
