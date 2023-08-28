@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import AppContext from '../../Context/AppContext'
+import AppContext from '../../../Context/AppContext'
 import { CharClassFormS } from './Styles/CharClassFormS';
 
 

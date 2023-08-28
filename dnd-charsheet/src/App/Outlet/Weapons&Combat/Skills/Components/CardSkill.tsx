@@ -1,5 +1,5 @@
 import React from 'react'
-import AppContext from '../../../Context/AppContext';
+import AppContext from '../../../../../Context/AppContext';
 import SkillForm from './SkillForm';
 import { SkillCard } from './Styles/SkillCard';
 

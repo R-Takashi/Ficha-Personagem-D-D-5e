@@ -1,7 +1,7 @@
 import React from 'react'
-import AppContext from '../../../Context/AppContext'
-import CardResource from './CardResource';
-import { Resources } from './Styles/Resources';
+import AppContext from '../../../../Context/AppContext'
+import CardResource from './Components/CardResource';
+import { Resources } from './ResourceStyles';
 
 
 export default function ResourceList() {

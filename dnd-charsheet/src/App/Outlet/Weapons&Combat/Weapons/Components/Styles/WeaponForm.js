@@ -72,6 +72,8 @@ export const WeaponFormS = styled.form`
     padding: 10px 10px;
     border: none;
     border-radius: 5px;
+    display: flex;
+    justify-content: center;
     /* outline: 2px solid var(--white); */
   }
 `;

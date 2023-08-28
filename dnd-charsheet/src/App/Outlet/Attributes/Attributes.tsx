@@ -233,6 +233,7 @@ export default function Attributes() {
                       <input
                           name="current"
                           type="number"
+                          inputMode='numeric'
                           style={ lifeStatus }
                           value={ lifePoints.current }
                           onChange={ (e) => inputBaseHP(e) }
@@ -241,6 +242,7 @@ export default function Attributes() {
                       <input
                         name="max"
                         type="number"
+                        inputMode='numeric'
                         style={ lifeStatus }
                         value={ lifePoints.max }
                         onChange={ (e) => inputBaseHP(e) }
@@ -285,6 +287,7 @@ export default function Attributes() {
 
                       <input
                         type="number"
+                        inputMode='numeric'
                         value={ hpCurrent }
                         onChange={ (e) => {
                           clearInputZero(e, setHpCurrent)

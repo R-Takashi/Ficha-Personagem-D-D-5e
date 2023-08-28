@@ -5,7 +5,7 @@ export const WeaponCard = styled.div`
   justify-content: space-evenly;
   flex-wrap: wrap;
   align-items: center;
-  margin: 10px 0; 
+  margin: 10px; 
   border: none;
   border-radius: 10px;
   border-left: 2px solid #7a7d83;
@@ -15,29 +15,28 @@ export const WeaponCard = styled.div`
   text-align: center;
   width: 95%;
   font-size: 1.3rem;
-
   
 
   .Card {
     display: grid;
-    grid: 'name name btn' 1fr
+    grid: 'name name name' 1fr
           'atk  dmg dmg' 1fr
-          'btnDesc btnDesc btnDesc' 1fr
+          'btnDesc btnDesc btnDesc' 30px
           / 1fr 0.5fr 1fr;
-    width: 100%;
+    width: 400px;
     grid-gap: 10px;
 
     &.VersatilityCard {
-      grid: 'name name btn' 1fr
+      grid: 'name name name' 1fr
             'atk  dmg dmg' 1fr
             'versatility versatility versatility' 1fr
-            'btnDesc btnDesc btnDesc' 1fr
+            'btnDesc btnDesc btnDesc' 30px
             / 1fr 0.5fr 1fr;
     }
   
 
     &.MoreInfo {
-      grid: 'name name btn' 50px
+      grid: 'name name name' 50px
             'atk  dmg dmg' 50px
             'range range range' 50px
             'attr attr attr' 50px
@@ -45,12 +44,12 @@ export const WeaponCard = styled.div`
             'dmgDesc dmgDesc dmgDesc' 1fr
             'dmgType dmgType dmgType' 50px
             'prof prof prof' 50px
-            'btnDesc btnDesc btnDesc' 50px
+            'btnDesc btnDesc btnDesc' 30px
             / 1fr 0.5fr 1fr;
     }
 
     &.MoreInfo.VersatilityCard {
-      grid: 'name name btn' 50px
+      grid: 'btn name name' 50px
             'atk  dmg dmg' 50px
             'versatility versatility versatility' 50px
             'range range range' 50px
@@ -59,7 +58,7 @@ export const WeaponCard = styled.div`
             'dmgDesc dmgDesc dmgDesc' 1fr
             'dmgType dmgType dmgType' 50px
             'prof prof prof' 50px
-            'btnDesc btnDesc btnDesc' 50px
+            'btnDesc btnDesc btnDesc' 30px
             / 1fr 0.5fr 1fr;
     }
 
@@ -82,10 +81,26 @@ export const WeaponCard = styled.div`
     .Name {
       grid-area: name;
       height: 1fr;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      
+      span {
+        width: 90%;
+      }
+
+      button {
+        width: 10%;
+      }
+
     }
 
     .Btn-Edit {
-      grid-area: btn;
+      /* grid-area: btn; */
+      /* display: flex;
+      justify-content: center;
+      width: 100%;
+      align-items: center; */
     }
 
     .AtkBonus {
@@ -102,6 +117,9 @@ export const WeaponCard = styled.div`
 
     .Btn-Info {
       grid-area: btnDesc;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
     }
     
     .Range {

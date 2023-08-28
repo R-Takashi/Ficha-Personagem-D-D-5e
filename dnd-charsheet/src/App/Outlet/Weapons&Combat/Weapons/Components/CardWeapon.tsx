@@ -1,6 +1,6 @@
 import React from 'react'
 import WeaponForm from './WeaponForm';
-import AppContext from '../../../Context/AppContext'
+import AppContext from '../../../../../Context/AppContext'
 import { WeaponCard } from './Styles/WeaponCard';
 
 
@@ -29,27 +29,27 @@ export default function CardWeapon(props: any) {
           }>
             <div className='Name'>
               <span>{name}</span>
+              <button 
+                type='button' 
+                onClick={() => setToEdit(!toEdit)}
+                className='Btn-Edit'
+              >
+                <img src='https://super.so/icon/light/settings.svg' alt='Editar' />
+              </button>
             </div>
 
-            <button 
-              type='button' 
-              onClick={() => setToEdit(!toEdit)}
-              className='Btn-Edit'
-            >
-              <img src='https://super.so/icon/light/settings.svg' alt='Editar' />
-            </button>
 
 
             <div className='AtkBonus'>
               <p>Ataque: </p>
               <p>
-                 {
+                {
                   prof ? (
                     <span>{attackAttr + proficiencyBonus + attackBonus }</span>
                     ) : (
                       <span>{attackAttr + attackBonus}</span>
-                    )
-                  }
+                  )
+                }
               </p>
             </div>
 

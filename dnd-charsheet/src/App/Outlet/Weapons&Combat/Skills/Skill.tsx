@@ -1,8 +1,8 @@
 import React from 'react'
-import AppContext from '../../../Context/AppContext';
-import CardSkill from './CardSkill';
-import SkillForm from './SkillForm';
-import { Skills } from './Styles/Skills';
+import AppContext from '../../../../Context/AppContext';
+import CardSkill from './Components/CardSkill';
+import SkillForm from './Components/SkillForm';
+import { Skills } from './SkillStyle';
 
 
 export default function SkillList() {

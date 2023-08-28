@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react'
 import AppContext from '../../Context/AppContext'
-import { HeaderS } from './Styles/HeaderS'
-import HeaderForm from './HeaderForm';
-import ShortRest from './campfire.svg'
+import { HeaderS } from './HeaderStyles'
+import HeaderForm from './Components/HeaderForm';
+import ShortRest from '../../Assets/campfire.svg';
 import styled from 'styled-components';
 
 const FormOpen = styled.div`

@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import AppProvider from './Context/AppProvider';
 import { createGlobalStyle } from 'styled-components';
 
+
 const GlobalStyle = createGlobalStyle`
 
 * {
