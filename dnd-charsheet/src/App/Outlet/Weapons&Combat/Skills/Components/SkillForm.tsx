@@ -16,6 +16,7 @@ export default function SkillForm(props: any) {
     resourceDrain: '',
     shortRest: false,
     longRest: false,
+    activeSkill: false,
   });
 
   const [useResource, setUseResource] = React.useState(false);
@@ -31,9 +32,6 @@ export default function SkillForm(props: any) {
   }, [editSkill, index, listSkills]);
 
   const handleSaveSkill = () => {
-    console.log(skill);
-    
-
     if (newSkill) {
       if ( skill?.resource === 'Proficiência Bonus' ) {
         const skillProfResource = {
@@ -47,7 +45,6 @@ export default function SkillForm(props: any) {
       } else {
         setListSkills([...listSkills, skill]);
       }
-      
 
       setSkill({
         ...skill,
@@ -105,75 +102,105 @@ export default function SkillForm(props: any) {
         />
       </div>
 
-      <div>
-        <label htmlFor='skillResource'>Recurso</label>
+      <div className='activeSkillCheck'>
+        <label htmlFor='activeSkill'>Habilidade Ativa ?</label>
         <input
           type='checkbox'
-          id='skillResource'
-          checked={useResource}
-          onChange={(e) => {
-            setUseResource(e.target.checked);
-            setSkill({...skill, consumeResource: e.target.checked});
-          }}
+          id='activeSkill'
+          checked={skill.activeSkill}
+          onChange={(e) => setSkill({...skill, activeSkill: e.target.checked})}
         />
       </div>
 
-      {useResource && (
-        <>
-          <div>
-            <select
-              name='resource'
-              id='resource'
-              value={skill.resource}
-              onChange={(e) => setSkill({...skill, resource: e.target.value})}
-            >
-              <option value=''>Selecione um recurso</option>
-              {listResources.map((resource: any, index: number) => (
-                <option key={index} value={resource.name}>
-                  {resource.name}
-                </option>
-              ))}
-            </select>
-          </div>
 
-          {
-            skill.resource !== 'Proficiência Bonus' ? (
-              <div>
-                <label htmlFor='resourceDrain'>Dreno de recurso</label>
-                <input
-                  type='number'
-                  id='resourceDrain'
-                  value={skill.resourceDrain}
-                  onChange={(e) => setSkill({...skill, resourceDrain: e.target.value})}
-                />
-              </div>
-            ) : (
-              <div>
-                <h2>Recarga</h2>
-                
-                  <label htmlFor='shortRest'>Curto</label>
-                  <input
-                    type='checkbox'
-                    id='shortRest'
-                    checked={skill.shortRest}
-                    onChange={(e) => setSkill({...skill, shortRest: e.target.checked})}
-                  />
+      {
+        skill.activeSkill && (
+          <div className='activeSkill'>
 
-                  <label htmlFor='longRest'>Longo</label>
-                  <input
-                    type='checkbox'
-                    id='longRest'
-                    checked={skill.longRest}
-                    onChange={(e) => setSkill({...skill, longRest: e.target.checked})}
-                  />
-              </div>
-            )
-          }
+            <div>
+              <label htmlFor='skillResource'>Utiliza Recurso ?</label>
+              <input
+                type='checkbox'
+                id='skillResource'
+                checked={useResource}
+                onChange={(e) => {
+                  setUseResource(e.target.checked);
+                  setSkill({...skill, consumeResource: e.target.checked});
+                }}
+              />
+            </div>
 
-        </>
-      )}
+            {useResource && (
+              <>
+                <div>
+                  <select
+                    name='resource'
+                    id='resource'
+                    value={skill.resource}
+                    onChange={(e) => setSkill({...skill, resource: e.target.value})}
+                  >
+                    <option value=''>Selecione um recurso</option>
+                    {listResources.map((resource: any, index: number) => (
+                      <option key={index} value={resource.name}>
+                        {resource.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
 
-      <button type='button' onClick={handleSaveSkill}>
+                {
+                  skill.resource !== 'Proficiência Bonus' ? (
+                    <div>
+                      <label htmlFor='resourceDrain'>Dreno de recurso</label>
+                      <input
+                        type='number'
+                        id='resourceDrain'
+                        value={skill.resourceDrain}
+                        onChange={(e) => setSkill({...skill, resourceDrain: e.target.value})}
+                      />
+                    </div>
+                  ) : (
+                    <div className='RechargeResource'>
+                      <h2>Recarga</h2>
+
+                        <div>
+                          <label htmlFor='shortRest'>Descanso Curto</label>
+                          <input
+                            type='checkbox'
+                            id='shortRest'
+                            checked={skill.shortRest}
+                            onChange={(e) => setSkill({...skill, shortRest: e.target.checked})}
+                          />
+                        </div>
+
+                        <div>
+                          <label htmlFor='longRest'>Descanso Longo</label>
+                          <input
+                            type='checkbox'
+                            id='longRest'
+                            checked={skill.longRest}
+                            onChange={(e) => setSkill({...skill, longRest: e.target.checked})}
+                          />
+                        </div>
+
+                    </div>
+                  )
+                }
+
+              </>
+            )}
+        </div>
+
+        )
+      }
+
+
+
+
+      <button 
+        className={ editSkill ? 'SaveSkill' : ''}
+        type='button' 
+        onClick={handleSaveSkill}>
         <img src='https://super.so/icon/light/save.svg' alt="save" />
       </button>
 

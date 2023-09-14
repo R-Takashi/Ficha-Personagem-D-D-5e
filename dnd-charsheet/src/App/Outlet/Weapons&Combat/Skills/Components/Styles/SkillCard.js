@@ -2,10 +2,10 @@ import styled from "styled-components";
 
 export const SkillCard = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   flex-wrap: wrap;
   align-items: center;
-  margin: 10px 0; 
+  margin: 10px; 
   border-radius: 10px;
   border-left: 2px solid #7a7d83;
   border-right: 2px solid #7a7d83;
@@ -13,6 +13,7 @@ export const SkillCard = styled.div`
   padding: 10px 10px;
   text-align: center;
   width: 95%;
+  gap: 10px;
   font-size: 1.3rem;
   
   .WithResource{
@@ -31,7 +32,7 @@ export const SkillCard = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    width: 400px;
     margin: 5px 0;
     padding: 15px 10px;
     height: auto;

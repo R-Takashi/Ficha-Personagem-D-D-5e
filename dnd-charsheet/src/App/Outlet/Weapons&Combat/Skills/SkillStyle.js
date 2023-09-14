@@ -6,6 +6,12 @@ export const Skills = styled.div`
   align-items: center;
   flex-wrap: wrap;
   width: 90%;
+
+
+  * {
+    min-width: 0;
+    min-height: 0;
+  }
   
   header {
     display: flex;
@@ -26,6 +32,7 @@ export const Skills = styled.div`
     .Btn-Show {
       position: absolute;
       right: 20px;
+      top: 10px;
     }
 
     h2 {

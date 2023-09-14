@@ -3,13 +3,29 @@ import AppContext from '../../../../Context/AppContext';
 import CardSkill from './Components/CardSkill';
 import SkillForm from './Components/SkillForm';
 import { Skills } from './SkillStyle';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
+
+const settings = {
+  infinite: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  'min-width': 0,
+  'min-height': 0,
+  adaptativeHeight: true,
+  slide: 'div',
+  initialSlide: 0,
+  arrows: false,
+};
 
 
 export default function SkillList() {
   const { listSkills } = React.useContext(AppContext);
   const [newSkill, setNewSkill] = React.useState(false);
   const [showSkill, setShowSkill] = React.useState(false);
-  
+
 
   return (
     <Skills>
@@ -62,13 +78,48 @@ export default function SkillList() {
 
 
       <div className={`${showSkill ? 'DisplayOn' : 'DisplayOff'}`}>
-        {
-          listSkills.map((skill: any, index: number) => (
-            <CardSkill
-              key={skill.name}
-              index={index}
-            />
-        ))}
+        <div className='SkillList'>
+
+          <h3>Ativas</h3>
+            {
+              showSkill && (
+                <Slider {...settings}>
+                  {
+                    listSkills.filter((skill: any) => skill.activeSkill).map((skill: any, index: number) => (
+                      <CardSkill
+                        key={index}
+                        {...skill}
+                        // removeWeapon={ () => handleRemoveWeapon(weapon)}
+                      />
+                      // <p>
+                      //   {skill.name}
+                      // </p>
+                  ))
+                  }
+                </Slider>
+              )
+            }
+
+          <h3>Passivas</h3>
+            {
+              showSkill && (
+                <Slider {...settings}>
+                  {
+                    listSkills.filter((skill: any) => !skill.activeSkill).map((skill: any, index: number) => (
+                      <CardSkill
+                        key={index}
+                        {...skill}
+                        // removeWeapon={ () => handleRemoveWeapon(weapon)}
+                      />
+                      // <p>
+                      //   {skill.name}
+                      // </p>
+                  ))
+                  }
+                </Slider>
+              )
+            }
+        </div>
       </div>
       
     </Skills>
