@@ -13,7 +13,7 @@ export default function CardSkill(props: any) {
     current,
   } = props;
   const { listSkills, listResources, setListResources, setListSkills } = React.useContext(AppContext);
-  const indexSkill = listSkills.findIndex((skill: any) => skill?.name === name);
+  const indexSkill = listSkills.findIndex((skill: any) => skill?.name === name && skill?.description === description);
   const resource = listResources.findIndex((resource: any) => resource?.name === listSkills[indexSkill].resource);
   const [showDescription, setShowDescription] = React.useState(false);
   const [toEdit, setToEdit] = React.useState(false);
@@ -70,6 +70,7 @@ export default function CardSkill(props: any) {
     const newList = [...listSkills];
     newList.splice(indexSkill, 1);
     setListSkills(newList);
+    setToEdit(false);
   }
 
 
@@ -82,7 +83,7 @@ export default function CardSkill(props: any) {
     />
   ) : (
     <SkillCard>
-      <div className={ consumeResource && 'WithResource'}>
+      <div className={ consumeResource ? 'WithResource': undefined}>
         <p>{name}</p>
 
         { consumeResource && (
@@ -118,7 +119,7 @@ export default function CardSkill(props: any) {
 
       {
         showDescription && (
-          <div>
+          <div className='Description'>
             <pre>{description}</pre>
     
             <button type='button' onClick={handleEdit}>

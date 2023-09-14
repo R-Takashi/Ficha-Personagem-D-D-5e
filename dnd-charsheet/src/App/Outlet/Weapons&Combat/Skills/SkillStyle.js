@@ -65,6 +65,14 @@ export const Skills = styled.div`
     flex-wrap: wrap;
   }
 
+  .DisplayOn {
+    h3 {
+      width: 100%;
+      margin: 10px 0;
+      text-align: center;
+    }
+  }
+
   .DisplayOff {
     display: none;
   }

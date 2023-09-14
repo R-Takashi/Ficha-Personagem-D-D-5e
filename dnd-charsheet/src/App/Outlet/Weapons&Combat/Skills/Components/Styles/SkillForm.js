@@ -1,15 +1,15 @@
 import styled from "styled-components";
 
 export const SkillFormS = styled.form`
-    display: flex;
+  display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
   align-items: center;
-  margin: 10px; 
   border-radius: 10px;
   border-left: 2px solid #7a7d83;
   border-right: 2px solid #7a7d83;
   box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+  margin: 10px;
   padding: 10px 10px;
   text-align: center;
   width: 95%;
@@ -161,16 +161,23 @@ export const SkillFormS = styled.form`
     }
   }
 
-  button {
+  .Buttons {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
     width: 100%;
     margin: 5px 0;
-    padding: 10px 10px;
-    border: none;
-    border-radius: 5px;
-    /* outline: 2px solid var(--white); */
-  }
-
-  .SaveSkill {
-    width: 50%;
+    padding: 5px 10px;
+    
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 45%;
+      margin: 5px 0;
+      padding: 5px 10px;
+      border: none;
+      background-color: transparent;
+    }
   }
 `;

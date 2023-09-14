@@ -45,7 +45,7 @@ export default function SkillList() {
           </button>
 
         <h2
-          className={`${showSkill ? 'Listed' : ''}`}
+          className={`${showSkill ? 'Listed' : undefined}`}
           onClick={() => setShowSkill(!showSkill)}
         >Habilidades</h2>
 
@@ -80,45 +80,47 @@ export default function SkillList() {
       <div className={`${showSkill ? 'DisplayOn' : 'DisplayOff'}`}>
         <div className='SkillList'>
 
-          <h3>Ativas</h3>
-            {
-              showSkill && (
-                <Slider {...settings}>
-                  {
-                    listSkills.filter((skill: any) => skill.activeSkill).map((skill: any, index: number) => (
-                      <CardSkill
-                        key={index}
-                        {...skill}
-                        // removeWeapon={ () => handleRemoveWeapon(weapon)}
-                      />
-                      // <p>
-                      //   {skill.name}
-                      // </p>
-                  ))
-                  }
-                </Slider>
-              )
-            }
+          {
+            listSkills.filter((skill: any) => skill.activeSkill).length > 0 && (
+              <h3>Ativas</h3>
+            )
+          }
+            
+          {
+            showSkill && (
+              <Slider {...settings}>
+                {
+                  listSkills.filter((skill: any) => skill.activeSkill).map((skill: any, index: number) => (
+                    <CardSkill
+                      key={index}
+                      {...skill}
+                    />
+                ))
+                }
+              </Slider>
+            )
+          }
 
-          <h3>Passivas</h3>
-            {
-              showSkill && (
-                <Slider {...settings}>
-                  {
-                    listSkills.filter((skill: any) => !skill.activeSkill).map((skill: any, index: number) => (
-                      <CardSkill
-                        key={index}
-                        {...skill}
-                        // removeWeapon={ () => handleRemoveWeapon(weapon)}
-                      />
-                      // <p>
-                      //   {skill.name}
-                      // </p>
+          {
+            listSkills.filter((skill: any) => !skill.activeSkill).length > 0 && (
+              <h3>Passivas</h3>
+            )
+          }
+
+          {
+            showSkill && (
+              <Slider {...settings}>
+                {
+                  listSkills.filter((skill: any) => !skill.activeSkill).map((skill: any, index: number) => (
+                    <CardSkill
+                      key={index}
+                      {...skill}
+                    />
                   ))
-                  }
-                </Slider>
-              )
-            }
+                }
+              </Slider>
+            )
+          }
         </div>
       </div>
       

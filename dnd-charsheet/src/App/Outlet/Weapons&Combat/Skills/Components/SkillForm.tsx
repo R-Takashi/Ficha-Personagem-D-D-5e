@@ -194,23 +194,22 @@ export default function SkillForm(props: any) {
         )
       }
 
+      <div className='Buttons'>
+        {
+          editSkill && (
+            <button type='button' onClick={props.removeSkill}>
+              <img src='https://super.so/icon/light/trash.svg' alt="remove" />
+            </button>
+          )
+        }
 
+        <button 
+          type='button' 
+          onClick={handleSaveSkill}>
+          <img src='https://super.so/icon/light/save.svg' alt="save" />
+        </button>
+      </div>
 
-
-      <button 
-        className={ editSkill ? 'SaveSkill' : ''}
-        type='button' 
-        onClick={handleSaveSkill}>
-        <img src='https://super.so/icon/light/save.svg' alt="save" />
-      </button>
-
-      {
-        editSkill && (
-          <button type='button' onClick={props.removeSkill}>
-            <img src='https://super.so/icon/light/trash.svg' alt="remove" />
-          </button>
-        )
-      }
 
     </SkillFormS>
   )

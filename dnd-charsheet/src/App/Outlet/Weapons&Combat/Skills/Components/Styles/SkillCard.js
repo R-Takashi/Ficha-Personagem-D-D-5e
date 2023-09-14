@@ -25,7 +25,6 @@ export const SkillCard = styled.div`
     p {
       width: 40%;
     }
-    
   }
 
   div {
@@ -67,6 +66,31 @@ export const SkillCard = styled.div`
 
   button:disabled {
     opacity: 0.5;
+  }
+
+  .Description {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    margin: 5px 0;
+    padding: 5px 10px;
+    border-radius: 10px;
+    border-left: 2px solid #7a7d83;
+    border-right: 2px solid #7a7d83;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+
+    pre {
+      width: 100%;
+    }
+
+    button {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin: 10px 0;
+    }
   }
 
 `;
